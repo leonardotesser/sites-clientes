@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weslley Sá Advogados | Advocacia Multidisciplinar</title>
+<meta name="description" content="Escritório jurídico multidisciplinar em São Paulo, com atuação nacional e internacional. Estratégia, técnica e inovação legal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#16233f;--deep:#0c1526;--gold:#c9a24b;--cream:#f3eee7;--paper:#fbf8f3;
+  --ink:#25211f;--muted:#756d67;--line:#d8cdc2;--wa:#25D366;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+/* Utility bar */
+.utility{background:var(--deep);color:#d6cbb0;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap;color:var(--gold)}
+
+/* Nav */
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:22px;color:var(--wine);margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--gold)}
+.navCta{border:1px solid var(--wine);color:var(--wine);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--wine);color:#fff}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:860px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+/* firstFold: agrupa barra utilitária + nav + hero numa coluna de exatamente 100vh/100svh.
+   O hero usa flex:1 pra preencher só o espaço que sobra depois da barra e do nav —
+   por isso a imagem bate certinho na borda da primeira dobra, nem passa nem falta,
+   sem precisar calcular a altura exata da barra/nav na mão. */
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+.hero{padding:0;display:grid;grid-template-columns:1fr 1fr;flex:1 1 auto;min-height:0}
+.heroCopy{padding:80px 6vw;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-weight:700}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,4.2vw,58px);line-height:1.08;margin:20px 0;color:var(--ink)}
+.heroCopy p{color:var(--muted);font-size:16px;max-width:480px;margin:0 0 28px}
+.heroActions{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.btn{padding:16px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px}
+.btn.primary{background:var(--wine);color:#fff}
+.btn.primary:hover{background:var(--deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+.heroImage{position:relative;background:var(--deep);overflow:hidden}
+.heroImage img{width:100%;height:100%;object-fit:cover}
+@media(max-width:860px){
+  .firstFold{min-height:auto;display:block}
+  .hero{grid-template-columns:1fr}
+  .heroCopy{padding:48px 24px 32px}
+  .heroImage{min-height:260px}
+}
+
+/* Intro */
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--wine);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.intro .introImg{margin-top:32px;max-width:640px;border-radius:4px;overflow:hidden}
+.sectionNumber{font-family:var(--serif);color:var(--gold);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+/* Como atuamos (diferenciais reais) */
+.practice{background:var(--deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid #2a3550}
+.practiceList li:first-child{border-top:1px solid #2a3550}
+.practiceList span{color:var(--gold);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#c3c9d6;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+/* Equipe — estático, sem JS de troca */
+.team{max-width:640px;margin:0 auto}
+.team h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 40px;text-align:center}
+.teamGrid{display:grid;justify-content:center}
+.teamCard{border:1px solid var(--line);padding:32px;text-align:center;background:var(--cream)}
+.teamPhoto{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;background:var(--paper);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.teamPhoto svg{width:44px;height:44px;opacity:.4}
+.teamCard h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 4px}
+.teamCard .role{color:var(--wine);font-size:14px;margin:0 0 16px}
+.teamCard ul{margin:0;padding:0;list-style:none;color:var(--muted);font-size:13px;line-height:1.8;text-align:left;border-top:1px solid var(--line);padding-top:16px}
+.teamCard li{padding-left:16px;position:relative}
+.teamCard li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+
+/* Prova social real */
+.proof{background:var(--wine);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:var(--gold)}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#c3c9d6;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--wine)}
+
+/* Contato */
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--wine);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--deep);color:#b9bfcd;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{color:#fff}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:var(--gold)}
+
+/* WhatsApp flutuante */
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+/* Progressive enhancement: sem JS, tudo visível. Com JS, reveal suave no scroll */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="firstFold">
+<div class="utility">
+  <span>R. Padre Adelino, 2074 — 12º andar, Tatuapé, São Paulo/SP · (11) 98787-6287</span>
+  <a class="rating" href="https://maps.google.com/?cid=12154644060016315945" target="_blank" rel="noreferrer">★ 4,9 no Google (19 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Weslley Sá<small>Advogados</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">O escritório</a>
+    <a href="#atuacao">Diferenciais</a>
+    <a href="#equipe">Advogado</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5511987876287?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20conversar%20com%20o%20escrit%C3%B3rio." target="_blank" rel="noreferrer">Fale conosco</a>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroCopy reveal">
+    <span class="eyebrow">Advocacia multidisciplinar</span>
+    <h1>Estratégia, técnica e inovação legal</h1>
+    <p>Atuação nacional e internacional, com atendimento próximo e soluções jurídicas pensadas pra cada caso — sem fórmula pronta.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="https://wa.me/5511987876287?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20conversar%20com%20o%20escrit%C3%B3rio." target="_blank" rel="noreferrer">Conversar pelo WhatsApp ↗</a>
+      <a class="textLink" href="#atuacao">Nossos diferenciais ↓</a>
+    </div>
+  </div>
+  <div class="heroImage reveal">
+    <img src="assets/foto1.jpg" alt="Sala de reuniões do escritório Weslley Sá Advogados, com vista da cidade de São Paulo">
+  </div>
+</section>
+</div>
+
+<section id="escritorio">
+  <div class="intro">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Seus direitos exigem<br><em>estratégia</em></h2>
+      <p>O escritório atua de forma multidisciplinar, com presença nacional e internacional, unindo técnica jurídica e visão estratégica pra conduzir cada questão com clareza e responsabilidade.</p>
+      <div class="introImg"><img src="assets/foto3.jpg" alt="Recepção do escritório Weslley Sá Advogados"></div>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead">
+    <div><span class="sectionNumber">02</span></div>
+    <h2>Nossos diferenciais</h2>
+  </div>
+  <ul class="practiceList">
+    <li><span>—</span><div><h3>Escritório multidisciplinar</h3><p>Estrutura pensada pra atender diferentes tipos de demanda jurídica sob o mesmo teto, sem precisar buscar outro escritório pra cada questão.</p></div></li>
+    <li><span>—</span><div><h3>Atuação nacional e internacional</h3><p>Casos conduzidos além de São Paulo, com capacidade de atender demandas fora do estado e do país.</p></div></li>
+    <li><span>—</span><div><h3>Estratégia, técnica e inovação legal</h3><p>Cada caso analisado com rigor técnico e busca por soluções atualizadas — não só o caminho tradicional.</p></div></li>
+  </ul>
+</section>
+
+<!--
+  Áreas de atuação específicas: não confirmadas na pesquisa (Instagram sem
+  posts/destaques, sem site próprio). Por isso esta seção usa os 3
+  diferenciais reais da bio do Instagram em vez de uma lista de práticas
+  jurídicas inventada. Se o escritório informar as áreas exatas depois,
+  trocar por uma .practiceList no formato padrão (ver scaffold Express).
+-->
+
+<!--
+  Equipe: só 1 profissional confirmado (registro OAB/SP como Sociedade
+  Individual de Advocacia). Sem foto de rosto disponível — nenhuma das 5
+  fotos do perfil do Google é retrato de pessoa, só ambiente/fachada, então
+  o card ficou só com texto (não simular retrato com foto de ambiente).
+-->
+<section id="equipe">
+  <div class="team">
+    <h2>Conheça nosso trabalho</h2>
+    <div class="teamGrid">
+      <div class="teamCard">
+        <div class="teamPhoto" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5z"/></svg>
+        </div>
+        <h3>Weslley Sá</h3>
+        <p class="role">Advogado</p>
+        <ul>
+          <li>Registro OAB/SP nº 63626</li>
+          <li>Escritório jurídico multidisciplinar</li>
+          <li>Atuação nacional e internacional</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+  Depoimentos: seção removida de propósito. O Código de Ética da OAB veda
+  mecanismos de captação de clientela e promessa de resultado — depoimento
+  de cliente (mesmo real e autorizado) é zona de risco pra advogado.
+  A prova social desta seção é SEMPRE a nota agregada real do Google.
+-->
+<section class="proof">
+  <div class="stars">★★★★★</div>
+  <h2>4,9 de nota no Google</h2>
+  <p>19 avaliações reais de clientes atendidos</p>
+  <a href="https://maps.google.com/?cid=12154644060016315945" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div>
+      <h2>Vamos conversar sobre o seu caso?</h2>
+      <p>Envie uma mensagem pelo WhatsApp. O escritório retorna o contato pra entender sua necessidade e orientar os próximos passos.</p>
+      <a class="btn primary" href="https://wa.me/5511987876287?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20conversar%20com%20o%20escrit%C3%B3rio." target="_blank" rel="noreferrer">Conversar pelo WhatsApp ↗</a>
+    </div>
+    <div>
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=R.+Padre+Adelino,+2074,+Tatu%C3%A9,+S%C3%A3o+Paulo+-+SP,+03303-000&output=embed" loading="lazy" title="Localização do escritório"></iframe>
+      </div>
+      <dl class="contactCard" style="margin-top:24px">
+        <dt>Endereço</dt>
+        <dd>R. Padre Adelino, 2074 — 12º andar, CJ121, Tatuapé, São Paulo/SP, 03303-000</dd>
+        <dt>Telefone</dt>
+        <dd>(11) 98787-6287</dd>
+        <dt>Horário</dt>
+        <dd>Segunda a sexta, 10h às 16h</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Weslley Sá Advogados</div>
+  <nav>
+    <a href="#escritorio">O escritório</a>
+    <a href="#atuacao">Diferenciais</a>
+    <a href="#equipe">Advogado</a>
+    <a href="https://www.instagram.com/weslleysaadvogados" target="_blank" rel="noreferrer">Instagram</a>
+  </nav>
+  <span>© <span id="year"></span> Weslley Sá Advogados</span>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5511987876287?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20conversar%20com%20o%20escrit%C3%B3rio." target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
