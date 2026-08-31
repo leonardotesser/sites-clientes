@@ -23,15 +23,13 @@ button,input,textarea{font:inherit}
 img{max-width:100%;display:block}
 section{padding:88px 24px}
 
-/* Utility bar — 3 linhas empilhadas (endereço / contato / avaliações), a
-   pedido do cliente. Empilhado sempre (não só quando aperta), então a
-   altura fica previsível em qualquer largura — não varia por causa de
-   quebra de linha, o que também ajuda a travar o cálculo da primeira
-   dobra (flex-shrink:0 continua garantindo que nunca encolha). */
-.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:10px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;flex-shrink:0}
+/* Utility bar — 1 linha (endereço · telefone à esquerda, avaliações à
+   direita), igual ao padrão do Weslley Sá. flex-shrink:0 garante que
+   nunca encolha mesmo se apertar (parte da correção da primeira dobra). */
+.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
 .utility a{opacity:.9}
 .utility a:hover{opacity:1;text-decoration:underline}
-.utility .rating{color:var(--gold)}
+.utility .rating{white-space:nowrap;color:var(--gold)}
 
 /* Nav — flex-shrink:0: sem isso, num firstFold de altura fixa e conteúdo
    apertado, o próprio nav de 80px podia ser espremido pra ~60px em vez de
@@ -206,8 +204,7 @@ footer nav a:hover{color:#fff}
 
 <div class="firstFold">
 <div class="utility">
-  <span>Av. João Ramalho, 170 — Sl 307, Vila Assunção, Santo André/SP</span>
-  <span>(11) 4436-3298</span>
+  <span>Av. João Ramalho, 170 — Sl 307, Vila Assunção, Santo André/SP · (11) 4436-3298</span>
   <a class="rating" href="https://www.google.com/maps/place/?q=place_id:ChIJXQjkSPJCzpQRI6CHqGSNQBI" target="_blank" rel="noreferrer">★ 5,0 no Google (67 avaliações)</a>
 </div>
 
