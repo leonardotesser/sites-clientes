@@ -44,9 +44,14 @@ section{padding:88px 24px}
   .menuToggle{display:flex}
 }
 
-/* firstFold: barra utilitária + nav + hero numa coluna de 100vh/100svh */
-.firstFold{min-height:100vh;display:flex;flex-direction:column}
-.firstFold{min-height:100svh}
+/* firstFold: barra utilitária + nav + hero numa coluna de 100vh/100svh.
+   "height" (não "min-height") no desktop: com foto de retrato (mais alta
+   que larga), height:100% da imagem não resolve contra um .heroImage sem
+   altura definida e o navegador cai na proporção intrínseca do arquivo,
+   esticando a dobra inteira. Travar a altura força o grid a cropar a foto
+   (object-fit:cover) em vez de estourar a viewport. */
+.firstFold{height:100vh;display:flex;flex-direction:column}
+.firstFold{height:100svh}
 
 /* Hero — SPLIT_EDITORIAL: texto à esquerda, foto full-bleed ocupando a
    coluna inteira à direita (mesmo padrão do site do Weslley Sá / scaffold
@@ -65,7 +70,7 @@ section{padding:88px 24px}
 .heroImage{position:relative;background:var(--plum-deep);overflow:hidden}
 .heroImage img{width:100%;height:100%;object-fit:cover}
 @media(max-width:860px){
-  .firstFold{min-height:auto;display:block}
+  .firstFold{height:auto;display:block}
   .hero{grid-template-columns:1fr}
   .heroCopy{padding:48px 24px 32px}
   .heroImage{min-height:260px}
