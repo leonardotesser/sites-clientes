@@ -73,11 +73,13 @@ section{padding:88px 24px}
   .firstFold{height:auto;display:block}
   .hero{grid-template-columns:1fr}
   .heroCopy{padding:48px 24px 32px}
-  /* height fixo (não min-height): mesma razão do desktop — com foto retrato,
-     min-height deixa a proporção intrínseca do arquivo esticar a imagem.
-     object-position mais baixo corta a parte de cima (luminária/parede) e
-     centraliza nas poltronas, que é o que sobra em destaque no crop. */
-  .heroImage{height:250px}
+  /* aspect-ratio (não height fixo em px): a largura já é responsiva (100%
+     da viewport), então a altura precisa acompanhar — um px fixo (ex:
+     250px) fica desproporcional assim que a tela cresce/diminui, criando
+     um corte estranho na borda de baixo. aspect-ratio escala junto com a
+     largura em qualquer tamanho de tela. object-position mais baixo corta
+     a parte de cima (luminária/parede) e centraliza nas poltronas. */
+  .heroImage{aspect-ratio:3/2;height:auto}
   .heroImage img{object-position:center 70%}
 }
 
