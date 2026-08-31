@@ -70,16 +70,19 @@ section{padding:88px 24px}
 .heroImage{position:relative;background:var(--plum-deep);overflow:hidden}
 .heroImage img{width:100%;height:100%;object-fit:cover}
 @media(max-width:860px){
-  .firstFold{height:auto;display:block}
-  .hero{grid-template-columns:1fr}
-  .heroCopy{padding:48px 24px 32px}
-  /* aspect-ratio (não height fixo em px): a largura já é responsiva (100%
-     da viewport), então a altura precisa acompanhar — um px fixo (ex:
-     250px) fica desproporcional assim que a tela cresce/diminui, criando
-     um corte estranho na borda de baixo. aspect-ratio escala junto com a
-     largura em qualquer tamanho de tela. object-position mais baixo corta
-     a parte de cima (luminária/parede) e centraliza nas poltronas. */
-  .heroImage{aspect-ratio:3/2;height:auto}
+  /* Mesma lógica do desktop, só que empilhada: firstFold com "height" FIXO
+     (não min-height — min-height é só um piso, e como o conteúdo já nasce
+     maior que uma tela, nada nunca precisava encolher, e a dobra estourava
+     mesmo com a imagem responsiva). Com height fixo, .hero (flex:1, herda
+     do bloco desktop) e .heroImage (flex:1) são forçados a caber no espaço
+     real que sobra depois de utility+nav — min-height:0 na cadeia inteira
+     é o que permite esse encolhimento em vez de vazar. .heroImage tem só
+     um piso mínimo (não estoura pra baixo de um tamanho ilegível se o
+     texto precisar de muitas linhas num aparelho bem estreito). */
+  .firstFold{height:100svh;display:flex;flex-direction:column}
+  .hero{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
+  .heroCopy{padding:40px 24px 24px;flex:0 0 auto}
+  .heroImage{flex:1 1 auto;min-height:140px}
   .heroImage img{object-position:center 70%}
 }
 
