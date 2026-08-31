@@ -24,13 +24,15 @@ img{max-width:100%;display:block}
 section{padding:88px 24px}
 
 /* Utility bar */
-.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
 .utility a{opacity:.9}
 .utility a:hover{opacity:1;text-decoration:underline}
 .utility .rating{white-space:nowrap;color:var(--gold)}
 
-/* Nav */
-.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;position:sticky;top:0;z-index:20}
+/* Nav — flex-shrink:0: sem isso, num firstFold de altura fixa e conteúdo
+   apertado, o próprio nav de 80px podia ser espremido pra ~60px em vez de
+   ser só o hero a ceder espaço (achado no caso Renata Ruban, 31/08/26). */
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;flex-shrink:0;position:sticky;top:0;z-index:20}
 .brand{font-family:var(--serif);font-size:22px;color:var(--plum);margin-right:auto}
 .brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
@@ -44,14 +46,14 @@ section{padding:88px 24px}
   .menuToggle{display:flex}
 }
 
-/* firstFold: barra utilitária + nav + hero numa coluna de 100vh/100svh.
-   "height" (não "min-height") no desktop: com foto de retrato (mais alta
-   que larga), height:100% da imagem não resolve contra um .heroImage sem
-   altura definida e o navegador cai na proporção intrínseca do arquivo,
-   esticando a dobra inteira. Travar a altura força o grid a cropar a foto
-   (object-fit:cover) em vez de estourar a viewport. */
-.firstFold{height:100vh;display:flex;flex-direction:column}
-.firstFold{height:100svh}
+/* firstFold: barra utilitária + nav + hero numa coluna de pelo menos
+   1 tela. min-height (não height fixo) — é um PISO: se o conteúdo couber
+   em 1 tela (o caso comum), o hero cresce (flex:1) até encostar exatamente
+   na borda; se não couber (texto longo + janela muito baixa), a seção
+   cresce graciosamente em vez de estourar/sobrepor a próxima — nunca clipa
+   nem empurra nav/utility pra fora de forma quebrada. */
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
 
 /* Hero — SPLIT_EDITORIAL: texto à esquerda, foto full-bleed ocupando a
    coluna inteira à direita (mesmo padrão do site do Weslley Sá / scaffold
@@ -67,19 +69,20 @@ section{padding:88px 24px}
 .btn.primary{background:var(--plum);color:#fff}
 .btn.primary:hover{background:var(--plum-deep)}
 .textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+/* heroImage: a causa raiz de tudo era aqui. Um <img> em fluxo normal com
+   height:100% cai na proporção intrínseca do ARQUIVO quando o pai não tem
+   altura definida — e essa altura "inventada" virava o tamanho da própria
+   linha do grid, empurrando a dobra inteira. position:absolute tira o
+   <img> do fluxo: ele passa a só preencher o box do pai (que aí sim é
+   dimensionado pelo grid/flex normalmente, sem competir com a foto). */
 .heroImage{position:relative;background:var(--plum-deep);overflow:hidden}
-.heroImage img{width:100%;height:100%;object-fit:cover}
+.heroImage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media(max-width:860px){
-  /* Mesma lógica do desktop, só que empilhada: firstFold com "height" FIXO
-     (não min-height — min-height é só um piso, e como o conteúdo já nasce
-     maior que uma tela, nada nunca precisava encolher, e a dobra estourava
-     mesmo com a imagem responsiva). Com height fixo, .hero (flex:1, herda
-     do bloco desktop) e .heroImage (flex:1) são forçados a caber no espaço
-     real que sobra depois de utility+nav — min-height:0 na cadeia inteira
-     é o que permite esse encolhimento em vez de vazar. .heroImage tem só
-     um piso mínimo (não estoura pra baixo de um tamanho ilegível se o
-     texto precisar de muitas linhas num aparelho bem estreito). */
-  .firstFold{height:100svh;display:flex;flex-direction:column}
+  /* Mesma lógica do desktop, empilhada: hero também vira coluna flex,
+     texto com altura natural (flex:0), foto flex:1 preenchendo o que
+     sobrar até a dobra — com o <img> já fora do fluxo (regra acima), a
+     .heroImage não tem mais tamanho próprio pra "brigar", só o piso
+     mínimo abaixo garante que nunca vire uma tarja ilegível. */
   .hero{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
   .heroCopy{padding:40px 24px 24px;flex:0 0 auto}
   .heroImage{flex:1 1 auto;min-height:140px}
