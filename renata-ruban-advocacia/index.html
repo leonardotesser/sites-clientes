@@ -73,7 +73,12 @@ section{padding:88px 24px}
   .firstFold{height:auto;display:block}
   .hero{grid-template-columns:1fr}
   .heroCopy{padding:48px 24px 32px}
-  .heroImage{min-height:260px}
+  /* height fixo (não min-height): mesma razão do desktop — com foto retrato,
+     min-height deixa a proporção intrínseca do arquivo esticar a imagem.
+     object-position mais baixo corta a parte de cima (luminária/parede) e
+     centraliza nas poltronas, que é o que sobra em destaque no crop. */
+  .heroImage{height:250px}
+  .heroImage img{object-position:center 70%}
 }
 
 /* Faixa de métricas reais — logo abaixo do hero, não sobreposta a ele */
