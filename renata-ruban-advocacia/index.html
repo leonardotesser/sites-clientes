@@ -24,9 +24,12 @@ img{max-width:100%;display:block}
 section{padding:88px 24px}
 
 /* Utility bar — 1 linha (endereço · telefone à esquerda, avaliações à
-   direita), igual ao padrão do Weslley Sá. flex-shrink:0 garante que
-   nunca encolha mesmo se apertar (parte da correção da primeira dobra). */
-.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
+   direita), igual ao padrão do Weslley Sá. padding:9px 6vw (igual ao .nav
+   abaixo) pra alinhar o início do endereço com a logo e o fim das
+   avaliações com a borda direita do botão "Fale conosco". flex-shrink:0
+   garante que nunca encolha mesmo se apertar (parte da correção da
+   primeira dobra). */
+.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
 .utility a{opacity:.9}
 .utility a:hover{opacity:1;text-decoration:underline}
 .utility .rating{white-space:nowrap;color:var(--gold)}
