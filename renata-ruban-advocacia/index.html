@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renata Ruban Advocacia e Consultoria Previdenciária | Santo André</title>
+<meta name="description" content="Advocacia especializada em Direito Previdenciário: auxílio-doença, aposentadorias, revisão de benefícios e negativas do INSS. Atendimento em Santo André e remoto para todo o Brasil.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiM3ZDM1NzQiLz48dGV4dCB4PSIzMiIgeT0iNDQiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjMyIiBmaWxsPSIjYjg4NjNjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SPC90ZXh0Pjwvc3ZnPg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#7d3574;--plum-deep:#3d1a3a;--gold:#b8863c;--cream:#f6f0ea;--paper:#fbf8f5;
+  --ink:#2b2229;--muted:#7d6f74;--line:#e3d6d9;--wa:#25D366;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+/* Utility bar */
+.utility{background:var(--plum-deep);color:#e6d6e3;font-size:12px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap;color:var(--gold)}
+
+/* Nav */
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:22px;color:var(--plum);margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--gold)}
+.navCta{border:1px solid var(--plum);color:var(--plum);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--plum);color:#fff}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:860px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+/* firstFold: barra utilitária + nav + hero numa coluna de 100vh/100svh */
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+
+/* Hero — CENTERED_AUTHORITY: composição centralizada, sem coluna lateral.
+   Headline + subtítulo + CTA centrais, foto integrada abaixo (moldura vertical,
+   não banner full-bleed), métricas como rodapé editorial com divisores finos. */
+.hero{padding:64px 6vw 0;flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--cream)}
+.heroInner{max-width:680px;margin:0 auto}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--plum);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.6vw,56px);line-height:1.12;margin:20px 0}
+.hero h1 em{font-style:italic;color:var(--plum)}
+.heroInner>p{color:var(--muted);font-size:16px;max-width:520px;margin:0 auto 32px}
+.heroActions{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap}
+.btn{padding:16px 24px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px;border-radius:2px}
+.btn.primary{background:var(--plum);color:#fff}
+.btn.primary:hover{background:var(--plum-deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+
+.heroPortrait{width:min(320px,72vw);aspect-ratio:3/4;margin:48px auto 0;overflow:hidden;box-shadow:0 24px 48px -20px rgba(61,26,58,.35)}
+.heroPortrait img{width:100%;height:100%;object-fit:cover}
+
+.heroStats{width:100%;max-width:760px;margin:48px auto 0;display:flex;justify-content:center;border-top:1px solid var(--line)}
+.heroStats div{flex:1;padding:24px 20px;text-align:center;border-right:1px solid var(--line)}
+.heroStats div:last-child{border-right:none}
+.heroStats strong{display:block;font-family:var(--serif);font-size:22px;color:var(--plum);margin-bottom:4px}
+.heroStats span{font-size:12px;color:var(--muted);letter-spacing:.02em}
+
+@media(max-width:760px){
+  .hero{padding:40px 24px 0}
+  .heroStats{flex-direction:column}
+  .heroStats div{border-right:none;border-bottom:1px solid var(--line);padding:16px 0}
+  .heroStats div:last-child{border-bottom:none}
+}
+
+/* Intro */
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--plum);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.sectionNumber{font-family:var(--serif);color:var(--plum);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+/* Áreas de atuação */
+.practice{background:var(--plum-deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid #6b3e64}
+.practiceList li:first-child{border-top:1px solid #6b3e64}
+.practiceList span{color:var(--gold);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#d6c2d2;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+/* Sobre a advogada */
+.team{max-width:960px;margin:0 auto}
+.team h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 40px;text-align:center}
+.teamGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;justify-content:center}
+.teamGrid.single{max-width:420px;margin:0 auto}
+.teamCard img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;margin-bottom:18px}
+.teamCard.noPhoto{text-align:center}
+.teamCard.noPhoto ul{text-align:left}
+.teamPhoto{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;background:var(--paper);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.teamPhoto svg{width:44px;height:44px;opacity:.4}
+.teamCard h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 8px}
+.teamCard .role{font-family:var(--serif);color:var(--plum);font-size:16px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.teamCard ul{margin:0;padding:0;list-style:none;color:var(--muted);font-size:14px;line-height:1.6}
+.teamCard ul li{position:relative;padding-left:22px}
+.teamCard ul li+li{margin-top:10px}
+.teamCard ul li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+
+/* Card único (advogado(a) solo): foto menor à esquerda, texto ao lado — não
+   empilhado. Escopo restrito a .single pra não afetar grades de 2+ advogados,
+   que continuam com o cartão vertical padrão (foto em cima, texto embaixo). */
+.teamGrid.single{max-width:700px}
+.teamGrid.single .teamCard{display:grid;grid-template-columns:275px 1fr;gap:36px;align-items:center;text-align:left}
+.teamGrid.single .teamCard img{margin-bottom:0;aspect-ratio:3/4}
+@media(max-width:600px){
+  .teamGrid.single .teamCard{grid-template-columns:1fr;text-align:center}
+  .teamGrid.single .teamCard img{max-width:275px;margin:0 auto 18px}
+  .teamGrid.single .teamCard ul{display:inline-block;text-align:left}
+}
+
+/* Prova social real */
+.proof{background:var(--plum);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:var(--gold)}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#e6d3e2;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--plum)}
+
+/* Contato */
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--plum);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.contactCard.afterMap{margin-top:24px}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--plum-deep);color:#d6c2d2;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{color:#fff}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:#fff}
+.foot-bottom{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.foot-bottom .credit{font-variant:small-caps;opacity:.8}
+.foot-bottom .credit a:hover{opacity:1;text-decoration:underline}
+
+/* WhatsApp flutuante */
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+/* Progressive enhancement: sem JS, tudo visível. Com JS, reveal suave no scroll */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="firstFold">
+<div class="utility">
+  <span>Av. João Ramalho, 170 — Sl 307, Vila Assunção, Santo André/SP · (11) 4436-3298</span>
+  <a class="rating" href="https://www.google.com/maps/place/?q=place_id:ChIJXQjkSPJCzpQRI6CHqGSNQBI" target="_blank" rel="noreferrer">★ 5,0 no Google (67 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Renata Ruban<small>Advocacia &amp; Consultoria Previdenciária</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">O escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#advogada">A advogada</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5511996159519?text=Ol%C3%A1%2C%20Renata!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroInner reveal">
+    <span class="eyebrow">Advocacia Previdenciária · INSS</span>
+    <h1>O caminho mais seguro até o seu <em>benefício do INSS</em></h1>
+    <p>Auxílio-doença, aposentadorias, revisão de benefícios e recursos contra negativas — orientação jurídica próxima, clara e especializada, para quem não pode errar nessa etapa.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="https://wa.me/5511996159519?text=Ol%C3%A1%2C%20Renata!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Conversar pelo WhatsApp ↗</a>
+      <a class="textLink" href="tel:+551144363298">Ligar: (11) 4436-3298</a>
+    </div>
+    <div class="heroPortrait">
+      <img src="assets/hero-lounge.webp" alt="Sala de espera do escritório Renata Ruban Advocacia, em Santo André" width="768" height="1024" loading="eager" fetchpriority="high" decoding="async">
+    </div>
+    <div class="heroStats">
+      <div><strong>Mais de 14 anos</strong><span>de atuação em Direito Previdenciário</span></div>
+      <div><strong>5,0 ★</strong><span>nota no Google — 67 avaliações</span></div>
+      <div><strong>100%</strong><span>atendimento remoto para todo o Brasil</span></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<section id="escritorio">
+  <div class="intro reveal">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Seu benefício exige<br><em>técnica e cuidado</em></h2>
+      <p>Há mais de 14 anos acompanhando pessoas em processos junto ao INSS — do primeiro requerimento à revisão de um benefício já concedido. Atendimento próximo, linguagem clara e explicação de cada etapa, para que você entenda exatamente qual é o seu direito e como conquistá-lo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead reveal">
+    <div><span class="sectionNumber" style="color:var(--gold)">02</span></div>
+    <h2>Áreas de atuação em Direito Previdenciário</h2>
+  </div>
+  <ul class="practiceList reveal">
+    <li><span>—</span><div><h3>Auxílio-doença</h3><p>Benefício por incapacidade temporária para o trabalho, concedido pelo INSS.</p></div></li>
+    <li><span>—</span><div><h3>Aposentadoria por invalidez</h3><p>Para casos de incapacidade permanente, com orientação sobre perícia e documentação.</p></div></li>
+    <li><span>—</span><div><h3>Aposentadorias</h3><p>Por idade, por tempo de contribuição e demais modalidades previstas em lei.</p></div></li>
+    <li><span>—</span><div><h3>Revisão de benefícios</h3><p>Recálculo de benefícios pagos a menor ou concedidos de forma incorreta pelo INSS.</p></div></li>
+    <li><span>—</span><div><h3>Benefício assistencial (BPC/LOAS)</h3><p>Para idosos e pessoas com deficiência em situação de vulnerabilidade.</p></div></li>
+    <li><span>—</span><div><h3>Negativa do INSS</h3><p>Recursos administrativos e ações judiciais contra benefícios indeferidos ou cessados.</p></div></li>
+  </ul>
+</section>
+
+<!--
+  Depoimentos: seção removida de propósito. O Código de Ética da OAB veda
+  mecanismos de captação de clientela e promessa de resultado — depoimento
+  de cliente (mesmo real e autorizado) é zona de risco pra advogado.
+  A prova social desta seção é SEMPRE a nota agregada real do Google.
+-->
+<section id="advogada">
+  <div class="team reveal">
+    <h2>A advogada</h2>
+    <div class="teamGrid single">
+      <div class="teamCard">
+        <img src="assets/renata-ruban.webp" alt="Renata Ruban, advogada previdenciarista" width="682" height="1024" loading="lazy">
+        <div class="teamText">
+          <h3>Renata Ruban</h3>
+          <p class="role">Advogada Previdenciarista</p>
+          <ul>
+            <li>Mais de 14 anos de experiência em Direito Previdenciário (INSS)</li>
+            <li>Formada em Direito pela Universidade São Judas Tadeu</li>
+            <li>Atendimento remoto para clientes de todo o Brasil</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof reveal">
+  <div class="stars">★★★★★</div>
+  <h2>5,0 de nota no Google</h2>
+  <p>67 avaliações reais de clientes atendidos</p>
+  <a href="https://www.google.com/maps/place/?q=place_id:ChIJXQjkSPJCzpQRI6CHqGSNQBI" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div class="reveal">
+      <h2>Vamos conversar sobre o seu caso?</h2>
+      <p>Envie uma mensagem pelo WhatsApp e conte, em poucas palavras, qual é a sua situação com o INSS. O retorno é feito diretamente pela advogada.</p>
+      <a class="btn primary" href="https://wa.me/5511996159519?text=Ol%C3%A1%2C%20Renata!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Conversar pelo WhatsApp ↗</a>
+    </div>
+    <div class="reveal">
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=Av.+Jo%C3%A3o+Ramalho%2C+170+-+Sl+307+-+Vila+Assun%C3%A7%C3%A3o%2C+Santo+Andr%C3%A9+-+SP%2C+09030-320&output=embed" loading="lazy" title="Localização do escritório Renata Ruban Advocacia"></iframe>
+      </div>
+      <dl class="contactCard afterMap">
+        <dt>Endereço</dt>
+        <dd>Av. João Ramalho, 170 — Sl 307, Vila Assunção, Santo André/SP, 09030-320</dd>
+        <dt>Telefone</dt>
+        <dd>(11) 4436-3298</dd>
+        <dt>Horário</dt>
+        <dd>Segunda a quinta, 9h às 18h · Sexta, 9h às 17h</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Renata Ruban Advocacia e Consultoria Previdenciária</div>
+  <nav>
+    <a href="#escritorio">O escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#advogada">A advogada</a>
+    <a href="https://www.instagram.com/renataruban.adv" target="_blank" rel="noreferrer">Instagram</a>
+  </nav>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Renata Ruban Advocacia e Consultoria Previdenciária</span>
+    <span class="credit"><a href="https://ignisdigitalstudio.com" target="_blank" rel="noopener">Site criado por Ignis Digital Studio</a></span>
+  </div>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5511996159519?text=Ol%C3%A1%2C%20Renata!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
