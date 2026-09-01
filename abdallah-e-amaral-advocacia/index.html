@@ -23,12 +23,15 @@ button,input,textarea{font:inherit}
 img{max-width:100%;display:block}
 section{padding:88px 24px}
 
-.utility{background:var(--deep);color:#c9cedb;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+
+.utility{background:var(--deep);color:#c9cedb;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
 .utility a{opacity:.9}
 .utility a:hover{opacity:1;text-decoration:underline}
 .utility .rating{white-space:nowrap;color:var(--gold)}
 
-.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;position:sticky;top:0;z-index:20}
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;flex-shrink:0;position:sticky;top:0;z-index:20}
 .brand{font-family:var(--serif);font-size:21px;color:var(--navy);margin-right:auto}
 .brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
@@ -43,7 +46,7 @@ section{padding:88px 24px}
 }
 
 /* ===== HERO — ASYMMETRIC_EDITORIAL ===== */
-.hero{position:relative;padding:0;min-height:92vh;overflow:hidden;background:var(--cream)}
+.hero{position:relative;padding:0;flex:1 1 auto;min-height:0;overflow:hidden;background:var(--cream)}
 .heroInner{position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:14vh 64px 0}
 .heroCopy{max-width:560px}
 .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-weight:600}
@@ -60,16 +63,16 @@ section{padding:88px 24px}
 .heroArt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .heroArt::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(12,22,38,.05) 30%,rgba(12,22,38,.55))}
 
-.heroStat{position:absolute;z-index:4;left:calc(58% - 96px);bottom:11vh;min-width:190px;background:var(--navy);color:#fff;padding:24px 26px;box-shadow:0 22px 44px rgba(12,22,38,.35)}
+.heroStat{position:absolute;z-index:4;left:calc(58% - 96px);bottom:11vh;width:230px;background:var(--navy);color:#fff;padding:24px 26px;box-shadow:0 22px 44px rgba(12,22,38,.35)}
 .heroStat strong{display:block;font-family:var(--serif);font-size:36px;color:var(--gold);line-height:1}
 .heroStat span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#c9cedb;display:block;margin-top:8px}
 
 @media(max-width:1024px){
   .heroArt{width:52%;clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%)}
-  .heroStat{left:calc(52% - 70px)}
+  .heroCopy p{max-width:360px}
+  .heroStat{left:calc(52% - 20px);width:210px;padding:20px 22px}
 }
 @media(max-width:860px){
-  .hero{min-height:0}
   .heroInner{padding:36px 24px 0}
   .heroCopy{max-width:none}
   .hero h1{max-width:none}
@@ -167,6 +170,7 @@ footer nav a:hover{color:#fff}
 </head>
 <body>
 
+<div class="firstFold">
 <div class="utility">
   <span>Av. Mateo Bei, 2527 — Sl 11, São Mateus, São Paulo/SP · (11) 98733-7456</span>
   <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Abdallah+e+Amaral+Advocacia+Av+Mateo+Bei+2527+Sao+Mateus+Sao+Paulo+SP" target="_blank" rel="noreferrer">★ 4,9 no Google (91 avaliações)</a>
@@ -203,6 +207,7 @@ footer nav a:hover{color:#fff}
     <span>anos fazendo justiça e defendendo o direito de nossos clientes</span>
   </div>
 </section>
+</div>
 
 <div class="statsStrip reveal">
   <div><strong>4,9 ★</strong><span>nota no Google — 91 avaliações</span></div>
