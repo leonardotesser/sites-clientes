@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdallah e Amaral Advocacia | Advogados em São Paulo</title>
+<meta name="description" content="Escritório de advocacia em São Paulo com atuação nacional: Direito do Consumidor, Família e Sucessões, Civil, Bancário, Penal, Imobiliário, Trabalhista e Previdenciário. Nota 4,9★ no Google (91 avaliações).">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxNjIzM2MiLz48dGV4dCB4PSIzMiIgeT0iNDEiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjIwIiBmaWxsPSIjYTk3NjJmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BJmFtcDtBPC90ZXh0Pjwvc3ZnPgo=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#16233c;--deep:#0c1626;--gold:#a9762f;--cream:#eef1f5;--paper:#f8f7f4;
+  --ink:#1b1f27;--muted:#5c6470;--line:#d9dce3;--wa:#25D366;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+.utility{background:var(--deep);color:#c9cedb;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap;color:var(--gold)}
+
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:21px;color:var(--navy);margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--gold)}
+.navCta{border:1px solid var(--navy);color:var(--navy);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--navy);color:#fff}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:860px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+/* ===== HERO — ASYMMETRIC_EDITORIAL ===== */
+.hero{position:relative;padding:0;min-height:92vh;overflow:hidden;background:var(--cream)}
+.heroInner{position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:14vh 64px 0}
+.heroCopy{max-width:560px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,4.6vw,58px);line-height:1.08;margin:20px 0;color:var(--navy);max-width:11ch}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.heroCopy p{color:var(--muted);font-size:16px;max-width:440px;margin:0 0 28px}
+.heroActions{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.btn{padding:16px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px;border:1px solid transparent}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+
+.heroArt{position:absolute;top:0;right:0;width:58%;height:100%;overflow:hidden;clip-path:polygon(14% 0,100% 0,100% 100%,0% 100%)}
+.heroArt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.heroArt::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(12,22,38,.05) 30%,rgba(12,22,38,.55))}
+
+.heroStat{position:absolute;z-index:4;left:calc(58% - 96px);bottom:11vh;min-width:190px;background:var(--navy);color:#fff;padding:24px 26px;box-shadow:0 22px 44px rgba(12,22,38,.35)}
+.heroStat strong{display:block;font-family:var(--serif);font-size:36px;color:var(--gold);line-height:1}
+.heroStat span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#c9cedb;display:block;margin-top:8px}
+
+@media(max-width:1024px){
+  .heroArt{width:52%;clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%)}
+  .heroStat{left:calc(52% - 70px)}
+}
+@media(max-width:860px){
+  .hero{min-height:0}
+  .heroInner{padding:36px 24px 0}
+  .heroCopy{max-width:none}
+  .hero h1{max-width:none}
+  .heroArt{position:relative;width:auto;height:320px;margin:32px -24px 0;clip-path:none}
+  .heroStat{position:relative;left:auto;bottom:auto;margin:-46px 24px 0}
+}
+
+.statsStrip{background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;justify-content:center;flex-wrap:wrap}
+.statsStrip div{flex:1;min-width:150px;max-width:260px;padding:24px 20px;text-align:center;border-right:1px solid var(--line)}
+.statsStrip div:last-child{border-right:none}
+.statsStrip strong{display:block;font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:4px}
+.statsStrip span{font-size:12px;color:var(--muted);letter-spacing:.02em}
+@media(max-width:760px){
+  .statsStrip div{max-width:none;border-right:none;border-bottom:1px solid var(--line);flex:1 1 50%}
+}
+
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--gold);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.sectionNumber{font-family:var(--serif);color:var(--gold);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+.introFigure{max-width:960px;margin:40px auto 0}
+.introFigure img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:4px}
+.introFigure figcaption{margin-top:8px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+.practice{background:var(--deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid #29344a}
+.practiceList li:first-child{border-top:1px solid #29344a}
+.practiceList span{color:var(--gold);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#c3c9d6;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+.team{max-width:960px;margin:0 auto}
+.team h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 40px;text-align:center}
+.teamGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;justify-content:center}
+.teamCard{border:1px solid var(--line);background:var(--cream);padding:32px;text-align:center}
+.teamPhoto{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;background:var(--paper);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.teamPhoto svg{width:44px;height:44px;opacity:.4}
+.teamCard h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 8px}
+.teamCard .role{font-family:var(--serif);color:var(--navy);font-size:16px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.teamCard ul{margin:0;padding:0;list-style:none;color:var(--muted);font-size:14px;line-height:1.6;text-align:left}
+.teamCard ul li{position:relative;padding-left:22px}
+.teamCard ul li+li{margin-top:10px}
+.teamCard ul li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+
+.proof{background:var(--navy);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:var(--gold)}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#c9cedb;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--navy)}
+.proof .disclaimer{max-width:520px;margin:20px auto 0;font-size:11px;line-height:1.6;color:#9aa2b5}
+
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.contactCard.afterMap{margin-top:24px}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+footer{background:var(--deep);color:#aab0c0;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{color:#fff}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:#fff}
+.foot-bottom{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.foot-bottom .credit{font-variant:small-caps;opacity:.8}
+.foot-bottom .credit a:hover{opacity:1;text-decoration:underline}
+
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="utility">
+  <span>Av. Mateo Bei, 2527 — Sl 11, São Mateus, São Paulo/SP · (11) 98733-7456</span>
+  <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Abdallah+e+Amaral+Advocacia+Av+Mateo+Bei+2527+Sao+Mateus+Sao+Paulo+SP" target="_blank" rel="noreferrer">★ 4,9 no Google (91 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Abdallah &amp; Amaral<small>Advocacia</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5511987337456?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Abdallah%20e%20Amaral%20Advocacia%20e%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco</a>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroInner">
+    <div class="heroCopy reveal">
+      <span class="eyebrow">Advocacia Cível, Consumidor e Família · Atuação Nacional</span>
+      <h1>Defendendo o seu <em>direito</em> com justiça</h1>
+      <p>Escritório com 6 anos de atuação em São Paulo, atendendo pessoas e empresas de todos os portes em todo o Brasil — Direito do Consumidor, Família, Civil, Bancário, Penal, Imobiliário, Trabalhista e Previdenciário.</p>
+      <div class="heroActions">
+        <a class="btn primary" href="https://wa.me/5511987337456?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Abdallah%20e%20Amaral%20Advocacia%20e%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+        <a class="textLink" href="tel:+5511987337456">Ligar: (11) 98733-7456</a>
+      </div>
+    </div>
+  </div>
+  <div class="heroArt reveal">
+    <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=1400&q=80" alt="Fachada de edifício comercial em vidro, São Paulo" width="1400" height="2100" loading="eager" fetchpriority="high" decoding="async">
+  </div>
+  <div class="heroStat reveal">
+    <strong>06</strong>
+    <span>anos fazendo justiça e defendendo o direito de nossos clientes</span>
+  </div>
+</section>
+
+<div class="statsStrip reveal">
+  <div><strong>4,9 ★</strong><span>nota no Google — 91 avaliações</span></div>
+  <div><strong>8 áreas</strong><span>Consumidor, Família, Civil, Bancário, Penal e mais</span></div>
+  <div><strong>Nacional</strong><span>atendimento a pessoas e empresas em todo o Brasil</span></div>
+  <div><strong>Seg–Sex</strong><span>atendimento 24 horas</span></div>
+</div>
+
+<section id="escritorio">
+  <div class="intro reveal">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Justiça e técnica a<br><em>favor do seu caso</em></h2>
+      <p>Somos o escritório Abdallah e Amaral Advocacia, há 06 anos fazendo justiça e defendendo o direito de nossos clientes. Atuamos em nível nacional atendendo pessoas e empresas de todos os portes, com equipes especializadas em cada uma das áreas em que atuamos.</p>
+    </div>
+  </div>
+  <figure class="introFigure reveal">
+    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1400&q=80" alt="Biblioteca jurídica com obras de referência" loading="lazy">
+    <figcaption>Imagem ilustrativa</figcaption>
+  </figure>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead reveal">
+    <div><span class="sectionNumber" style="color:var(--gold)">02</span></div>
+    <h2>Áreas de atuação</h2>
+  </div>
+  <ul class="practiceList reveal">
+    <li><span>—</span><div><h3>Direito do Consumidor</h3><p>Defesa dos seus direitos em relações de consumo.</p></div></li>
+    <li><span>—</span><div><h3>Direito de Família e Sucessões</h3><p>Divórcio, inventário, guarda, adoção, paternidade socioafetiva e pensão alimentícia.</p></div></li>
+    <li><span>—</span><div><h3>Direito Civil</h3><p>Contratos em geral, negócios imobiliários, ação de despejo por falta de pagamento e defesa em ação de despejo.</p></div></li>
+    <li><span>—</span><div><h3>Direito Bancário</h3><p>Defesa em busca e apreensão, ação revisional e defesa em casos de golpe via PIX.</p></div></li>
+    <li><span>—</span><div><h3>Direito Penal</h3><p>Defesa em ações criminais, reabilitação criminal e acompanhamento em delegacia.</p></div></li>
+    <li><span>—</span><div><h3>Direito Imobiliário</h3><p>Orientação e atuação em questões envolvendo imóveis.</p></div></li>
+    <li><span>—</span><div><h3>Direito Trabalhista</h3><p>Defesa dos seus direitos nas relações de trabalho.</p></div></li>
+    <li><span>—</span><div><h3>Direito Previdenciário</h3><p>Orientação e atuação em benefícios junto ao INSS.</p></div></li>
+  </ul>
+</section>
+
+<!--
+  Depoimentos: seção removida de propósito. O Código de Ética da OAB veda
+  mecanismos de captação de clientela e promessa de resultado — depoimento
+  de cliente (mesmo real e autorizado) é zona de risco pra advogado.
+  A prova social desta seção é SEMPRE a nota agregada real do Google.
+-->
+<section id="equipe">
+  <div class="team reveal">
+    <h2>Equipe</h2>
+    <div class="teamGrid">
+      <div class="teamCard">
+        <div class="teamPhoto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Dra. Abdallah</h3>
+        <p class="role">Sócia</p>
+        <ul>
+          <li>Sócia do escritório Abdallah e Amaral Advocacia</li>
+          <li>Atuação nacional em Direito do Consumidor, Família, Civil, Bancário, Penal, Imobiliário, Trabalhista e Previdenciário</li>
+        </ul>
+      </div>
+      <div class="teamCard">
+        <div class="teamPhoto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Dra. Amaral</h3>
+        <p class="role">Sócia</p>
+        <ul>
+          <li>Sócia do escritório Abdallah e Amaral Advocacia</li>
+          <li>Atuação nacional em Direito do Consumidor, Família, Civil, Bancário, Penal, Imobiliário, Trabalhista e Previdenciário</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof reveal">
+  <div class="stars">★★★★★</div>
+  <h2>4,9 de nota no Google</h2>
+  <p>91 avaliações reais de clientes atendidos</p>
+  <a href="https://www.google.com/maps/search/?api=1&query=Abdallah+e+Amaral+Advocacia+Av+Mateo+Bei+2527+Sao+Mateus+Sao+Paulo+SP" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+  <p class="disclaimer">Em observância ao Código de Ética e Disciplina da OAB e ao Provimento nº 205/2021, os relatos individuais de clientes não são reproduzidos neste site. As avaliações podem ser consultadas diretamente no Google.</p>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div class="reveal">
+      <h2>Vamos conversar sobre o seu caso?</h2>
+      <p>Envie uma mensagem pelo WhatsApp e conte, em poucas palavras, qual é a sua situação. O retorno é feito diretamente pelo escritório.</p>
+      <a class="btn primary" href="https://wa.me/5511987337456?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Abdallah%20e%20Amaral%20Advocacia%20e%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+    </div>
+    <div class="reveal">
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=Av.+Mateo+Bei%2C+2527+-+Sl+11+-+S%C3%A3o+Mateus%2C+S%C3%A3o+Paulo+-+SP%2C+03949-010&output=embed" loading="lazy" title="Localização do escritório Abdallah e Amaral Advocacia"></iframe>
+      </div>
+      <dl class="contactCard afterMap">
+        <dt>Endereço</dt>
+        <dd>Av. Mateo Bei, 2527 — Sl 11, São Mateus, São Paulo/SP, 03949-010</dd>
+        <dt>Telefone</dt>
+        <dd>(11) 98733-7456</dd>
+        <dt>Horário</dt>
+        <dd>Segunda a sexta: atendimento 24 horas · Sábado e domingo: fechado</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Abdallah e Amaral Advocacia</div>
+  <nav>
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+  </nav>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Abdallah e Amaral Advocacia</span>
+    <span class="credit"><a href="https://ignisdigitalstudio.com" target="_blank" rel="noopener">Site criado por Ignis Digital Studio</a></span>
+  </div>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5511987337456?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Abdallah%20e%20Amaral%20Advocacia%20e%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer" aria-label="Fale conosco">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
