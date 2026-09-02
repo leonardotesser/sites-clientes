@@ -1,0 +1,23 @@
+#!/bin/sh
+# Auto-adiciona ao index.html qualquer pasta de site que ainda não esteja listada.
+# Roda em todo `git commit` (core.hooksPath aponta pra cá). Silencioso quando não há novidade.
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+INDEX="index.html"
+
+for d in */; do
+  d="${d%/}"
+  case "$d" in _assets|.*) continue ;; esac
+  [ -f "$d/index.html" ] || continue
+  grep -q "href=\"/$d/\"" "$INDEX" && continue
+
+  title=$(grep -o '<title>[^<]*</title>' "$d/index.html" | head -1 \
+    | sed -e 's/<title>//' -e 's/<\/title>//' -e 's/ | .*//' -e 's/&amp;/\&/g')
+  [ -n "$title" ] || title="$d"
+  today=$(date +%d/%m/%Y)
+  entry="      <li><span class=\"n\"></span> <a href=\"/$d/\">$title</a> <span class=\"d\">$today</span></li>"
+
+  awk -v line="$entry" '/<\/ol>/{print line} {print}' "$INDEX" > "$INDEX.tmp" && mv "$INDEX.tmp" "$INDEX"
+  git add "$INDEX"
+  echo "index.html: adicionado '$d' ($title)"
+done
