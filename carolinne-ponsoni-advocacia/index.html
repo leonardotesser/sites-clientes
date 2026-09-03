@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carolinne Ponsoni Advocacia Previdenciária | Santo André</title>
+<meta name="description" content="Advocacia especializada em Direito Previdenciário: aposentadorias, revisão de benefícios, pensão por morte, BPC/LOAS e defesa contra descontos indevidos do INSS. Atendimento em Santo André/SP.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiM2NTFkMjIiLz48dGV4dCB4PSIzMiIgeT0iNDQiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjMyIiBmaWxsPSIjYjg4NjJjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DPC90ZXh0Pjwvc3ZnPg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#651d22;--deep:#421216;--gold:#b8862c;--cream:#f3eee7;--paper:#fbf8f3;
+  --ink:#25211f;--muted:#756d67;--line:#d8cdc2;--wa:#25D366;--fb:#1877F2;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+.utility{background:var(--deep);color:#e7d3d1;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap;color:var(--gold)}
+
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;height:80px;flex-shrink:0;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:22px;color:var(--wine);margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--gold)}
+.navCta{border:1px solid var(--wine);color:var(--wine);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--wine);color:#fff}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:860px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+
+.hero{padding:0;display:grid;grid-template-columns:1fr 1fr;flex:1 1 auto;min-height:0}
+.heroCopy{padding:80px 6vw;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--wine);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,4.2vw,58px);line-height:1.08;margin:20px 0;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--wine)}
+.heroCopy p{color:var(--muted);font-size:16px;max-width:480px;margin:0 0 28px}
+.heroActions{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.btn{padding:16px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px}
+.btn.primary{background:var(--wine);color:#fff}
+.btn.primary:hover{background:var(--deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+.heroImage{position:relative;background:var(--deep);overflow:hidden}
+.heroImage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+@media(max-width:860px){
+  .hero{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
+  .heroCopy{padding:40px 24px 24px;flex:0 0 auto}
+  .heroImage{flex:1 1 auto;min-height:140px}
+}
+
+.heroStats{background:var(--cream);border-top:1px solid var(--line);display:flex;justify-content:center}
+.heroStats div{flex:1;max-width:280px;padding:24px 20px;text-align:center;border-right:1px solid var(--line)}
+.heroStats div:last-child{border-right:none}
+.heroStats strong{display:block;font-family:var(--serif);font-size:22px;color:var(--wine);margin-bottom:4px}
+.heroStats span{font-size:12px;color:var(--muted);letter-spacing:.02em}
+@media(max-width:760px){
+  .heroStats{flex-direction:column}
+  .heroStats div{max-width:none;border-right:none;border-bottom:1px solid var(--line);padding:16px 0}
+  .heroStats div:last-child{border-bottom:none}
+}
+
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--wine);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.sectionNumber{font-family:var(--serif);color:var(--wine);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+.introFigure{max-width:960px;margin:40px auto 0}
+.introFigure img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:4px}
+.introFigure figcaption{margin-top:8px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+.practice{background:var(--deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid #7b494d}
+.practiceList li:first-child{border-top:1px solid #7b494d}
+.practiceList span{color:var(--gold);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#e0cfcc;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+.team{max-width:960px;margin:0 auto}
+.team h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 40px;text-align:center}
+.teamGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;justify-content:center}
+.teamGrid.single{max-width:420px;margin:0 auto}
+.teamCard{border:1px solid var(--line);background:var(--cream);padding:32px}
+.teamPhotoFrame{background:var(--paper);border:1px solid var(--line);padding:8px;margin-bottom:18px}
+.teamPhotoFrame img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+.teamCard.noPhoto{text-align:center}
+.teamCard.noPhoto ul{text-align:left}
+.teamPhoto{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;background:var(--paper);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.teamPhoto svg{width:44px;height:44px;opacity:.4}
+.teamCard h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 8px}
+.teamCard .role{font-family:var(--serif);color:var(--wine);font-size:16px;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.teamCard ul{margin:0;padding:0;list-style:none;color:var(--muted);font-size:14px;line-height:1.6}
+.teamCard ul li{position:relative;padding-left:22px}
+.teamCard ul li+li{margin-top:10px}
+.teamCard ul li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+
+.teamGrid.single{max-width:700px}
+.teamGrid.single .teamCard{display:grid;grid-template-columns:275px 1fr;gap:36px;align-items:center;text-align:left}
+.teamGrid.single .teamCard .teamPhotoFrame{margin-bottom:0}
+@media(max-width:600px){
+  .teamGrid.single .teamCard{grid-template-columns:1fr;text-align:center}
+  .teamGrid.single .teamCard .teamPhotoFrame{max-width:275px;margin:0 auto 18px}
+  .teamGrid.single .teamCard ul{display:inline-block;text-align:left}
+}
+
+.proof{background:var(--wine);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:var(--gold)}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#e0c8c5;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--wine)}
+.proof .disclaimer{max-width:520px;margin:20px auto 0;font-size:11px;line-height:1.6;color:#d6b9b6}
+
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--wine);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.contactCard.afterMap{margin-top:24px}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+footer{background:var(--deep);color:#d6bdba;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{color:#fff}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:#fff}
+.foot-bottom{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.foot-bottom .credit{font-variant:small-caps;opacity:.8}
+.foot-bottom .credit a:hover{opacity:1;text-decoration:underline}
+
+.socialIcons{display:flex;justify-content:center;gap:14px;margin:6px 0 4px}
+.socialIcons a{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08)}
+.socialIcons svg{width:18px;height:18px}
+.socialIcons .fb svg{fill:#fff}
+.socialIcons .fb:hover{background:var(--fb)}
+.socialIcons .ig svg{fill:#fff}
+.socialIcons .ig:hover{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4)}
+
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="firstFold">
+<div class="utility">
+  <span>Av. Industrial, 780 — Jardim, Santo André/SP · (11) 96173-7865</span>
+  <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Dra+Carolinne+Ponsoni+Advogada+INSS+Av+Industrial+780+Santo+Andre+SP" target="_blank" rel="noreferrer">★ 5,0 no Google (49 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Carolinne Ponsoni<small>Advocacia Previdenciária</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5511961737865?text=Ol%C3%A1%2C%20Dra.%20Carolinne!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Fale conosco</a>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroCopy reveal">
+    <span class="eyebrow">Advocacia Previdenciária · INSS</span>
+    <h1>Clareza e segurança jurídica para o seu <em>benefício do INSS</em></h1>
+    <p>Aposentadorias, revisão de benefícios, pensão por morte e defesa contra descontos indevidos — atuação previdenciária próxima e especializada, para você entender cada etapa do seu processo.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="https://wa.me/5511961737865?text=Ol%C3%A1%2C%20Dra.%20Carolinne!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+      <a class="textLink" href="tel:+5511961737865">Ligar: (11) 96173-7865</a>
+    </div>
+  </div>
+  <div class="heroImage reveal">
+    <img src="assets/carolinne-ponsoni.webp" alt="Dra. Carolinne Ponsoni, advogada previdenciarista" width="960" height="960" loading="eager" fetchpriority="high" decoding="async">
+  </div>
+</section>
+</div>
+
+<div class="heroStats reveal">
+  <div><strong>5,0 ★</strong><span>nota no Google — 49 avaliações</span></div>
+  <div><strong>INSS</strong><span>Aposentadoria, revisão de benefícios, pensão e BPC/LOAS</span></div>
+  <div><strong>@carolponsoni_</strong><span>conteúdo educativo sobre direitos previdenciários</span></div>
+</div>
+
+<section id="escritorio">
+  <div class="intro reveal">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Seu benefício exige<br><em>atenção e técnica</em></h2>
+      <p>Atuação dedicada ao Direito Previdenciário, acompanhando cada etapa do processo junto ao INSS — do requerimento inicial à revisão de um benefício já concedido. Atendimento próximo e linguagem clara, para que você entenda exatamente qual é o seu direito e como conquistá-lo.</p>
+    </div>
+  </div>
+  <figure class="introFigure reveal">
+    <img src="assets/office-illustrative.webp" alt="Ambiente de escritório de advocacia" loading="lazy">
+    <figcaption>Imagem ilustrativa</figcaption>
+  </figure>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead reveal">
+    <div><span class="sectionNumber" style="color:var(--gold)">02</span></div>
+    <h2>Áreas de atuação em Direito Previdenciário</h2>
+  </div>
+  <ul class="practiceList reveal">
+    <li><span>—</span><div><h3>Aposentadorias</h3><p>Por idade, por tempo de contribuição, por invalidez e demais modalidades previstas em lei.</p></div></li>
+    <li><span>—</span><div><h3>Revisão de aposentadoria</h3><p>Recálculo de benefícios pagos a menor ou concedidos de forma incorreta pelo INSS.</p></div></li>
+    <li><span>—</span><div><h3>Pensão por morte</h3><p>Orientação para dependentes, incluindo casos de filhos e situações de acúmulo de benefícios.</p></div></li>
+    <li><span>—</span><div><h3>Benefício assistencial (BPC/LOAS)</h3><p>Para idosos e pessoas com deficiência em situação de vulnerabilidade.</p></div></li>
+    <li><span>—</span><div><h3>Descontos indevidos no INSS</h3><p>Identificação e restituição de valores descontados sem autorização do benefício.</p></div></li>
+    <li><span>—</span><div><h3>Negativa do INSS</h3><p>Recursos administrativos e ações judiciais contra benefícios indeferidos ou cessados.</p></div></li>
+  </ul>
+</section>
+
+<!--
+  Depoimentos: seção removida de propósito. O Código de Ética da OAB veda
+  mecanismos de captação de clientela e promessa de resultado — depoimento
+  de cliente (mesmo real e autorizado) é zona de risco pra advogado.
+  A prova social desta seção é SEMPRE a nota agregada real do Google.
+-->
+<section id="equipe">
+  <div class="team reveal">
+    <h2>Equipe</h2>
+    <div class="teamGrid single">
+      <div class="teamCard">
+        <div class="teamPhotoFrame">
+          <img src="assets/carolinne-ponsoni.webp" alt="Carolinne Ponsoni, advogada previdenciarista" width="960" height="960" loading="lazy">
+        </div>
+        <div class="teamText">
+          <h3>Carolinne Ponsoni</h3>
+          <p class="role">Advogada Previdenciarista</p>
+          <ul>
+            <li>OAB nº ......../SP</li>
+            <li>Advocacia previdenciária: aposentadorias, revisão de benefícios, pensão por morte e BPC/LOAS</li>
+            <li>Conteúdo educativo sobre direitos do INSS no Instagram (@carolponsoni_)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof reveal">
+  <div class="stars">★★★★★</div>
+  <h2>5,0 de nota no Google</h2>
+  <p>49 avaliações reais de clientes atendidos</p>
+  <a href="https://www.google.com/maps/search/?api=1&query=Dra+Carolinne+Ponsoni+Advogada+INSS+Av+Industrial+780+Santo+Andre+SP" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+  <p class="disclaimer">Em observância ao Código de Ética e Disciplina da OAB e ao Provimento nº 205/2021, os relatos individuais de clientes não são reproduzidos neste site. As avaliações podem ser consultadas diretamente no Google.</p>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div class="reveal">
+      <h2>Vamos conversar sobre o seu caso?</h2>
+      <p>Envie uma mensagem pelo WhatsApp e conte, em poucas palavras, qual é a sua situação com o INSS. O retorno é feito diretamente pela advogada.</p>
+      <a class="btn primary" href="https://wa.me/5511961737865?text=Ol%C3%A1%2C%20Dra.%20Carolinne!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+    </div>
+    <div class="reveal">
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=Av.+Industrial%2C+780+-+Jardim%2C+Santo+Andr%C3%A9+-+SP%2C+09080-500&output=embed" loading="lazy" title="Localização do escritório Carolinne Ponsoni Advocacia"></iframe>
+      </div>
+      <dl class="contactCard afterMap">
+        <dt>Endereço</dt>
+        <dd>Av. Industrial, 780 — Jardim, Santo André/SP, 09080-500</dd>
+        <dt>Telefone</dt>
+        <dd>(11) 96173-7865</dd>
+        <dt>E-mail</dt>
+        <dd>carolinneadv@ponsoniadvocacia.com</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Carolinne Ponsoni Advocacia Previdenciária</div>
+  <nav>
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+  </nav>
+  <div class="socialIcons">
+    <a class="ig" href="https://www.instagram.com/carolponsoni_" target="_blank" rel="noreferrer" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.15-.55.55-.9 1.11-1.15 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.15 1.77.55.55 1.11.9 1.77 1.15.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.22-.6 1.77-1.15.55-.55.9-1.11 1.15-1.77.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43-.26-.66-.6-1.22-1.15-1.77-.55-.55-1.11-.9-1.77-1.15-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.36.29.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.36.13-.87.29-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34-.47-.18-.8-.4-1.15-.75-.35-.35-.57-.68-.75-1.15-.13-.36-.29-.87-.34-1.85C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.36-.13.87-.29 1.85-.34C9.01 3.81 9.33 3.8 12 3.8zm0 3.05a5.15 5.15 0 1 0 0 10.3 5.15 5.15 0 0 0 0-10.3zm0 8.5a3.35 3.35 0 1 1 0-6.7 3.35 3.35 0 0 1 0 6.7zm5.35-8.7a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+    </a>
+    <a class="fb" href="https://www.facebook.com/CarolinnePonsoniAdvocacia" target="_blank" rel="noreferrer" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-4 3.87-4 1.12 0 2.3.2 2.3.2v2.5h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.91h-2.4v7.04A10 10 0 0 0 22 12z"/></svg>
+    </a>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Carolinne Ponsoni Advocacia Previdenciária</span>
+    <span class="credit"><a href="https://ignisdigitalstudio.com" target="_blank" rel="noopener">Site criado por Ignis Digital Studio</a></span>
+  </div>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5511961737865?text=Ol%C3%A1%2C%20Dra.%20Carolinne!%20Vi%20o%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20meu%20benef%C3%ADcio%20do%20INSS." target="_blank" rel="noreferrer" aria-label="Fale conosco">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
