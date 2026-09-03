@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaque Mansano | Advogado Criminalista em Marília</title>
+<meta name="description" content="Defesa criminal técnica e humana em Marília/SP. Audiência de custódia, Habeas Corpus, Tribunal do Júri e plantão criminal 24 horas. 5,0★ no Google.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171410;--deep:#0a0805;--gold:#c9a227;--gold-deep:#7d631a;--cream:#f4f1ea;--paper:#faf8f4;
+  --muted:#726a5c;--line:#ddd4c0;--wa:#25D366;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+.utility{background:var(--deep);color:#e6dfc9;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap}
+
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;min-height:80px;flex-shrink:0;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:22px;color:var(--gold-deep);margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--gold-deep)}
+.navCta{border:1px solid var(--ink);color:var(--ink);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--ink);color:var(--gold)}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:960px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+
+/* Hero SPLIT_EDITORIAL fold-safe: texto à esquerda, foto grande full-bleed
+   à direita (position:absolute — tirada do fluxo pra não competir pelo
+   tamanho do grid, ver design-system.md). Trocado de CENTERED_AUTHORITY
+   (foto pequena centralizada) a pedido explícito do usuário — mesma lição
+   dos casos Renata Ruban e Jéssica Julião: foto grande em destaque, não
+   miniatura. */
+.hero{padding:0;display:grid;grid-template-columns:1fr 1fr;flex:1 1 auto;min-height:0}
+.heroCopy{padding:80px 6vw;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-deep);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,50px);line-height:1.1;margin:18px 0;max-width:14ch;color:var(--ink)}
+.hero h1 em{color:var(--gold-deep);font-style:italic}
+.heroCopy p{color:var(--muted);font-size:16px;max-width:440px;margin:0 0 28px}
+.heroActions{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.btn{padding:16px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px}
+.btn.primary{background:var(--ink);color:var(--gold)}
+.btn.primary:hover{background:var(--deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+.heroImage{position:relative;background:var(--deep);overflow:hidden}
+.heroImage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+@media(max-width:860px){
+  .hero{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
+  .heroCopy{padding:40px 24px 24px;flex:0 0 auto}
+  .heroImage{flex:1 1 auto;min-height:220px}
+}
+
+/* Faixa de métricas reais, fora do firstFold (statsStrip) */
+.statsStrip{background:var(--paper);border-bottom:1px solid var(--line);padding:20px 6vw;display:flex;justify-content:center;flex-wrap:wrap}
+.statsStrip div{padding:0 28px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-left:1px solid var(--line)}
+.statsStrip div:first-child{border-left:none}
+@media(max-width:640px){
+  .statsStrip{flex-direction:column;align-items:center;gap:10px}
+  .statsStrip div{border-left:none;padding:10px 0 0;border-top:1px solid var(--line)}
+  .statsStrip div:first-child{border-top:none;padding-top:0}
+}
+
+/* Intro */
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--gold-deep);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.sectionNumber{font-family:var(--serif);color:var(--gold-deep);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+/* Áreas de atuação */
+.practice{background:var(--deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid rgba(201,162,39,.2)}
+.practiceList li:first-child{border-top:1px solid rgba(201,162,39,.2)}
+.practiceList span{color:var(--gold);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#c7bfae;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+/* Equipe */
+.team{max-width:960px;margin:0 auto}
+.team h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 40px;text-align:center}
+.teamGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;justify-content:center}
+.teamGrid.single{max-width:760px;margin:0 auto}
+.teamCard{border:1px solid var(--line);background:var(--cream);padding:32px}
+/* Advogado(a) solo: foto à esquerda, texto à direita (não empilhado) — pedido explícito do usuário 03/09/26 */
+.teamGrid.single .teamCard{display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:center}
+.teamGrid.single .teamPhotoFrame{margin-bottom:0}
+@media(max-width:640px){
+  .teamGrid.single .teamCard{grid-template-columns:1fr}
+  .teamGrid.single .teamPhotoFrame{max-width:240px;margin:0 auto 18px}
+}
+.teamPhotoFrame{background:var(--paper);border:1px solid var(--line);padding:8px;margin-bottom:18px}
+.teamPhotoFrame img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+.teamCard h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:0 0 4px}
+.teamCard .role{color:var(--gold-deep);font-size:14px;margin:0 0 12px}
+.teamCard ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
+@media(max-width:760px){.teamGrid{grid-template-columns:1fr;gap:32px}}
+
+/* Prova social real */
+.proof{background:var(--deep);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:var(--gold)}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#cfc7b4;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--ink)}
+.proof .disclaimer{max-width:520px;margin:20px auto 0;font-size:11px;line-height:1.6;color:#a89f8c}
+
+/* Contato */
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-deep);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.contactCard.afterMap{margin-top:24px}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--deep);color:#b8ae98;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{display:inline-flex;flex-direction:column;align-items:center;gap:10px}
+footer .brandLogo{width:96px}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:#fff}
+
+/* WhatsApp flutuante */
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="firstFold">
+<div class="utility">
+  <span>Rua Rafael Ottaiano, 258 – Sala 102, Bloco A, Fragata, Marília/SP · (14) 99105-4360</span>
+  <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Isaque+Mansano+Advogado+Criminalista+em+Mar%C3%ADlia" target="_blank" rel="noreferrer">★ 5,0 no Google (167 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Mansano<small>Advogados</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5514991054360?text=Ol%C3%A1%2C%20Dr.%20Isaque%21%20Vim%20pelo%20site%20e%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." target="_blank" rel="noreferrer">Fale conosco</a>
+  <button class="menuToggle" aria-label="Abrir menu">☰</button>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroCopy reveal">
+    <span class="eyebrow">Plantão Criminal 24h · Marília/SP</span>
+    <h1>Defesa criminal <em>especializada</em> em Marília</h1>
+    <p>Atuação técnica, ética e humana em casos que não podem esperar — da audiência de custódia ao Tribunal do Júri, com atendimento disponível 24 horas.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="https://wa.me/5514991054360?text=Ol%C3%A1%2C%20Dr.%20Isaque%21%20Vim%20pelo%20site%20e%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." target="_blank" rel="noreferrer">Fale com o advogado ↗</a>
+      <a class="textLink" href="#atuacao">Ver áreas de atuação ↓</a>
+    </div>
+  </div>
+  <div class="heroImage reveal">
+    <img src="assets/hero-forum.webp" alt="Isaque Mansano, advogado criminalista, em frente ao Fórum de Marília" loading="eager" fetchpriority="high" decoding="async">
+  </div>
+</section>
+</div>
+
+<div class="statsStrip">
+  <div>5,0★ · 167 avaliações Google</div>
+  <div>Plantão jurídico 24 horas</div>
+  <div>Marília e região</div>
+</div>
+
+<section id="escritorio">
+  <div class="intro reveal">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Cada minuto conta quando<br>a <em>liberdade</em> está em jogo</h2>
+      <p>O atendimento em casos criminais exige mais do que conhecimento jurídico — exige experiência, estratégia e humanidade. Cada caso é uma oportunidade de compreender a situação do cliente, analisar o processo e orientar a família com clareza. A pessoa pode estar privada da liberdade, mas seus direitos permanecem — e é isso que a atuação técnica e incansável do advogado criminalista assegura, do primeiro atendimento até o fim do processo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead reveal">
+    <div><span class="sectionNumber" style="color:var(--gold)">02</span></div>
+    <h2>Atuação criminal para momentos que não podem esperar</h2>
+  </div>
+  <ul class="practiceList reveal">
+    <li><span>—</span><div><h3>Audiência de Custódia</h3><p>Acompanhamento imediato em casos de prisão em flagrante, dentro do prazo legal de 24 horas.</p></div></li>
+    <li><span>—</span><div><h3>Habeas Corpus</h3><p>Pedidos de liberdade e revogação de prisão preventiva ou temporária.</p></div></li>
+    <li><span>—</span><div><h3>Tribunal do Júri</h3><p>Defesa técnica em crimes dolosos contra a vida, da instrução ao plenário.</p></div></li>
+    <li><span>—</span><div><h3>Tráfico de Drogas e Porte para Uso</h3><p>Análise técnica da tipificação e da prova para construir a defesa mais adequada a cada caso.</p></div></li>
+    <li><span>—</span><div><h3>Violência Doméstica</h3><p>Defesa conduzida com sigilo, respeito e atenção às particularidades de cada caso.</p></div></li>
+    <li><span>—</span><div><h3>Execução Penal</h3><p>Progressão de regime, livramento condicional e demais benefícios da execução da pena.</p></div></li>
+  </ul>
+</section>
+
+<section id="equipe">
+  <div class="team">
+    <h2 class="reveal">Conheça o advogado</h2>
+    <div class="teamGrid single reveal">
+      <div class="teamCard">
+        <div class="teamPhotoFrame">
+          <img src="assets/equipe-tribunal.webp" alt="Isaque Mansano em atuação no Tribunal de Marília" loading="lazy">
+        </div>
+        <div class="teamInfo">
+          <h3>Isaque Mansano</h3>
+          <p class="role">Advogado Criminalista</p>
+          <ul>
+            <li>Atuação focada em Direito Penal e Processo Penal</li>
+            <li>Atendimento em plantão criminal 24 horas</li>
+            <li>5,0★ em 167 avaliações reais no Google</li>
+            <li>Escritório que acolhe a comunidade LGBTQ+ com respeito e sigilo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof reveal">
+  <div class="stars">★★★★★</div>
+  <h2>5,0 de nota no Google</h2>
+  <p>167 avaliações reais de clientes atendidos</p>
+  <a href="https://www.google.com/maps/search/?api=1&query=Isaque+Mansano+Advogado+Criminalista+em+Mar%C3%ADlia" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+  <p class="disclaimer">Em observância ao Código de Ética e Disciplina da OAB e ao Provimento nº 205/2021, os relatos individuais de clientes não são reproduzidos neste site. As avaliações podem ser consultadas diretamente no Google.</p>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div class="reveal">
+      <h2>Precisa de atendimento agora?</h2>
+      <p>Envie uma mensagem pelo WhatsApp. O escritório atende 24 horas, inclusive em casos de urgência como prisão em flagrante.</p>
+      <a class="btn primary" href="https://wa.me/5514991054360?text=Ol%C3%A1%2C%20Dr.%20Isaque%21%20Vim%20pelo%20site%20e%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." target="_blank" rel="noreferrer">Fale com o advogado ↗</a>
+    </div>
+    <div class="reveal">
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=Rua+Rafael+Ottaiano%2C+258+-+Sala+102%2C+Bloco+A+-+Fragata%2C+Mar%C3%ADlia+-+SP%2C+17519-040&output=embed" loading="lazy" title="Localização do escritório"></iframe>
+      </div>
+      <dl class="contactCard afterMap">
+        <dt>Endereço</dt>
+        <dd>Rua Rafael Ottaiano, 258 – Sala 102, Bloco A, Fragata, Marília/SP – 17519-040</dd>
+        <dt>Telefone</dt>
+        <dd>(14) 99105-4360</dd>
+        <dt>Horário</dt>
+        <dd>Aberto 24 horas — plantão criminal permanente</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">
+    <img class="brandLogo" src="assets/logo.webp" alt="Mansano Advogados">
+  </div>
+  <nav>
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+  </nav>
+  <span>© <span id="year"></span> Mansano Advocacia Criminal</span>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5514991054360?text=Ol%C3%A1%2C%20Dr.%20Isaque%21%20Vim%20pelo%20site%20e%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." target="_blank" rel="noreferrer" aria-label="Fale conosco">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
