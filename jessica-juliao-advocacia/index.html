@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jéssica Julião Advocacia | Advocacia de Família em Bauru/SP</title>
+<meta name="description" content="Advocacia de Família em Bauru, Piratininga e online — divórcio, guarda, pensão alimentícia, união estável e sucessões, com atuação próxima e estratégica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --terracotta:#8a3226;--terracotta-deep:#5e1f17;--deep:#2e1a1a;
+  --rose:#c98a6f;--cream:#f7f0ea;--paper:#fdfaf6;
+  --ink:#2b2020;--muted:#7d6b64;--line:#e3d3c8;--wa:#25D366;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+img{max-width:100%;display:block}
+section{padding:88px 24px}
+
+.utility{background:var(--deep);color:#e6d3ce;font-size:12px;padding:9px 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.utility a{opacity:.9}
+.utility a:hover{opacity:1;text-decoration:underline}
+.utility .rating{white-space:nowrap;color:var(--rose)}
+
+.nav{background:var(--paper);border-bottom:1px solid var(--line);padding:0 6vw;display:flex;align-items:center;gap:32px;min-height:80px;flex-shrink:0;position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:21px;color:var(--terracotta);margin-right:auto;line-height:1.2}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navLinks{display:flex;gap:26px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.navLinks a{border-bottom:1px solid transparent;padding-bottom:4px}
+.navLinks a:hover{border-color:var(--terracotta)}
+.navCta{border:1px solid var(--terracotta);color:var(--terracotta);padding:11px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.navCta:hover{background:var(--terracotta);color:#fff}
+.menuToggle{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;align-items:center;justify-content:center}
+@media(max-width:960px){
+  .navLinks{display:none}
+  .menuToggle{display:flex}
+}
+
+/* firstFold: barra utilitária + nav + hero numa coluna de no mínimo 1 tela.
+   .hero nunca recebe min-height fixo — cresce (flex:1) até a borda quando
+   o conteúdo cabe, e cede espaço graciosamente quando não cabe. */
+.firstFold{min-height:100vh;display:flex;flex-direction:column}
+.firstFold{min-height:100svh}
+/* Hero SPLIT_EDITORIAL fold-safe: texto à esquerda, foto full-bleed à
+   direita. A foto sai do fluxo (position:absolute) pra nunca ditar a
+   altura da linha do grid — ver design-system.md → "Hero full-bleed
+   fold-safe" e a lição do caso Renata Ruban em modelos/advocacia.md. */
+.hero{padding:0;display:grid;grid-template-columns:1fr 1fr;flex:1 1 auto;min-height:0}
+.heroCopy{padding:clamp(28px,6vh,72px) 6vw;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--terracotta);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.4vw,54px);line-height:1.1;margin:16px 0;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--terracotta)}
+.heroLead{color:var(--muted);font-size:16px;max-width:44ch;margin:0 0 28px}
+.heroActions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:0}
+.btn{padding:16px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-flex;align-items:center;gap:10px}
+.btn.primary{background:var(--terracotta);color:#fff}
+.btn.primary:hover{background:var(--terracotta-deep)}
+.textLink{font-size:12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--muted);padding-bottom:5px}
+.heroImage{position:relative;background:var(--deep);overflow:hidden}
+.heroImage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+/* gap (não padding+border por item) pra sobreviver ao wrap sem sobras
+   visuais — a coluna de texto aqui é só ~45% do viewport, bem mais
+   estreita que um hero centralizado de página inteira. */
+.heroStats{display:flex;flex-wrap:wrap;gap:16px 32px;margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
+.heroStats strong{display:block;font-family:var(--serif);font-size:17px;color:var(--terracotta);margin-bottom:2px}
+.heroStats span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:900px){
+  /* Mesma lógica do desktop, empilhada: texto com altura natural
+     (flex:0, nunca encolhe), foto flex:1 preenchendo o que sobrar até a
+     dobra — com o <img> já fora do fluxo, .heroImage não tem tamanho
+     próprio pra "brigar", só o piso mínimo abaixo garante que nunca
+     vire uma tarja ilegível. */
+  .hero{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
+  .heroCopy{padding:28px 24px 20px;flex:0 0 auto}
+  .heroImage{flex:1 1 auto;min-height:160px}
+  /* Empilhado, a caixa da foto fica bem mais larga que alta (o inverso
+     do retrato original 622×761) — object-position:top center corta
+     quase até o queixo. Descer o foco pra ~20% do eixo vertical mostra
+     o rosto inteiro em vez de cortá-lo. */
+  .heroImage img{object-position:center 20%}
+  .heroLead{max-width:none}
+  .heroStats{margin-top:18px;padding-top:12px;gap:12px 24px}
+}
+@media(max-width:480px){
+  .utility{font-size:11px;padding:8px 20px}
+  .heroCopy{padding:20px 20px 16px}
+  .eyebrow{font-size:10px;letter-spacing:.14em}
+  .hero h1{font-size:clamp(26px,8vw,32px);margin:8px 0}
+  .heroLead{font-size:14px;line-height:1.5;margin-bottom:18px}
+  .heroActions{gap:12px}
+  .btn{padding:13px 18px}
+  .heroImage{min-height:220px}
+  .heroStats{flex-direction:column;gap:10px;margin-top:14px;padding-top:10px}
+}
+
+/* Intro */
+.intro{max-width:960px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0 0 24px;line-height:1.1}
+.intro h2 em{color:var(--terracotta);font-style:italic}
+.intro p{color:var(--muted);font-size:16px;line-height:1.8;max-width:640px}
+.sectionNumber{font-family:var(--serif);color:var(--terracotta);font-size:13px;display:inline-block;transform:translateY(8px)}
+@media(max-width:760px){.intro{grid-template-columns:1fr;gap:20px}}
+
+/* Áreas de atuação */
+.practice{background:var(--deep);color:#fff}
+.practiceHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.practiceHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+.practiceList{max-width:960px;margin:0 auto;list-style:none;padding:0}
+.practiceList li{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid #513531}
+.practiceList li:first-child{border-top:1px solid #513531}
+.practiceList span{color:var(--rose);font-family:var(--serif);display:inline-block;transform:translateY(6px)}
+.practiceList h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:20px}
+.practiceList p{margin:0;color:#d9c4bd;font-size:14px;line-height:1.6}
+@media(max-width:760px){.practiceHead{grid-template-columns:1fr;gap:16px}}
+
+/* Equipe — split grande: foto real dentro de uma moldura (mesma
+   linguagem .teamPhotoFrame do resto do acervo), mostrando a foto
+   INTEIRA, nunca cortada. Lição (caso Jéssica Julião): object-fit:cover
+   numa coluna bem mais larga que alta força um zoom cru no
+   rosto/cabelo e perde a composição original da foto — quando a foto é
+   boa o bastante pra merecer destaque, ela merece aparecer inteira, não
+   espremida por object-fit:cover. Aqui a foto fica contida (width:100%,
+   height:auto, sem crop) dentro de um frame com moldura, centralizada
+   na coluna. */
+/* #equipe fica num único background (var(--paper), igual ao body) do
+   topo ao fundo — título, foto e conteúdo não podem ter fundos
+   diferentes entre si, senão cria uma costura visível no meio da
+   seção. Título sempre em cima, full-width, ANTES do split foto/texto
+   — inclusive no mobile empilhado, pra não deixar o "03 Conheça a
+   advogada" preso embaixo da foto. */
+#equipe{padding:88px 24px 0;background:var(--paper)}
+.teamHead{max-width:960px;margin:0 auto 48px;display:grid;grid-template-columns:180px 1fr;gap:48px}
+.teamHead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,46px);margin:0;line-height:1.1}
+/* column-gap controla a distância entre foto e texto num único lugar —
+   antes cada coluna tinha seu próprio padding "de fora" (40px + 6vw) que
+   somavam ~126px de vão morto no meio. Foto encostada no fim da sua
+   coluna (justify-content:flex-end) pra ficar perto do texto de verdade,
+   não só centralizada solta no meio do espaço branco. */
+.teamSplit{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;column-gap:clamp(24px,4vw,56px)}
+.teamPhotoLarge{display:flex;align-items:center;justify-content:flex-end;padding:0 0 56px 40px}
+.teamPhotoLarge .frame{background:#fff;border:1px solid var(--line);padding:10px;max-width:420px;width:100%;box-shadow:0 20px 44px rgba(46,26,26,.12)}
+.teamPhotoLarge .frame img{display:block;width:100%;height:auto;border-radius:2px}
+.teamContent{padding:0 6vw 56px 0;display:flex;flex-direction:column;justify-content:center}
+.teamContent h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 4px}
+.teamContent .role{color:var(--terracotta);font-size:15px;margin:0 0 20px}
+.teamContent ul{margin:0;padding-left:20px;color:var(--muted);font-size:14px;line-height:2}
+@media(max-width:760px){.teamHead{grid-template-columns:1fr;gap:16px}}
+@media(max-width:860px){
+  .teamSplit{grid-template-columns:1fr}
+  .teamPhotoLarge{justify-content:center;padding:0 24px 32px}
+  .teamContent{padding:0 24px 40px}
+}
+
+/* Prova social real */
+.proof{background:var(--terracotta);color:#fff;text-align:center}
+.proof .stars{font-size:28px;letter-spacing:4px;color:#f4d9c9}
+.proof h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:14px 0 8px}
+.proof p{color:#f0d9d0;margin:0 0 20px}
+.proof a{border:1px solid #fff;padding:12px 22px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:inline-block}
+.proof a:hover{background:#fff;color:var(--terracotta)}
+.proof .disclaimer{max-width:520px;margin:20px auto 0;font-size:11px;line-height:1.6;color:#eccdc2}
+
+/* Contato */
+.contact{background:var(--cream)}
+.contactGrid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 16px}
+.contact p{color:var(--muted);margin:0 0 24px}
+.contactCard{border:1px solid var(--line);padding:24px;background:var(--paper)}
+.contactCard dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--terracotta);margin-top:16px}
+.contactCard dt:first-child{margin-top:0}
+.contactCard dd{margin:4px 0 0;font-size:15px}
+.mapWrap{border:1px solid var(--line);height:260px;overflow:hidden}
+.contactCard.afterMap{margin-top:24px}
+.mapWrap iframe{width:100%;height:100%;border:0}
+@media(max-width:760px){.contactGrid{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--deep);color:#d3bdb6;padding:40px 24px;text-align:center;font-size:12px}
+footer .brand{color:#fff}
+footer nav{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer nav a:hover{color:#fff}
+
+/* WhatsApp flutuante */
+.waFloat{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30}
+.waFloat svg{width:28px;height:28px;fill:#fff}
+.js .waFloat::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:pulse 2.2s ease-out infinite;z-index:-1}
+@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .waFloat::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="firstFold">
+<div class="utility">
+  <span>R. Virgílio Malta, 17-76 — Vila Mesquita, Bauru/SP · (14) 99733-0957</span>
+  <a class="rating" href="https://www.google.com/maps/search/?api=1&query=Advogada+J%C3%A9ssica+Juli%C3%A3o+Bauru" target="_blank" rel="noreferrer">★ 5,0 no Google (303 avaliações)</a>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#inicio">Jéssica Julião<small>Advocacia de Família</small></a>
+  <div class="navLinks">
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a class="navCta" href="https://wa.me/5514997330957?text=Ol%C3%A1%2C%20Dra.%20J%C3%A9ssica%2C%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco</a>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="heroCopy reveal">
+    <span class="eyebrow">Advocacia de Família · Bauru, Piratininga e online</span>
+    <h1>Eu falo <em>por você</em></h1>
+    <p class="heroLead">Atuação próxima, estratégica e humana em divórcio, guarda, pensão alimentícia, união estável e sucessões — para você atravessar esse momento com clareza e segurança jurídica.</p>
+    <div class="heroActions">
+      <a class="btn primary" href="https://wa.me/5514997330957?text=Ol%C3%A1%2C%20Dra.%20J%C3%A9ssica%2C%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+      <a class="textLink" href="#atuacao">Conheça a atuação ↓</a>
+    </div>
+    <div class="heroStats">
+      <div><strong>5,0★</strong><span>303 avaliações no Google</span></div>
+      <div><strong>+7,9 mil</strong><span>seguidores no Instagram</span></div>
+      <div><strong>OAB</strong><span>Vice-Repres. Piratininga</span></div>
+    </div>
+  </div>
+  <div class="heroImage reveal">
+    <img src="assets/jessica-hero.webp" alt="Dra. Jéssica Julião, advogada de família" width="622" height="761" loading="eager" fetchpriority="high" decoding="async">
+  </div>
+</section>
+</div>
+
+<section id="escritorio">
+  <div class="intro">
+    <div><span class="sectionNumber">01</span></div>
+    <div>
+      <h2>Cada família tem<br><em>uma história</em></h2>
+      <p>A Dra. Jéssica Julião atua com dedicação exclusiva ao Direito de Família, acompanhando cada cliente com escuta atenta e orientação clara sobre os caminhos possíveis. Atendimento em Bauru, Piratininga e também online, para quem precisa de suporte jurídico onde estiver.</p>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="atuacao">
+  <div class="practiceHead">
+    <div><span class="sectionNumber" style="color:var(--rose)">02</span></div>
+    <h2>Áreas de Atuação</h2>
+  </div>
+  <ul class="practiceList">
+    <li><span>—</span><div><h3>Divórcio e Separação</h3><p>Condução consensual ou litigiosa, com foco em resolver com o menor desgaste possível para você e sua família.</p></div></li>
+    <li><span>—</span><div><h3>Guarda e Convivência</h3><p>Definição de guarda, regime de convivência e questões relacionadas ao bem-estar dos filhos.</p></div></li>
+    <li><span>—</span><div><h3>Pensão Alimentícia</h3><p>Fixação, revisão e execução de pensão alimentícia, com atuação tanto para quem pede quanto para quem responde.</p></div></li>
+    <li><span>—</span><div><h3>União Estável</h3><p>Reconhecimento, dissolução e contratos de união estável, com segurança jurídica para o casal.</p></div></li>
+    <li><span>—</span><div><h3>Inventário e Partilha</h3><p>Condução de inventários judiciais e extrajudiciais e partilha de bens entre herdeiros.</p></div></li>
+    <li><span>—</span><div><h3>Planejamento Familiar e Patrimonial</h3><p>Orientação preventiva para organizar o patrimônio da família e evitar conflitos futuros.</p></div></li>
+  </ul>
+</section>
+
+<section id="equipe">
+  <div class="teamHead">
+    <div><span class="sectionNumber">03</span></div>
+    <h2>Conheça a advogada</h2>
+  </div>
+  <div class="teamSplit">
+    <div class="teamPhotoLarge">
+      <div class="frame">
+        <img src="assets/jessica-atendimento.webp" alt="Dra. Jéssica Julião em atendimento" width="623" height="831" loading="lazy">
+      </div>
+    </div>
+    <div class="teamContent">
+      <h3>Dra. Jéssica Julião</h3>
+      <p class="role">Advogada de Família</p>
+      <ul>
+        <li>Vice-Representante da OAB Piratininga</li>
+        <li>Atendimento em Bauru/SP, Piratininga/SP e online</li>
+        <li>Escritório que acolhe a comunidade LGBTQ+</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="stars">★★★★★</div>
+  <h2>5,0 de nota no Google</h2>
+  <p>303 avaliações reais de clientes atendidos</p>
+  <a href="https://www.google.com/maps/search/?api=1&query=Advogada+J%C3%A9ssica+Juli%C3%A3o+Bauru" target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+  <p class="disclaimer">Em observância ao Código de Ética e Disciplina da OAB e ao Provimento nº 205/2021, os relatos individuais de clientes não são reproduzidos neste site. As avaliações podem ser consultadas diretamente no Google.</p>
+</section>
+
+<section class="contact" id="contato">
+  <div class="contactGrid">
+    <div>
+      <h2>Vamos conversar sobre o seu caso?</h2>
+      <p>Envie uma mensagem pelo WhatsApp. A Dra. Jéssica retorna o contato para entender sua necessidade e orientar os próximos passos.</p>
+      <a class="btn primary" href="https://wa.me/5514997330957?text=Ol%C3%A1%2C%20Dra.%20J%C3%A9ssica%2C%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer">Fale conosco ↗</a>
+    </div>
+    <div>
+      <div class="mapWrap">
+        <iframe src="https://www.google.com/maps?q=R.%20Virgilio%20Malta%2C%2017-76%20-%20Vila%20Mesquita%2C%20Bauru%20-%20SP%2C%2017014-440&output=embed" loading="lazy" title="Localização do escritório"></iframe>
+      </div>
+      <dl class="contactCard afterMap">
+        <dt>Endereço</dt>
+        <dd>R. Virgílio Malta, 17-76 — Vila Mesquita, Bauru/SP · Share Offices Coworking</dd>
+        <dt>Telefone / WhatsApp</dt>
+        <dd>(14) 99733-0957</dd>
+        <dt>Atendimento</dt>
+        <dd>Segunda a sexta, mediante agendamento</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Jéssica Julião Advocacia</div>
+  <nav>
+    <a href="#escritorio">Escritório</a>
+    <a href="#atuacao">Áreas de atuação</a>
+    <a href="#equipe">Equipe</a>
+    <a href="https://www.instagram.com/dra.jessicajuliao/" target="_blank" rel="noreferrer">Instagram</a>
+    <a href="https://www.linkedin.com/in/j%C3%A9ssica-juli%C3%A3o-45592a192/" target="_blank" rel="noreferrer">LinkedIn</a>
+  </nav>
+  <span>© <span id="year"></span> Jéssica Julião Advocacia</span>
+</footer>
+
+<a class="waFloat" href="https://wa.me/5514997330957?text=Ol%C3%A1%2C%20Dra.%20J%C3%A9ssica%2C%20gostaria%20de%20conversar%20sobre%20o%20meu%20caso." target="_blank" rel="noreferrer" aria-label="Fale conosco">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.3s1 2.6 1.1 2.8c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
