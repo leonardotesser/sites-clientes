@@ -524,6 +524,46 @@
   text-align: center;
 }
 
+/* ---------- Tradicoes: duas cartas lado a lado ----------
+   Mesma "grade de fio" de .recursos (#como-funciona, mais abaixo):
+   gap:1px com fundo dourado por baixo funciona como divisoria fina
+   entre as cartas, sem precisar de border em cada item. So que fixo em
+   2 colunas — sao sempre 2 tradicoes, nao 4 recursos, entao nao usa
+   .recursos direto (aquele e pensado pro layout de 4). */
+.tradicoes__grade {
+  margin-top: clamp(1.6rem, 4vh, 2.4rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: color-mix(in srgb, var(--ouro) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ouro) 14%, transparent);
+}
+
+@media (max-width: 460px) {
+  .tradicoes__grade {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tradicoes__item {
+  padding: 1.5rem;
+  background: var(--preto);
+}
+
+.tradicoes__item h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--corpo);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--ouro);
+}
+
+.tradicoes__item p {
+  margin: 0;
+  font-size: 1.02rem;
+  color: color-mix(in srgb, var(--texto) 82%, transparent);
+}
+
 /* ---------- Oraculos: lista + imagem reservada ----------
    Mesmo formato de .secao--dirigente (texto + quadro reservado,
    .retrato-reservado), so espelhado: texto na coluna da ESQUERDA,
