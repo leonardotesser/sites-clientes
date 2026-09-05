@@ -917,6 +917,8 @@
   margin-top: 0.15rem;
   font-size: 0.78rem;
   text-align: center;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
 }
 
 /* Mesmo realce do menu do cabecalho (css/base.css, .topo__menu a) — fio
