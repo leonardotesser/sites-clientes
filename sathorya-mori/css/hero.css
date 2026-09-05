@@ -100,6 +100,7 @@
   padding-block: var(--alt-topo);
   background: var(--preto);
   overflow: hidden;
+  scroll-snap-align: start;
   isolation: isolate; /* prende o `screen` do brilho a este contexto */
 }
 

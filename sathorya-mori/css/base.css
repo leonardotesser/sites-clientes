@@ -69,11 +69,18 @@ html {
   -webkit-user-select: none;
   user-select: none;
   scroll-behavior: smooth;
+  /* Rolagem de secao em secao: ao soltar a roda/touchpad perto do topo
+     de uma .secao (ou do .hero), o navegador completa a rolagem ate
+     encaixar ali. "proximity" (nao "mandatory") deixa quem estiver no
+     meio de uma secao longa (#servicos, #faq) continuar lendo em paz —
+     so puxa pro encaixe quando o usuario ja estava quase la. */
+  scroll-snap-type: y proximity;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
   }
 }
 
@@ -585,6 +592,7 @@ html.cursor-pronto [contenteditable="true"] {
   width: var(--medida);
   margin-inline: auto;
   padding: clamp(4rem, 12vh, 9rem) 0;
+  scroll-snap-align: start;
 }
 
 /* Separador entre secoes de andaime — mas nao logo apos o hero, que ja
