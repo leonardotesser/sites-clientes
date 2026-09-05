@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 136">
+  <!--
+    Canto INFERIOR esquerdo. Nao e orn-canto.svg girado por CSS
+    (transform: scaleY(-1)) porque isso vira a caveirinha de cabeca pra
+    baixo junto com o resto — ela nao e simetrica.
+
+    Em vez disso, o espelhamento esta EMBUTIDO no arquivo: tudo fica
+    dentro de um grupo com translate(0,136) scale(1,-1), que reproduz o
+    mesmo efeito visual do scaleY(-1) em CSS. A caveirinha ganha um
+    segundo flip local que cancela exatamente o flip do grupo pai — ela
+    sai na posicao espelhada (embaixo), mas com a face voltada pra cima.
+
+    POR QUE O FLIP LOCAL E translate(0 57.7) E NAO transform-origin
+    A primeira versao usava transform-box="fill-box"
+    transform-origin="center", que sao propriedades CSS escritas como
+    atributo de apresentacao. Aqui o arquivo e consumido como MASCARA
+    CSS — ou seja, renderizado em modo SVG-como-imagem, dentro de uma
+    data: URI — e nesse contexto as duas nao pegaram: o flip aconteceu em
+    torno do centro do viewBox, nao do centro da caveirinha, e ela foi
+    parar ~80u acima do lugar, solta no meio do trilho.
+
+    translate(0 57.7) scale(1 -1) faz a mesma coisa em SVG 1.1 puro:
+    manda y -> 57.7 - y, e 57.7 e a soma dos extremos da caixa da
+    caveirinha (19.4 e 38.3), entao o intervalo cai exatamente sobre si
+    mesmo. Sem depender de nenhuma propriedade CSS.
+
+    O ARCO SAIU DE PROPOSITO — mesma razao descrita em orn-canto.svg.
+  -->
+  <defs>
+    <linearGradient id="cauda-b" gradientUnits="userSpaceOnUse" x1="249" x2="292">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".55" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fio-b" gradientUnits="userSpaceOnUse" x1="70" x2="127">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".5" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(0 136) scale(1 -1)">
+    <g fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+      <path d="M1.5 6.5H186"/>
+      <path d="M1.5 6.5V88"/>
+      <path d="M209.6 6.5h6"/>
+      <path d="M224 1.6 232 6.5 224 11.4 216 6.5Z" stroke-linejoin="miter"/>
+      <path d="M249 6.5H292" stroke="url(#cauda-b)" stroke-width="1.1"/>
+      <path d="M74 15.5H127" stroke="url(#fio-b)" stroke-width="1.3"/>
+    </g>
+
+    <g fill="#fff">
+      <path d="M180 3.4 194 6.5 180 9.6 183.4 6.5Z"/>
+      <path d="M206 3.3 209.2 6.5 206 9.7 202.8 6.5Z"/>
+      <path d="M240.5 3.3 243.7 6.5 240.5 9.7 237.3 6.5Z"/>
+      <path d="M224 4.3 226.2 6.5 224 8.7 221.8 6.5Z"/>
+
+      <!-- caveirinha: flip local que cancela o flip do grupo pai -->
+      <path transform="translate(0 57.7) scale(1 -1)"
+            fill-rule="evenodd" d="M23 19.4c-4.5 0-7.9 3.4-7.9 8v3.9c0 1.7 1 2.9 2.4 3.4v2.2c0 .8.6 1.4 1.4 1.4h8.2c.8 0 1.4-.6 1.4-1.4v-2.2c1.4-.5 2.4-1.7 2.4-3.4v-3.9c0-4.6-3.4-8-7.9-8Zm-4.1 7.6c1.1 0 1.9 1 1.9 2.2s-.8 2.2-1.9 2.2-1.9-1-1.9-2.2.8-2.2 1.9-2.2Zm8.2 0c1.1 0 1.9 1 1.9 2.2s-.8 2.2-1.9 2.2-1.9-1-1.9-2.2.8-2.2 1.9-2.2ZM23 31.7l1.4 2.5h-2.8zm-2.9 3.6h.9v2.7h-.9zm2.5 0h.9v2.7h-.9zm2.5 0h.9v2.7h-.9z"/>
+    </g>
+
+    <g>
+      <path fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"
+            d="M62.4 24.4c-5.6-.7-9.4-3.5-9.4-6.5 0-2.4 2.3-3.8 4.2-2.7 1.7 1 1.7 3.3.1 4.4"/>
+      <path fill="#fff"
+            d="M63 24.4c3.9-.5 7.5-1.4 10.9-2.8 2.6-2.4 5-5.4 7.1-9-3.2 4.9-6.4 8.2-9.4 9.9-2.7.7-5.5 1.3-8.6 1.9Z"/>
+    </g>
+
+    <g transform="translate(-5 9) matrix(0 1 1 0 0 0)">
+      <path fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"
+            d="M62.4 24.4c-5.6-.7-9.4-3.5-9.4-6.5 0-2.4 2.3-3.8 4.2-2.7 1.7 1 1.7 3.3.1 4.4"/>
+      <path fill="#fff"
+            d="M63 24.4c3.9-.5 7.5-1.4 10.9-2.8 2.6-2.4 5-5.4 7.1-9-3.2 4.9-6.4 8.2-9.4 9.9-2.7.7-5.5 1.3-8.6 1.9Z"/>
+    </g>
+  </g>
+</svg>

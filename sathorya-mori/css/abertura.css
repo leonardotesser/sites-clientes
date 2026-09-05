@@ -1,0 +1,163 @@
+/* ============================================================
+   ABERTURA — tela de entrada do site
+   ============================================================
+
+   COMO FUNCIONA
+   O site inteiro esta no DOM desde o primeiro byte. A abertura e so
+   uma cortina por cima. Isso e essencial: buscadores e leitores de
+   tela leem a pagina normalmente, e o conteudo nunca fica refem da
+   animacao.
+
+   A SAIDA E CSS PURO
+   A cortina some por animacao, com `both` fixando o estado final. Se o
+   JavaScript falhar, estiver bloqueado ou o navegador for antigo, o
+   site aparece do mesmo jeito. Preloader que depende de JS pra sumir
+   e a receita classica de site em branco pra sempre.
+
+   O QUE O JS FAZ (e so isso)
+   Decide se a abertura aparece hoje. O script fica inline no <head>,
+   antes de qualquer pintura, pra nao piscar a cortina em quem ja viu.
+
+   LINHA DO TEMPO
+     0s ....... 2,8s   moldura + titulo se formando (esquerda -> direita)
+     2,8s ..... 4,0s   respiro, tudo formado
+     4,0s ..... 5,4s   moldura + titulo somem (esquerda -> direita)
+     5,4s ..... 5,65s  tela preta
+     5,65s .... 6,35s  cortina preta se dissolve, o site aparece
+
+   POR QUE A SAIDA E METADE DA ENTRADA
+   Entrada e saida nao valem o mesmo. Na entrada cada instante entrega
+   informacao nova — o visitante esta descobrindo o nome. Na saida ele ja
+   leu e so quer chegar ao site; ver algo ir embora devagar cansa. Dai a
+   proporcao: formar 2,8s, sumir 1,4s.
+
+   O respiro e o trecho mais caro do conjunto, porque nele nada acontece.
+   1,2s bastam: o nome ja foi lido durante a formacao, que e progressiva.
+
+   O conteudo some ANTES da cortina. Por isso a tela fica preta no meio:
+   se a cortina saisse junto, o site apareceria por tras da moldura ainda
+   visivel.
+
+   Pra mudar o ritmo: --ciclo (formar + respirar + sumir) e --espera aqui.
+   --espera tem que ser >= --ciclo, senao a cortina comeca a sair antes de
+   a moldura terminar de sumir. A divisao interna do ciclo esta nos
+   percentuais de @keyframes varredura-ciclo.
+   ============================================================ */
+
+.abertura {
+  --ciclo: 5.4s;   /* formar 2,8s + respiro 1,2s + sumir 1,4s */
+  --espera: 5.65s; /* --ciclo + 0,25s de tela preta */
+  --saida: 0.7s;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--preto);
+  display: grid;
+  place-items: center;
+
+  animation: abertura-sai var(--saida) var(--espera) ease-in both;
+}
+
+@keyframes abertura-sai {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;   /* tira do fluxo de leitura no fim */
+    pointer-events: none; /* libera o clique no site */
+  }
+}
+
+/* O palco carrega moldura e titulo. E NELE que a varredura entra —
+   assim o mesmo gradiente atravessa os dois de uma vez. */
+.abertura__palco {
+  position: relative;
+  width: min(92vw, 1180px);
+  height: min(84vh, 664px);
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- VARREDURA DE IDA E VOLTA ----------
+   Diferente da .varredura de moldura.css, que so revela. Aqui a mesma
+   passada forma e depois desfaz, sempre da esquerda pra direita.
+
+   O truque esta na mascara. A de moldura.css tem tres faixas:
+
+     | opaco | degrade | transparente |          (300% de largura)
+
+   deslizar isso so consegue revelar. Esta aqui tem cinco:
+
+     | transp. | degrade | OPACO | degrade | transp. |   (500%)
+         A         B         C        D         E
+
+   Cada faixa mede uma largura do palco, entao a janela visivel cabe
+   exatamente numa faixa. Deslizando da posicao 100% ate 0%:
+
+     100%  janela na faixa E  -> nada aparece
+      50%  janela na faixa C  -> tudo formado
+       0%  janela na faixa A  -> nada de novo
+
+   E o sentido se mantem nos dois trechos: na descida de E pra C a
+   janela atravessa o degrade D (opaco a esquerda), entao o desenho
+   NASCE pela esquerda; de C pra A ela atravessa o degrade B
+   (transparente a esquerda), entao ele MORRE pela esquerda. Mesma
+   direcao na ida e na volta, com uma animacao so. */
+
+.varredura-ciclo {
+  --frente-ciclo: linear-gradient(90deg,
+      rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%,  /* A: vazio */
+      #000 40%,                                    /* B: nasce */
+      #000 60%,                                    /* C: formado */
+      rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%  /* D: morre / E: vazio */
+  );
+
+  -webkit-mask-image: var(--frente-ciclo);
+  mask-image: var(--frente-ciclo);
+  -webkit-mask-size: 500% 100%;
+  mask-size: 500% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  /* linear pelo mesmo motivo medido em moldura.css: em varredura longa,
+     curva de easing esvazia as pontas e vira tela parada. */
+  animation: varredura-ciclo var(--ciclo, 8s) linear both;
+}
+
+/* Percentuais calculados sobre --ciclo (5,4s). Mudar a duracao mantem as
+   proporcoes; mudar a divisao entre formar/respirar/sumir e aqui. */
+@keyframes varredura-ciclo {
+  0%   { -webkit-mask-position: 100% 0; mask-position: 100% 0; } /* vazio */
+  52%  { -webkit-mask-position:  50% 0; mask-position:  50% 0; } /* formado (2,8s) */
+  74%  { -webkit-mask-position:  50% 0; mask-position:  50% 0; } /* respiro (1,2s) */
+  100% { -webkit-mask-position:   0% 0; mask-position:   0% 0; } /* vazio (1,4s) */
+}
+
+.abertura__titulo {
+  width: min(76%, 820px);
+  height: auto;
+  display: block;
+}
+
+/* Ja viu a abertura hoje: nem chega a existir.
+   A classe e posta pelo script inline do <head>, antes da primeira
+   pintura, pra nao haver piscada. */
+.sem-abertura .abertura {
+  display: none;
+}
+
+/* Quem pediu menos movimento ve a abertura por um instante e vai direto
+   pro site: sem varredura, sem os 8 segundos de ciclo. */
+@media (prefers-reduced-motion: reduce) {
+  .abertura {
+    --espera: 0.6s;
+    --saida: 0.4s;
+  }
+  .varredura-ciclo {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: none;
+  }
+}

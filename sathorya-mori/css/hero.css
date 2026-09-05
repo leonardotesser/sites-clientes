@@ -1,0 +1,774 @@
+/* ============================================================
+   HERO — composicao em camadas
+
+   Reproduz assets/exemplo1.png (1672x941). Toda medida abaixo foi lida
+   da referencia pixel a pixel (build/ler-exemplo.py e companhia), nao
+   estimada no olho.
+
+   As camadas, de tras pra frente:
+
+     1. fundo preto          .hero
+     2. brilho dourado       .hero__brilho    (mix-blend-mode: screen)
+     3. sigilo (marca dagua) .hero__sigilo    (screen + opacidade baixa)
+     4. o casal              .hero__casal
+     5. veu escuro           .hero__veu       (contraste do texto)
+     6. moldura e texto      .hero__moldura / .hero__conteudo
+
+   POR QUE screen NO BRILHO E NO SIGILO
+   Nenhum dos dois tem transparencia — sao ouro sobre preto CHAPADO. Com
+   `screen`, todo pixel preto some sobre um fundo tambem preto (preto e o
+   elemento neutro dessa operacao). Recortar particula por particula seria
+   impossivel; o recorte acontece sozinho na composicao.
+   ============================================================ */
+
+/* Os SVGs do ornamento entram aqui embutidos como data: URI, nao como
+   url(assets/...). Uma mascara CSS esta sujeita a CORS, e um HTML aberto
+   com duplo clique roda em file:// — origem "null" — onde a mascara
+   falharia e o elemento sumiria por inteiro. Quem escreve estas linhas e
+   build/embutir-hero.py, a partir dos arquivos em assets/. */
+:root {
+  --svg-orn-canto: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20296%20136%27%3E%20%3Cdefs%3E%20%3ClinearGradient%20id=%27cauda%27%20gradientUnits=%27userSpaceOnUse%27%20x1=%27249%27%20x2=%27292%27%3E%20%3Cstop%20offset=%270%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%27.55%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%271%27%20stop-color=%27%23fff%27%20stop-opacity=%270%27/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id=%27fio%27%20gradientUnits=%27userSpaceOnUse%27%20x1=%2770%27%20x2=%27127%27%3E%20%3Cstop%20offset=%270%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%27.5%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%271%27%20stop-color=%27%23fff%27%20stop-opacity=%270%27/%3E%20%3C/linearGradient%3E%20%3C/defs%3E%20%3Cg%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%3E%20%3Cpath%20d=%27M1.5%206.5H186%27/%3E%20%3Cpath%20d=%27M1.5%206.5V88%27/%3E%20%3Cpath%20d=%27M209.6%206.5h6%27/%3E%20%3Cpath%20d=%27M224%201.6%20232%206.5%20224%2011.4%20216%206.5Z%27%20stroke-linejoin=%27miter%27/%3E%20%3Cpath%20d=%27M249%206.5H292%27%20stroke=%27url(%23cauda)%27%20stroke-width=%271.1%27/%3E%20%3Cpath%20d=%27M74%2015.5H127%27%20stroke=%27url(%23fio)%27%20stroke-width=%271.3%27/%3E%20%3C/g%3E%20%3Cg%20fill=%27%23fff%27%3E%20%3Cpath%20d=%27M180%203.4%20194%206.5%20180%209.6%20183.4%206.5Z%27/%3E%20%3Cpath%20d=%27M206%203.3%20209.2%206.5%20206%209.7%20202.8%206.5Z%27/%3E%20%3Cpath%20d=%27M240.5%203.3%20243.7%206.5%20240.5%209.7%20237.3%206.5Z%27/%3E%20%3Cpath%20d=%27M224%204.3%20226.2%206.5%20224%208.7%20221.8%206.5Z%27/%3E%20%3Cpath%20fill-rule=%27evenodd%27%20d=%27M23%2019.4c-4.5%200-7.9%203.4-7.9%208v3.9c0%201.7%201%202.9%202.4%203.4v2.2c0%20.8.6%201.4%201.4%201.4h8.2c.8%200%201.4-.6%201.4-1.4v-2.2c1.4-.5%202.4-1.7%202.4-3.4v-3.9c0-4.6-3.4-8-7.9-8Zm-4.1%207.6c1.1%200%201.9%201%201.9%202.2s-.8%202.2-1.9%202.2-1.9-1-1.9-2.2.8-2.2%201.9-2.2Zm8.2%200c1.1%200%201.9%201%201.9%202.2s-.8%202.2-1.9%202.2-1.9-1-1.9-2.2.8-2.2%201.9-2.2ZM23%2031.7l1.4%202.5h-2.8zm-2.9%203.6h.9v2.7h-.9zm2.5%200h.9v2.7h-.9zm2.5%200h.9v2.7h-.9z%27/%3E%20%3C/g%3E%20%3Cg%3E%20%3Cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.4%27%20stroke-linecap=%27round%27%20d=%27M62.4%2024.4c-5.6-.7-9.4-3.5-9.4-6.5%200-2.4%202.3-3.8%204.2-2.7%201.7%201%201.7%203.3.1%204.4%27/%3E%20%3Cpath%20fill=%27%23fff%27%20d=%27M63%2024.4c3.9-.5%207.5-1.4%2010.9-2.8%202.6-2.4%205-5.4%207.1-9-3.2%204.9-6.4%208.2-9.4%209.9-2.7.7-5.5%201.3-8.6%201.9Z%27/%3E%20%3C/g%3E%20%3Cg%20transform=%27translate(-5%209)%20matrix(0%201%201%200%200%200)%27%3E%20%3Cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.4%27%20stroke-linecap=%27round%27%20d=%27M62.4%2024.4c-5.6-.7-9.4-3.5-9.4-6.5%200-2.4%202.3-3.8%204.2-2.7%201.7%201%201.7%203.3.1%204.4%27/%3E%20%3Cpath%20fill=%27%23fff%27%20d=%27M63%2024.4c3.9-.5%207.5-1.4%2010.9-2.8%202.6-2.4%205-5.4%207.1-9-3.2%204.9-6.4%208.2-9.4%209.9-2.7.7-5.5%201.3-8.6%201.9Z%27/%3E%20%3C/g%3E%20%3C/svg%3E");
+  --svg-orn-canto-baixo: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20296%20136%27%3E%20%3Cdefs%3E%20%3ClinearGradient%20id=%27cauda-b%27%20gradientUnits=%27userSpaceOnUse%27%20x1=%27249%27%20x2=%27292%27%3E%20%3Cstop%20offset=%270%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%27.55%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%271%27%20stop-color=%27%23fff%27%20stop-opacity=%270%27/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id=%27fio-b%27%20gradientUnits=%27userSpaceOnUse%27%20x1=%2770%27%20x2=%27127%27%3E%20%3Cstop%20offset=%270%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%27.5%27%20stop-color=%27%23fff%27/%3E%20%3Cstop%20offset=%271%27%20stop-color=%27%23fff%27%20stop-opacity=%270%27/%3E%20%3C/linearGradient%3E%20%3C/defs%3E%20%3Cg%20transform=%27translate(0%20136)%20scale(1%20-1)%27%3E%20%3Cg%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%3E%20%3Cpath%20d=%27M1.5%206.5H186%27/%3E%20%3Cpath%20d=%27M1.5%206.5V88%27/%3E%20%3Cpath%20d=%27M209.6%206.5h6%27/%3E%20%3Cpath%20d=%27M224%201.6%20232%206.5%20224%2011.4%20216%206.5Z%27%20stroke-linejoin=%27miter%27/%3E%20%3Cpath%20d=%27M249%206.5H292%27%20stroke=%27url(%23cauda-b)%27%20stroke-width=%271.1%27/%3E%20%3Cpath%20d=%27M74%2015.5H127%27%20stroke=%27url(%23fio-b)%27%20stroke-width=%271.3%27/%3E%20%3C/g%3E%20%3Cg%20fill=%27%23fff%27%3E%20%3Cpath%20d=%27M180%203.4%20194%206.5%20180%209.6%20183.4%206.5Z%27/%3E%20%3Cpath%20d=%27M206%203.3%20209.2%206.5%20206%209.7%20202.8%206.5Z%27/%3E%20%3Cpath%20d=%27M240.5%203.3%20243.7%206.5%20240.5%209.7%20237.3%206.5Z%27/%3E%20%3Cpath%20d=%27M224%204.3%20226.2%206.5%20224%208.7%20221.8%206.5Z%27/%3E%20%3Cpath%20transform=%27translate(0%2057.7)%20scale(1%20-1)%27%20fill-rule=%27evenodd%27%20d=%27M23%2019.4c-4.5%200-7.9%203.4-7.9%208v3.9c0%201.7%201%202.9%202.4%203.4v2.2c0%20.8.6%201.4%201.4%201.4h8.2c.8%200%201.4-.6%201.4-1.4v-2.2c1.4-.5%202.4-1.7%202.4-3.4v-3.9c0-4.6-3.4-8-7.9-8Zm-4.1%207.6c1.1%200%201.9%201%201.9%202.2s-.8%202.2-1.9%202.2-1.9-1-1.9-2.2.8-2.2%201.9-2.2Zm8.2%200c1.1%200%201.9%201%201.9%202.2s-.8%202.2-1.9%202.2-1.9-1-1.9-2.2.8-2.2%201.9-2.2ZM23%2031.7l1.4%202.5h-2.8zm-2.9%203.6h.9v2.7h-.9zm2.5%200h.9v2.7h-.9zm2.5%200h.9v2.7h-.9z%27/%3E%20%3C/g%3E%20%3Cg%3E%20%3Cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.4%27%20stroke-linecap=%27round%27%20d=%27M62.4%2024.4c-5.6-.7-9.4-3.5-9.4-6.5%200-2.4%202.3-3.8%204.2-2.7%201.7%201%201.7%203.3.1%204.4%27/%3E%20%3Cpath%20fill=%27%23fff%27%20d=%27M63%2024.4c3.9-.5%207.5-1.4%2010.9-2.8%202.6-2.4%205-5.4%207.1-9-3.2%204.9-6.4%208.2-9.4%209.9-2.7.7-5.5%201.3-8.6%201.9Z%27/%3E%20%3C/g%3E%20%3Cg%20transform=%27translate(-5%209)%20matrix(0%201%201%200%200%200)%27%3E%20%3Cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.4%27%20stroke-linecap=%27round%27%20d=%27M62.4%2024.4c-5.6-.7-9.4-3.5-9.4-6.5%200-2.4%202.3-3.8%204.2-2.7%201.7%201%201.7%203.3.1%204.4%27/%3E%20%3Cpath%20fill=%27%23fff%27%20d=%27M63%2024.4c3.9-.5%207.5-1.4%2010.9-2.8%202.6-2.4%205-5.4%207.1-9-3.2%204.9-6.4%208.2-9.4%209.9-2.7.7-5.5%201.3-8.6%201.9Z%27/%3E%20%3C/g%3E%20%3C/g%3E%20%3C/svg%3E");
+  --svg-orn-trilho: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2012%20100%27%20preserveAspectRatio=%27none%27%3E%20%3Cg%20fill=%27%23fff%27%3E%20%3Crect%20x=%270.75%27%20y=%270%27%20width=%271.5%27%20height=%27100%27/%3E%20%3Crect%20x=%278.75%27%20y=%270%27%20width=%271.5%27%20height=%27100%27%20fill-opacity=%270.78%27/%3E%20%3C/g%3E%20%3C/svg%3E");
+  --svg-orn-no: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2012%2058%27%3E%20%3Cg%20fill=%27%23fff%27%3E%20%3Cpath%20d=%27M5.5%206%208%209%205.5%2012%203%209Z%27/%3E%20%3Cpath%20d=%27M5.5%2039.5%208%2042.5%205.5%2045.5%203%2042.5Z%27/%3E%20%3C/g%3E%20%3Cg%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.4%27%3E%20%3Cpath%20d=%27M5.5%2015%2010.6%2025.5%205.5%2036%20.4%2025.5Z%27/%3E%20%3Cpath%20d=%27M1.3%2025.5h8.4%27/%3E%20%3C/g%3E%20%3C/svg%3E");
+  --svg-orn-estrela: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2036%2018%27%3E%20%3Cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%271.2%27%20d=%27M18%201.4c.9%204.6%203.6%206.7%209.4%207.6-5.8.9-8.5%203-9.4%207.6-.9-4.6-3.6-6.7-9.4-7.6%205.8-.9%208.5-3%209.4-7.6Z%27/%3E%20%3Cpath%20fill=%27%23fff%27%20d=%27M18%205.6c.4%202.1%201.3%203%203.2%203.4-1.9.4-2.8%201.3-3.2%203.4-.4-2.1-1.3-3-3.2-3.4%201.9-.4%202.8-1.3%203.2-3.4Z%27/%3E%20%3C/svg%3E");
+  --svg-orn-caveira: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016.4%2019.5%27%3E%20%3Cpath%20fill=%27%23fff%27%20fill-rule=%27evenodd%27%20d=%27M8.2%200C3.5%200%200%203.5%200%208.2v4.1c0%201.7%201%202.9%202.4%203.5v2.3c0%20.8.6%201.4%201.4%201.4h8.8c.8%200%201.4-.6%201.4-1.4v-2.3c1.4-.6%202.4-1.8%202.4-3.5V8.2C16.4%203.5%2012.9%200%208.2%200ZM3.9%207.4c1.5%200%202.6%201.3%202.6%202.9s-1.1%202.9-2.6%202.9-2.6-1.3-2.6-2.9%201.1-2.9%202.6-2.9Zm8.6%200c1.5%200%202.6%201.3%202.6%202.9s-1.1%202.9-2.6%202.9-2.6-1.3-2.6-2.9%201.1-2.9%202.6-2.9ZM8.2%2012.9l1.6%202.8H6.6z%27/%3E%20%3C/svg%3E");
+}
+
+.hero {
+  /* --u e a unidade do ornamento: 1u = 1px da referencia a 1672 de
+     largura. Amarra moldura, recuos e fontes a uma mesma escala, entao
+     tudo encolhe junto e proporcional. O teto de 1px e o tamanho exato
+     da referencia (1672px).
+
+     O PISO E 0.78, NAO 0.62 — DE PROPOSITO. Esse 0.78 e o MESMO teto que
+     o --u do modo mobile usa (linha ~600 mais abaixo). Sem essa
+     igualdade, o valor da uma banda pra outra bem no ponto de quebra
+     (900px): o mobile chega em 900px no seu teto (0.78), e o desktop
+     comecava no SEU piso (0.62) — uma queda de ~20% bem na transicao.
+     Resultado pratico: alargar a janela por cima de 900px encolhia os
+     botoes, o oposto do que a tela crescendo deveria fazer. Foi assim
+     que o cliente notou os botoes "maiores" numa janela mais estreita e
+     "menores" numa mais larga.
+
+     Com o piso igual ao teto do mobile, os dois lados do breakpoint
+     concordam exatamente em 900px — sem degrau. O preco: entre 900px e
+     ~1304px (onde 0.0598vw naturalmente alcanca 0.78) o valor fica
+     parado nesse piso mais alto, em vez de crescer — mas e um planalto
+     em 78% do tamanho maximo, nao um buraco em 62%, e e o MESMO platô
+     que o mobile ja mostra ali do lado (487-900px) sem ninguem
+     reclamar. De 1304px pra cima a formula original assume sozinha e
+     ainda bate exatamente 1 em 1672px — a calibragem contra
+     assets/exemplo1.png nao muda em nada. */
+  --u: clamp(0.78px, 0.0598 * 1vw, 1px);
+
+  /* --ua e a unidade da ARTE (casal + sigilo). Mesmo piso corrigido do
+     --u, com um teto tambem vindo da altura: numa tela larga e baixa
+     (1672x600, por exemplo) o casal teria 774px de altura num hero de
+     600 e sairia cortado pela cabeca. Com o termo em vh a dupla encolhe
+     junto e continua cabendo. Texto e moldura seguem em --u, que so
+     enxerga a largura. */
+  --ua: clamp(0.78px, min(0.0598vw, 0.106vh), 1px);
+
+  /* Tamanho do titulo. Calibrado pela ALTURA DE MAIUSCULA da referencia
+     (55px), nao pelo corpo da fonte: o Cormorant desenha a maiuscula com
+     0,625 do corpo, entao 55 / 0,625 = 88px = 5.263vw.
+
+     Piso 3.4rem, nao 2.6rem — mesmo motivo do --u acima: e o teto do
+     --t do modo mobile (linha ~601), pra nao ter degrau no titulo bem
+     no ponto de quebra. */
+  --t: clamp(3.4rem, 5.263vw, 5.5rem);
+
+  --ouro-orn: color-mix(in srgb, var(--ouro) 62%, transparent);
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* svh evita o pulo da barra do navegador no celular */
+  display: flex;
+  /* "safe" center: continua centralizado como sempre em qualquer janela
+     normal, mas se o conteudo nao couber (janela de desktop bem baixa,
+     tipo 650px de altura) ele recua pro topo em vez de continuar
+     tentando centralizar pra cima — que e o que empurrava o
+     "TEMPLO DE QUIMBANDA" pra debaixo do cabecalho fixo. O padding-top
+     do tamanho da barra garante que mesmo esse recuo de emergencia
+     comece ABAIXO do cabecalho, nao atras dele — a barra e fixed, entao
+     nao empurra layout nenhum sozinha. */
+  align-items: safe center;
+  /* Simetrico: sem o de baixo, o recuo do topo por si so empurra o
+     conteudo pra baixo o bastante pra colar o ultimo botao na base do
+     hero nas janelas mais baixas — so trocava um aperto pelo outro. */
+  padding-block: var(--alt-topo);
+  background: var(--preto);
+  overflow: hidden;
+  isolation: isolate; /* prende o `screen` do brilho a este contexto */
+}
+
+/* ---------- camadas de arte ---------- */
+
+.hero__arte {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__brilho {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 62%; /* mantem o miolo denso no quadrante direito */
+  mix-blend-mode: screen;
+  /* O arquivo-fonte e escuro; com `screen` sozinho o brilho fica quase
+     invisivel contra o preto. Amplifica o sinal ANTES da mistura. */
+  filter: brightness(1.55) saturate(1.12);
+  /* Recuado: a arte e ambiente, nao assunto — o assunto e o texto a
+     esquerda. Com opacidade a contribuicao do `screen` cai por inteiro,
+     que e o efeito desejado (o brilho se dilui no preto), diferente de
+     baixar o brightness, que so o deixaria mais escuro e sujo. */
+  opacity: 0.66;
+
+  /* O arquivo tem um leque de raios saindo do alto. Na referencia aquela
+     faixa e quase preta — o ouro so ganha corpo da metade pra baixo. A
+     mascara apaga o topo em vez de eu apagar o brilho inteiro, que
+     tiraria justamente as particulas de baixo, que sao o ponto. */
+  -webkit-mask-image: linear-gradient(179deg,
+      transparent 0%, rgba(0, 0, 0, 0.42) 24%, #000 52%);
+  mask-image: linear-gradient(179deg,
+      transparent 0%, rgba(0, 0, 0, 0.42) 24%, #000 52%);
+}
+
+/* ---------- as figuras (casal + sigilo) ----------
+
+   POR QUE OS DOIS MORAM DENTRO DE UM INVOLUCRO
+   O sigilo e a marca dagua que fica ATRAS do casal. Antes cada um estava
+   preso a um sistema de coordenadas diferente: o casal em --u (que enxerga
+   a LARGURA da tela) e o sigilo em porcentagem do hero, sendo que
+   `top: 13%` e porcentagem da ALTURA. Bastava mudar a proporcao da janela
+   pra eles se separarem — e abaixo de ~1037px, onde --u encosta no piso, o
+   casal parava de encolher enquanto o sigilo continuava, entao o selo
+   saia passeando pela tela.
+
+   Agora existe uma caixa so, .hero__figuras, com o tamanho e a ancora do
+   CASAL. O sigilo se posiciona em % DESSA CAIXA, nao do hero. A relacao
+   entre os dois fica congelada por construcao: nao ha largura de tela em
+   que possam desalinhar. Reposicionar a dupla (no celular, por exemplo) e
+   mexer num lugar so.
+
+   Os numeros sao a conversao dos valores antigos na referencia de
+   1672x941, entao no desktop nada muda de aparencia. */
+
+.hero__figuras {
+  position: absolute;
+  width: calc(700 * var(--ua)); /* 760 -> 700: a dupla pesava demais no quadro */
+  right: calc(24 * var(--ua));
+  bottom: calc(9 * var(--ua)); /* era 1% da altura do hero = 9px na referencia */
+  /* Mesma proporcao de casal.png (775x789): a caixa acompanha a figura, e
+     as % do sigilo passam a valer contra a altura real dele. */
+  aspect-ratio: 775 / 789;
+}
+
+/* Sombra solida atras do casal transparente: sem ela, o brilho (as
+   "estrelas") do fundo vaza pela silhueta semitransparente da dupla, como
+   se perfurasse. Mesma silhueta, preto chapado, sem opacidade — bloqueia
+   o brilho so na area do casal, pra ele ficar transparente contra um
+   fundo neutro, nao contra as estrelas. Mesma caixa e mesmo tamanho do
+   .hero__casal, uma camada atras. */
+.hero__casal-sombra {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 775 / 789;
+  background: var(--preto);
+  -webkit-mask-image: url("../assets/casal.png");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url("../assets/casal.png");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+/* Recuado tambem, pelo mesmo motivo do brilho — e o mesmo tratamento que
+   a tela estreita ja dava (0.78 la embaixo), agora trazido pro desktop. */
+.hero__casal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.72;
+}
+
+/* Usa o arquivo de FUNDO PRETO com `screen`, e nao a versao com alfa: o
+   recorte sai de graca (preto sobre preto some) e o traco fica bem mais
+   nitido que na versao transparente, cujo alfa parcial embaca as linhas.
+   (A barra do topo usa sigilo-marca.*, que e a versao recortada — la o
+   fundo nao e preto chapado e o `screen` ficaria instavel. Ver base.css.) */
+/* De 48% pra 66% da caixa: maior atras do casal, mais opacidade pra
+   compensar (senao um selo grande e claro competiria com a dupla em vez
+   de so sugerir a forma). O right e o bottom foram recalculados pra
+   manter o CENTRO onde estava — mudar so a largura o teria empurrado pra
+   direita e pra baixo. Tudo em % da caixa .hero__figuras, entao cresce e
+   encolhe junto com ela em qualquer tela — nao precisa de ajuste por
+   breakpoint alem da opacidade que ja existia pro celular. */
+.hero__sigilo {
+  position: absolute;
+  width: 66%;
+  right: 59.1%;
+  bottom: 41.2%;
+  height: auto;
+  mix-blend-mode: screen;
+  opacity: 0.18;
+}
+
+/* Veu escuro sobre o lado esquerdo: garante contraste do texto por cima
+   do brilho, sem precisar escurecer a arte inteira. Na referencia o
+   brilho so comeca a aparecer perto de 40% da largura. */
+.hero__veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      95deg,
+      var(--preto) 0%,
+      var(--preto) 28%,
+      color-mix(in srgb, var(--preto) 62%, transparent) 40%,
+      transparent 56%);
+}
+
+/* Base do hero: casal e brilho terminam com um degrade pro preto, nao
+   cortados em linha reta. Fica por cima dos dois (e do veu), entao vale
+   pra arte inteira de uma vez so, sem precisar mascarar cada imagem. */
+.hero__fundo {
+  position: absolute;
+  inset: 0;
+  /* Curva em S (aproximacao de smoothstep) em vez de poucos pontos
+     lineares: o olho le poucos estagios como degraus. Com mais pontos e
+     a taxa de mudanca caindo nas pontas, a transicao fica gradual do
+     inicio ao fim, nao so nas bordas. */
+  background: linear-gradient(0deg,
+      var(--preto) 0%,
+      var(--preto) 10%,
+      color-mix(in srgb, var(--preto) 92%, transparent) 16%,
+      color-mix(in srgb, var(--preto) 73%, transparent) 22%,
+      color-mix(in srgb, var(--preto) 48%, transparent) 28%,
+      color-mix(in srgb, var(--preto) 23%, transparent) 34%,
+      color-mix(in srgb, var(--preto) 6%, transparent) 40%,
+      transparent 45%);
+}
+
+/* ============================================================
+   MOLDURA
+
+   Nao e uma moldura fechada: e uma coluna a esquerda, com trilhos que
+   avancam pra direita em cima e embaixo e morrem num losango.
+
+   Tres pecas, todas SVG usadas como MASCARA (a cor vem do CSS):
+
+     ::before / ::after  canto + trilho horizontal + losangos (tamanho fixo)
+     .moldura__trilho    os dois fios verticais (estica so na altura)
+     .moldura__no        o no ornamental do meio
+
+   POR QUE TUDO EM SVG, ATE OS FIOS RETOS
+   Uma linha feita com <div> tem a borda encaixada em pixel inteiro; uma
+   linha de SVG e suavizada. Geometria identica, aparencia diferente — na
+   emenda entre as duas aparece um degrau de brilho. Mantendo os dois no
+   mesmo rasterizador, a emenda some.
+
+   Os fios se apagam no meio da altura (esta na referencia) e o no fica
+   sozinho no vao. Isso e feito com uma segunda camada de mascara em
+   gradiente, cruzada com a primeira por mask-composite: intersect.
+   ============================================================ */
+
+.hero__moldura {
+  position: absolute;
+  left: calc(24.8 * var(--u));
+  /* Comeca ABAIXO da barra do topo, nao em 24u. A barra e fixed e quase
+     opaca, e o canto superior do ornamento inteiro (trilho, dardos,
+     losangos, caveirinha, ramo) cabe nos primeiros ~40u — ficava todo
+     escondido atras dela. --alt-topo vem do base.css, do mesmo token que
+     dimensiona a barra, entao os dois nao saem de sincronia. */
+  top: calc(var(--alt-topo) + 14 * var(--u));
+  bottom: calc(24 * var(--u));
+  width: calc(296 * var(--u));
+  pointer-events: none;
+  z-index: 2;
+  /* Halo tenue: na referencia o traco tem um leve estouro de luz em
+     volta. Sem ele o desenho fica correto mas seco. */
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--ouro) 34%, transparent));
+}
+
+.hero__moldura::before,
+.hero__moldura::after,
+.hero__moldura i {
+  content: "";
+  position: absolute;
+  background: var(--ouro-orn);
+}
+
+.hero__moldura::before,
+.hero__moldura::after {
+  left: 0;
+  width: calc(296 * var(--u));
+  height: calc(136 * var(--u));
+}
+
+.hero__moldura::before {
+  top: 0;
+  -webkit-mask: var(--svg-orn-canto) no-repeat center / 100% 100%;
+  mask: var(--svg-orn-canto) no-repeat center / 100% 100%;
+}
+
+/* Arquivo proprio, ja espelhado NO SVG (nao por transform: scaleY(-1) no
+   CSS) — a caveirinha nao e simetrica, e girar o conjunto inteiro a
+   deixava de cabeca pra baixo. Ver o comentario em orn-canto-baixo.svg. */
+.hero__moldura::after {
+  bottom: 0;
+  -webkit-mask: var(--svg-orn-canto-baixo) no-repeat center / 100% 100%;
+  mask: var(--svg-orn-canto-baixo) no-repeat center / 100% 100%;
+}
+
+.moldura__trilho {
+  left: 0;
+  top: calc(88 * var(--u));
+  bottom: calc(88 * var(--u));
+  width: calc(12 * var(--u));
+  opacity: 0.68; /* fios laterais mais discretos que os cantos */
+
+  -webkit-mask:
+    var(--svg-orn-trilho) no-repeat center / 100% 100%,
+    linear-gradient(180deg, #000 0%, #000 24%, transparent 48%,
+                            transparent 52%, #000 76%, #000 100%);
+  mask:
+    var(--svg-orn-trilho) no-repeat center / 100% 100%,
+    linear-gradient(180deg, #000 0%, #000 24%, transparent 48%,
+                            transparent 52%, #000 76%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.moldura__no {
+  left: 0;
+  top: 50%;
+  width: calc(12 * var(--u));
+  height: calc(58 * var(--u));
+  transform: translateY(-50%);
+  -webkit-mask: var(--svg-orn-no) no-repeat center / 100% 100%;
+  mask: var(--svg-orn-no) no-repeat center / 100% 100%;
+}
+
+/* ---------- conteudo ---------- */
+
+.hero__conteudo {
+  position: relative;
+  z-index: 3;
+  width: min(46%, 780px);
+  /* texto comeca em x=119 na referencia = 7.12% da largura. Variavel
+     compartilhada com o selo do cabecalho (css/base.css, --recuo-conteudo-
+     esquerda) — os dois precisam concordar pro selo ficar alinhado com
+     o "R" de "Reino de...". */
+  margin-inline-start: var(--recuo-conteudo-esquerda);
+  /* o bloco fica 27px abaixo do centro otico na referencia */
+  padding-block: calc(49.5 * var(--u)) 0;
+}
+
+.hero__sobretitulo {
+  margin: 0;
+  font-family: var(--corpo);
+  /* Mesmo ajuste do --u em hero.css:43 (reta pelos dois pontos, nao pela
+     origem) — esse clamp tinha o mesmo degrau entre 900 e ~1042px. */
+  font-size: clamp(0.78rem, calc(0.174rem + 0.0674 * 1vw), 1.3rem);
+  font-weight: 500;
+  letter-spacing: 0.377em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: color-mix(in srgb, var(--marfim) 88%, transparent);
+}
+
+/* ---------- divisores ----------
+   Dois fios que se afinam ate sumir, com um ornamento no meio. Os fios
+   sao gradiente (nao encostam no ornamento, entao nao ha emenda pra
+   denunciar a mistura de rasterizadores). */
+
+.divisor {
+  display: flex;
+  align-items: center;
+  gap: calc(9 * var(--u));
+  width: calc(372 * var(--u));
+  max-width: 100%;
+}
+
+.divisor::before,
+.divisor::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%, color-mix(in srgb, var(--ouro) 72%, transparent) 16%);
+}
+
+.divisor::after {
+  background: linear-gradient(270deg,
+      transparent 0%, color-mix(in srgb, var(--ouro) 72%, transparent) 16%);
+}
+
+.divisor i {
+  flex: none;
+  width: calc(36 * var(--u));
+  height: calc(18 * var(--u));
+  background: color-mix(in srgb, var(--ouro) 82%, transparent);
+  -webkit-mask: var(--svg-orn-estrela) no-repeat center / 100% 100%;
+  mask: var(--svg-orn-estrela) no-repeat center / 100% 100%;
+}
+
+/* divisor de baixo: visualmente IGUAL ao de cima (mesma estrela, mesma
+   largura, mesma cor) — a classe existe so pra dar um espacamento
+   vertical proprio, diferente do primeiro. */
+
+/* ---------- titulo ----------
+   Texto de verdade, em versalete. Cormorant SC transforma as minusculas
+   em versaletes de desenho proprio — nao e a versalete falsa que o
+   navegador improvisa encolhendo maiuscula, que sai leve demais.
+
+   Ouro CHAPADO, sem gradiente: e o que a referencia mostra e o que
+   distingue "solene" de "metalizado". */
+.hero__titulo {
+  margin: 0;
+  font-family: var(--versalete);
+  font-size: var(--t);
+  font-weight: 500;
+  line-height: 0.886; /* 78px de avanco entre linhas sobre 88px de corpo */
+  letter-spacing: 0.02em;
+  color: var(--ouro-titulo);
+}
+
+.hero__subtitulo {
+  margin: 0;
+  font-family: var(--corpo);
+  /* Mesmo ajuste do --u em hero.css:43 — mesmo degrau entre 900 e ~1045px.
+     Escalado ~15% (pedido do cliente — estava pequeno demais). */
+  font-size: clamp(1rem, calc(0.292rem + 0.0775 * 1vw), 1.6rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.045em;
+  color: color-mix(in srgb, var(--marfim) 80%, transparent);
+}
+
+/* Espacamentos verticais. Os numeros vem da referencia (distancia entre
+   linha de base e topo de maiuscula), descontado o meio-espaco que a
+   caixa de linha ja adiciona por conta propria — por isso nao batem com
+   as medidas cruas. Conferidos em build/medir-hero.py. */
+.hero__conteudo > .divisor         { margin-block: calc(12 * var(--u)) calc(8 * var(--u)); }
+.hero__conteudo > .divisor--baixo  { margin-block: calc(18 * var(--u)) calc(18 * var(--u)); }
+
+/* Empilhados, nao lado a lado: em coluna os dois rotulos comecam na mesma
+   vertical do texto acima, e a leitura desce numa linha so. O respiro
+   grande em cima separa a chamada da acao — o subtitulo termina um
+   pensamento, os botoes comecam outro. */
+.hero__acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(16 * var(--u));
+  margin-top: calc(54 * var(--u));
+}
+
+/* ---------- botoes ---------- */
+
+.botao {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(14 * var(--u));
+  width: calc(304 * var(--u)); /* 258 -> 304: abriu espaco pro simbolo da esquerda */
+  padding: calc(21 * var(--u)) calc(28 * var(--u));
+  font-family: var(--corpo);
+  /* 11px de altura de maiuscula na referencia / 0,625 = 17,6px */
+  font-size: calc(15 * var(--u));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap; /* o rotulo nunca quebra: a caixa tem tamanho fixo */
+  line-height: 1;
+  border: 0;
+  /* box-shadow (nao border-color): a borda dos dois botoes e um fio
+     interno via inset, entao e ele que precisa animar. */
+  transition: background 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+
+.botao svg {
+  flex: none;
+}
+
+/* O simbolo e maior que a seta: ele carrega o sentido do botao, a seta e
+   so pontuacao. Nao se move no hover — quem se move e a seta. */
+.botao__simbolo {
+  width: 1.55em;
+  height: 1.55em;
+}
+
+.botao__seta {
+  width: 1.15em;
+  height: 1.15em;
+  transition: transform 0.35s ease;
+}
+
+.botao:hover .botao__seta,
+.botao:focus-visible .botao__seta {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao__seta {
+    transition: none;
+  }
+}
+
+/* Vazado tambem, nao preenchido — mas em outro ouro: o --ouro claro
+   (#efc15e), mais vivo que o --ouro-titulo do <h1>. Como os dois botoes
+   agora sao vazados, a hierarquia entre eles nao pode mais vir do
+   preenchimento; vem de tres coisas somadas: rotulo em ouro (o outro e
+   marfim), fio de fora mais forte, e um SEGUNDO fio por dentro, que o
+   secundario nao tem. O leve banho de ouro no fundo fecha a diferenca
+   sem virar bloco chapado. */
+.botao--ouro {
+  color: var(--ouro);
+  /* Fundo LIMPO, sem banho nenhum: o banho de 7% que havia aqui ainda
+     lia como um painel preenchido. O que separa este do secundario e so
+     desenho de linha — rotulo em ouro, fio de fora forte, fio de dentro.
+     O preenchimento fica reservado pro hover, onde e resposta a uma acao
+     e nao estado de repouso. */
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 82%, transparent);
+}
+
+/* o fio de dentro, a 4u da borda — o quadro duplo esta na referencia */
+.botao--ouro::after {
+  content: "";
+  position: absolute;
+  inset: calc(4 * var(--u));
+  border: 1px solid color-mix(in srgb, var(--ouro) 28%, transparent);
+  pointer-events: none;
+}
+
+.botao--ouro:hover,
+.botao--ouro:focus-visible {
+  color: var(--ouro-claro);
+  background: color-mix(in srgb, var(--ouro) 12%, transparent);
+}
+
+/* Rotulo em marfim, nao em ouro: com os dois botoes dourados eles
+   brigavam, e o vazado e o secundario dos dois. A borda continua ouro,
+   entao ele segue pertencendo ao conjunto. */
+.botao--vazado {
+  color: var(--marfim);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 40%, transparent);
+}
+
+.botao--vazado:hover,
+.botao--vazado:focus-visible {
+  background: color-mix(in srgb, var(--ouro) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 72%, transparent);
+}
+
+/* ---------- convite a rolar ----------
+   Discreta de proposito: e uma dica, nao um botao. Sobe e desce devagar
+   porque um cheveron parado no fim de uma tela cheia passa despercebido —
+   o movimento e o que a torna um convite.
+
+   Anima transform e opacity, as duas propriedades que o navegador resolve
+   sozinho no compositor: um laco infinito de 2,6s nao pode custar layout
+   a cada quadro. */
+
+.hero__rolar {
+  position: absolute;
+  bottom: calc(30 * var(--u));
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: calc(46 * var(--u));
+  height: calc(46 * var(--u));
+  margin-inline-start: calc(-23 * var(--u)); /* metade da largura: centraliza sem transform */
+  color: color-mix(in srgb, var(--ouro) 52%, transparent);
+  transition: color 0.35s ease;
+}
+
+.hero__rolar svg {
+  width: calc(26 * var(--u));
+  height: auto;
+  animation: rolar-aceno 2.6s ease-in-out infinite;
+}
+
+.hero__rolar:hover,
+.hero__rolar:focus-visible {
+  color: var(--ouro);
+}
+
+/* margin-inline-start ja centraliza o elemento, entao o transform fica
+   livre pro aceno — nao ha translate de centragem pra ele cancelar. */
+@keyframes rolar-aceno {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50%      { transform: translateY(calc(7 * var(--u))); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__rolar svg {
+    animation: none;
+  }
+}
+
+/* Sem tamanho e sem peso no layout: existe so pra ser observada. A altura
+   define QUANDO a barra do topo troca de estado — a faixa que a pessoa
+   precisa rolar antes de o fundo aparecer. */
+.hero__sentinela {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: calc(var(--alt-topo) + 40px);
+  pointer-events: none;
+}
+
+/* ---------- telas estreitas ----------
+   O texto passa a ocupar a largura toda e sobe; a arte desce e perde
+   forca, virando ambiente em vez de assunto. O veu gira de horizontal
+   pra vertical, porque agora o texto esta EM CIMA da arte, nao ao lado. */
+
+@media (max-width: 900px) {
+  .hero {
+    --u: clamp(0.5px, 0.16vw, 0.78px);
+    --ua: clamp(0.5px, min(0.16vw, 0.09vh), 0.78px);
+    --t: clamp(2rem, 8.4vw, 3.4rem);
+    /* Esticado (nao mais "flex-start"): .hero__conteudo vira coluna flex
+       e passa a preencher a altura do hero de ponta a ponta, entao os
+       botoes (margin-top: auto, abaixo) conseguem se ancorar no rodape
+       em vez de ficar empilhados logo depois do subtitulo. */
+    align-items: stretch;
+    /* O recuo do cabecalho aqui e outro (bem maior, ja embutido no
+       padding-block de .hero__conteudo abaixo) — sem zerar este, a
+       pagina ganharia um respiro duplo no topo e embaixo. */
+    padding-block: 0;
+  }
+
+  .hero__conteudo {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    max-width: 34rem;
+    margin-inline: clamp(2.4rem, 13vw, 5rem) clamp(1.4rem, 6vw, 3rem);
+    /* Baixado de 42vh: aquele respiro so existia pra "reservar" espaco
+       pra arte aparecer embaixo do texto. Agora quem empurra os botoes
+       pro rodape e o proprio flex (.hero__acoes tem margin-top: auto),
+       entao a pagina nao precisa mais crescer alem de 100svh pra abrir
+       esse espaco — o Hero volta a caber na primeira dobra.
+
+       Topo ajustado de novo (7.5-11rem -> 4.5-6.5rem -> 6-8.5rem): a
+       primeira reducao deixou espaco de sobra pro rosto do Caveira nao
+       cortar, mas em celular de verdade (com barra de endereco do
+       navegador comendo parte da tela) o texto ficou colado demais no
+       cabecalho. Meio-termo entre as duas. */
+    padding-block: clamp(6rem, 15vh, 8.5rem) clamp(4rem, 9vh, 6rem);
+  }
+
+  /* A dupla inteira desce, cresce um pouco e sai pela direita — mas como
+     UMA peca so. */
+  .hero__figuras {
+    width: calc(636 * var(--ua));
+    right: calc(-10 * var(--ua));
+    bottom: calc(9 * var(--ua));
+  }
+
+  .hero__casal {
+    opacity: 0.78;
+  }
+
+  /* No desktop o sigilo fica encostado a esquerda da caixa (right:59.1%,
+     ver regra base acima) — de proposito, e onde a composicao original
+     pede. No mobile a caixa inteira desloca pra direita ("sai pela
+     direita", nota acima), e como o sigilo herdava a MESMA posicao
+     relativa, ele ficava quase todo fora da tela pela esquerda (medido:
+     ~62% da largura dele cortada). Right menor aqui move o centro do
+     sigilo pra entre o meio e a direita do casal, onde sobra tela. */
+  .hero__sigilo {
+    right: 6%;
+    opacity: 0.12; /* selo maior agora (66% da caixa); reduzido junto pra nao pesar no mobile */
+  }
+
+  .hero__brilho {
+    object-position: 78% 72%; /* puxa o quadro pro canto denso */
+  }
+
+  .hero__veu {
+    background: linear-gradient(
+        184deg,
+        var(--preto) 0%,
+        var(--preto) 34%,
+        color-mix(in srgb, var(--preto) 68%, transparent) 52%,
+        transparent 74%);
+  }
+
+  .divisor {
+    width: calc(300 * var(--u));
+  }
+
+  /* Menores que no desktop: nessa largura ficavam grandes demais perto
+     do cabecalho, competindo com o hamburguer. */
+  .hero__sobretitulo {
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+  }
+
+  .hero__subtitulo {
+    font-size: 0.95rem;
+  }
+
+  /* Empurra os botoes pro rodape do hero — .hero__conteudo virou coluna
+     flex esticada (ver regra base acima), entao margin-top: auto ocupa
+     todo o espaco livre entre o subtitulo e aqui, e o CTA passa a ficar
+     na base do hero (proximo da arte), nao colado no texto do topo. */
+  /* align-items: center (nao mais o flex-start herdado do desktop) —
+     os dois botoes centralizados, nao so "Fale com a Dirigente". */
+  .hero__acoes {
+    margin-top: auto;
+    align-items: center;
+  }
+
+  /* Nessa largura o texto fica POR CIMA da arte (o layout de lado a lado
+     virou empilhado), e os botoes vazados — sem preenchimento de
+     proposito no desktop — passam direto pelo rosto do casal atras
+     deles. Fundo escuro + blur da o contraste que falta sem virar bloco
+     solido: ve-se a arte ainda, so que enfraquecida o bastante pra nao
+     brigar com a letra. */
+  .botao {
+    background-color: color-mix(in srgb, var(--preto) 72%, transparent);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+
+  /* Dispara o fundo da barra o quanto antes: nessa largura a arte por
+     tras do cabecalho nem sempre e escura o bastante (o veu e horizontal,
+     pensado pro layout lado a lado do desktop), entao sigilo/hamburguer
+     ficavam sem contraste enquanto a sentinela (antes bem mais alta)
+     seguia visivel. Com 1px, basta o primeiro pixel de rolagem. */
+  .hero__sentinela {
+    height: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Os dois botoes do mesmo tamanho (largura propria, calc(304*u)) e
+     centralizados na coluna — nenhum dos dois esticado pra largura
+     total (o primario ficava desproporcional ao secundario). */
+  .hero__acoes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botao {
+    width: calc(304 * var(--u));
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,985 @@
+/* ============================================================
+   SECOES DE CONTEUDO — dirigente, servicos (Trabalhos em carrossel,
+   Oraculos em lista), como funciona, faq e o encerramento/rodape.
+
+   Estrutura inspirada num site de referencia que o cliente indicou
+   (secoes equivalentes: bio da sacerdotisa, carrossel de trabalhos,
+   passo-a-passo, faq em acordeao, CTA final + rodape) — mas com o
+   vocabulario visual DESSE site (ouro/preto, Cinzel + Cormorant, os
+   mesmos botoes vazados do hero), nao copiado do original.
+
+   Todo texto aqui e EXEMPLO — igual ao resto do andaime, espera
+   briefing de conteudo real com o cliente. Onde teria foto (a
+   dirigente, os trabalhos) fica um quadro reservado no lugar: nao da
+   pra inventar retrato de pessoa real nem tirar as fotos do site de
+   referencia (sao do outro negocio).
+
+   POR QUE ESSES BOTOES NAO REAPROVEITAM .botao DO HERO
+   .botao (css/hero.css) e inteiro medido em --u, a unidade de
+   calibragem pixel-a-pixel do hero contra a referencia visual — e uma
+   variavel que so existe DENTRO de .hero. Fora dele --u fica
+   indefinida e o botao perderia padding, fonte e moldura interna por
+   inteiro. .botao-cta abaixo e o mesmo desenho (rotulo + moldura +
+   seta), so que em rem/vw simples, proprio pra correr solto em
+   qualquer secao do body. */
+
+/* ---------- cabecalho de secao (rotulo + titulo grande) ---------- */
+
+.secao__rotulo {
+  margin: 0 0 0.9rem;
+  font-family: var(--corpo);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ouro);
+}
+
+.secao__titulo-grande {
+  margin: 0 0 1.2rem;
+  font-family: var(--corpo);
+  font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--marfim);
+}
+
+.secao__titulo-grande em {
+  font-style: italic;
+  color: var(--ouro-titulo);
+}
+
+.secao__texto-intro {
+  max-width: 58ch;
+  color: color-mix(in srgb, var(--texto) 92%, transparent);
+}
+
+/* ============================================================
+   O REINO — texto + espaco de imagem reservado a direita
+   ============================================================ */
+
+.reino__corpo {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 380px);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+@media (max-width: 760px) {
+  .reino__corpo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   A DIRIGENTE — bio em duas colunas
+   ============================================================ */
+
+.secao--dirigente {
+  display: grid;
+  grid-template-columns: minmax(220px, 380px) 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+/* Quadro reservado pra foto — sem foto de verdade ainda, entao vira
+   moldura decorativa em vez de placeholder cinza generico. O selo
+   discreto no meio marca "isso e uma imagem reservada", nao um erro
+   de imagem quebrada. Compartilhada com #oraculos (secao Servicos,
+   mais abaixo) — mesmo tratamento visual, so muda de lado no grid. */
+.retrato-reservado {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 1px solid color-mix(in srgb, var(--ouro) 30%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--ouro) 6%, transparent), transparent 60%),
+    var(--preto-2);
+  /* flex, nao grid: um <picture> vazio de largura definida so encolhe
+     pro tamanho do conteudo (em vez de esticar pra caixa toda) no eixo
+     principal do flex — no grid, o item auto insistia em ocupar a
+     coluna inteira mesmo com justify-items:center. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.retrato-reservado img {
+  width: clamp(48px, 12%, 72px);
+  height: auto;
+  opacity: 0.5;
+}
+
+.retrato-reservado span {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--corpo);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--texto) 55%, transparent);
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .retrato-reservado {
+    max-width: 280px;
+    margin-inline: auto;
+  }
+}
+
+/* Mesma moldura, mas com foto de verdade dentro (hoje so #dirigente).
+   display:block em vez do flex do quadro reservado: o flex centraliza
+   o selo pequeno; aqui a imagem preenche o quadro inteiro e o corte
+   fica por conta do object-fit — o retrato e quase quadrado e o quadro
+   e 3/4, entao sobra largura pras laterais serem cortadas. */
+.retrato-reservado--foto {
+  display: block;
+}
+
+.retrato-reservado--foto picture,
+.retrato-reservado--foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.retrato-reservado--foto img {
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+}
+
+.dirigente__texto p {
+  max-width: 56ch;
+}
+
+.dirigente__texto p + p {
+  margin-top: 1rem;
+}
+
+.dirigente__texto .botao-cta {
+  margin-top: 1.8rem;
+}
+
+@media (max-width: 760px) {
+  .secao--dirigente {
+    grid-template-columns: 1fr;
+  }
+
+  /* Empilhado, o texto vem primeiro e o retrato desce pro final —
+     pedido do cliente. DOM continua com o retrato antes (desktop
+     depende dessa ordem pra coluna estreita ficar a esquerda); order
+     so troca a ORDEM VISUAL, sem mexer no HTML nem no layout desktop. */
+  .secao--dirigente .dirigente__texto {
+    order: 1;
+  }
+
+  .secao--dirigente .retrato-reservado {
+    order: 2;
+  }
+
+  /* Botao centralizado no mobile — o texto acima ja fica em coluna
+     unica e o CTA solto a esquerda destoava. */
+  .secao--dirigente .dirigente__texto .botao-cta {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+}
+
+/* ============================================================
+   BOTAO DE CHAMADA (CTA) — mesmo desenho do .botao do hero, em
+   unidades independentes de --u. Ver nota no topo do arquivo.
+   ============================================================ */
+
+.botao-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.6rem;
+  font-family: var(--corpo);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* SEM white-space:nowrap aqui — os botoes do hero (css/hero.css) tem
+     rotulos curtos e largura FIXA calibrada em --u, entao nowrap e
+     seguro la. Estes rotulam livremente (ex: "Conversar sobre um
+     trabalho") e nao tem largura fixa; nowrap forcava a caixa a crescer
+     alem do container em telas estreitas (~320px), o suficiente pra
+     empurrar a pagina inteira pra rolagem horizontal. Deixar quebrar. */
+  border: 0;
+  max-width: 100%;
+  transition: background 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+
+.botao-cta__seta {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  transition: transform 0.35s ease;
+}
+
+.botao-cta:hover .botao-cta__seta,
+.botao-cta:focus-visible .botao-cta__seta {
+  transform: translateX(3px);
+}
+
+.botao-cta--ouro {
+  color: var(--ouro);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 82%, transparent);
+}
+
+.botao-cta--ouro:hover,
+.botao-cta--ouro:focus-visible {
+  color: var(--ouro-claro);
+  background: color-mix(in srgb, var(--ouro) 12%, transparent);
+}
+
+.botao-cta--vazado {
+  color: var(--marfim);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 40%, transparent);
+}
+
+.botao-cta--vazado:hover,
+.botao-cta--vazado:focus-visible {
+  background: color-mix(in srgb, var(--ouro) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 72%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao-cta,
+  .botao-cta__seta {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   SERVICOS — uma secao, duas subsecoes: Trabalhos (carrossel) e
+   Oraculos (lista + imagem reservada, formato .secao--dirigente
+   espelhado — texto a esquerda, retrato a direita). Antes eram duas
+   secoes separadas (Oraculos tinha ate item proprio no menu); viraram
+   subsecoes de uma so pra reduzir a barra de navegacao sem perder a
+   distincao entre as duas categorias de servico. Oraculos tambem
+   tinha carrossel proprio no inicio, mas virou lista simples — o
+   carrossel duplo nao valia a complexidade extra pra so 3 itens, e
+   simplificar tirou de cena o bug descrito na nota de .carrossel__pista
+   logo abaixo.
+   ============================================================ */
+
+.servicos__cabecalho {
+  margin-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+/* Cada subsecao repete o padrao rotulo+titulo+carrossel, so que num
+   tom menor que o cabecalho da secao — ele ja disse "Servicos", a
+   subsecao so precisa dizer QUAL. */
+.servicos__sub + .servicos__sub {
+  margin-top: clamp(4.5rem, 11vh, 7rem);
+}
+
+.servicos__sub-titulo {
+  margin: 0 0 0.5rem;
+  font-family: var(--corpo);
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+  font-weight: 600;
+  color: var(--ouro);
+}
+
+.servicos__sub-intro {
+  margin: 0 0 1.5rem;
+  max-width: 56ch;
+  color: color-mix(in srgb, var(--texto) 88%, transparent);
+}
+
+.carrossel {
+  position: relative;
+}
+
+/* overflow:hidden, NAO auto — a pista nao rola de verdade. O
+   auto-scroll e uma animacao CSS pura no .carrossel__lista (keyframes
+   logo abaixo): primeira versao usava requestAnimationFrame escrevendo
+   scrollLeft a cada frame — funcionava em teste automatizado, mas
+   travava em navegadores reais (Brave, Edge) que aplicam throttling
+   agressivo de timers JS em segundo plano/economia de energia.
+   Animacao CSS roda no compositor do navegador, imune a esse
+   throttling — mesma tecnica do site de referencia do cliente (Lux
+   Luiara: .carousel-track com animation + animation-play-state:paused
+   no hover).
+
+   Setas e arrasto (script no fim do index.html) TAMBEM mexem so nessa
+   mesma animacao (via animation-delay, que "avanca" ou "atrasa" o
+   ponto em que ela esta) — nunca em scrollLeft. Antes a pista era
+   overflow-x:auto e as setas usavam scrollBy: dois sistemas de
+   posicionamento (scroll nativo + transform da animacao) se somando
+   sem limite em comum. Clicar nas setas repetidas vezes ou arrastar
+   empurrava scrollLeft pra perto do maximo enquanto a animacao seguia
+   deslizando por cima — a soma dos dois passava do fim do conteudo
+   duplicado, e a pista mostrava so o fundo preto da secao ("carrossel
+   sumindo"/tela preta reportado pelo cliente). cursor:grab preservado
+   so pelo afordance visual — o arrasto continua funcionando, so que
+   sem scroll nativo por baixo. */
+.carrossel__pista {
+  overflow: hidden;
+  cursor: grab;
+}
+
+/* Arrastar com o mouse (ou o dedo) pra mover a animacao manualmente —
+   script no fim do index.html. user-select:none evita selecionar
+   texto dos cards no meio do arrasto; a imagem tambem nao pode iniciar
+   o drag nativo do navegador (o "fantasma" de arrastar imagem), senao
+   briga com o nosso. */
+.carrossel__pista--arrastando {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.carrossel__item img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* --carrossel-duracao e calculada no script (metade da largura da
+   lista, ja duplicada, dividida pela velocidade em px/s) — depende do
+   `width: min(78vw, 320px)` responsivo do card, entao nao da pra
+   cravar um tempo fixo aqui. 40s e so o piso de seguranca caso o JS
+   falhe. translateX(-50%) e o truque classico de loop infinito: a
+   lista tem os cards originais + um clone identico logo em seguida, e
+   ao deslizar exatamente metade da propria largura o quadro final e
+   pixel-a-pixel igual ao inicial — o corte da entre uma volta e outra
+   fica invisivel. */
+.carrossel__lista {
+  display: flex;
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem 0.3rem 1.4rem;
+  width: max-content;
+  animation: carrossel-deslizar var(--carrossel-duracao, 40s) linear infinite;
+}
+
+@keyframes carrossel-deslizar {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pausa a animacao CSS (hover/clique — classe aplicada pelo script) sem
+   mexer na posicao de rolagem nativa da pista, que fica por conta do
+   navegador/das setas. */
+.carrossel--pausado .carrossel__lista {
+  animation-play-state: paused;
+}
+
+.carrossel__item {
+  flex: none;
+  width: min(78vw, 320px);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* Destaque de hover/clique: mesma familia visual das setas (borda +
+   halo dourado), so que no proprio quadro da imagem. O clique acende
+   --ativo (script no fim do index.html) e fica ate outra carta ser
+   escolhida ou o mouse sair do carrossel — hover soma o mesmo efeito
+   sem precisar de classe. */
+.carrossel__item:hover .carrossel__imagem,
+.carrossel__item:focus-visible .carrossel__imagem,
+.carrossel__item--ativo .carrossel__imagem {
+  border-color: color-mix(in srgb, var(--ouro) 65%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ouro) 35%, transparent),
+    0 0 1.4rem color-mix(in srgb, var(--ouro) 22%, transparent);
+}
+
+.carrossel__item:hover img,
+.carrossel__item:focus-visible img,
+.carrossel__item--ativo img {
+  opacity: 0.6;
+}
+
+.carrossel__item:focus-visible {
+  outline: none;
+}
+
+.carrossel__numero {
+  font-family: var(--corpo);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--ouro) 70%, transparent);
+}
+
+/* Sem foto de verdade por card (nao da pra copiar as imagens do site
+   de referencia, sao do outro negocio) — o sigilo em relevo baixo
+   ocupa o lugar da imagem com a mesma identidade visual do hero. */
+.carrossel__imagem {
+  margin: 0.6rem 0 1rem;
+  aspect-ratio: 4 / 3;
+  border: 1px solid color-mix(in srgb, var(--ouro) 20%, transparent);
+  background:
+    radial-gradient(120% 140% at 30% 20%,
+      color-mix(in srgb, var(--ouro) 10%, transparent), transparent 60%),
+    var(--preto-2);
+  display: grid;
+  place-items: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carrossel__imagem img {
+  width: 34%;
+  height: auto;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+.carrossel__item h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--corpo);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--marfim);
+}
+
+.carrossel__item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--texto) 88%, transparent);
+}
+
+/* Setas: circulos vazados, mesma familia visual do resto do site.
+   Ficam FORA da pista (nao dentro do scroll), entao nunca rolam junto. */
+.carrossel__seta {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--ouro) 40%, transparent);
+  background: color-mix(in srgb, var(--preto) 70%, transparent);
+  color: var(--ouro);
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+
+.carrossel__seta:hover,
+.carrossel__seta:focus-visible {
+  background: color-mix(in srgb, var(--ouro) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 70%, transparent);
+}
+
+.carrossel__seta svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.carrossel__seta--esq {
+  left: -1.3rem;
+}
+
+.carrossel__seta--dir {
+  right: -1.3rem;
+}
+
+/* Nao remove do fluxo (display:none tira do teclado) — so recua e
+   apaga, e o layout ja nao precisa mais delas: o pai perde os 1.3rem
+   negativos que a seta ocupava. */
+.carrossel__seta:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .carrossel__seta {
+    display: none;
+  }
+}
+
+.servicos__rodape {
+  margin-top: clamp(3rem, 7vh, 4.5rem);
+  text-align: center;
+}
+
+/* ---------- Oraculos: lista + imagem reservada ----------
+   Mesmo formato de .secao--dirigente (texto + quadro reservado,
+   .retrato-reservado), so espelhado: texto na coluna da ESQUERDA,
+   retrato na DIREITA — a ordem no DOM segue a mesma ordem visual, sem
+   precisar de order/grid-column manual. */
+.oraculos__corpo {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 380px);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.oraculos__lista {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+
+.oraculos__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 1.2rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ouro) 14%, transparent);
+}
+
+.oraculos__item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.oraculos__numero {
+  grid-row: 1 / 3;
+  font-family: var(--corpo);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--ouro) 70%, transparent);
+}
+
+.oraculos__item h4 {
+  margin: 0;
+  font-family: var(--corpo);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--marfim);
+}
+
+.oraculos__item p {
+  margin: 0;
+  color: color-mix(in srgb, var(--texto) 88%, transparent);
+}
+
+@media (max-width: 760px) {
+  .oraculos__corpo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   COMO FUNCIONA — passo-a-passo + recursos
+   ============================================================ */
+
+.secao--como-funciona {
+  display: grid;
+  grid-template-columns: minmax(220px, 380px) 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.passos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.passos__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 1.2rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--ouro) 14%, transparent);
+}
+
+.passos__item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.passos__numero {
+  grid-row: 1 / 3;
+  font-family: var(--corpo);
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--ouro) 70%, transparent);
+}
+
+.passos__item h3 {
+  margin: 0;
+  font-family: var(--corpo);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--marfim);
+}
+
+.passos__item p {
+  margin: 0;
+  color: color-mix(in srgb, var(--texto) 88%, transparent);
+}
+
+.recursos {
+  grid-column: 1 / -1;
+  margin-top: clamp(2.4rem, 6vh, 3.6rem);
+  display: grid;
+  /* Ocupa as DUAS colunas de .secao--como-funciona (grid-column:1/-1),
+     nao so a segunda — senao fica espremida na largura da coluna de
+     .passos em vez da largura inteira da secao. Horizontal (4 em
+     linha) por padrao, recuando pra 2x2 e depois empilhado. Fixo em
+     vez de auto-fit pelo mesmo motivo de sempre: com exatamente 4
+     cartas, auto-fit podia fechar em 3+1. */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: color-mix(in srgb, var(--ouro) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ouro) 14%, transparent);
+}
+
+@media (max-width: 1100px) {
+  .recursos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 460px) {
+  .recursos {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recursos__item {
+  padding: 1.5rem;
+  background: var(--preto);
+}
+
+.recursos__item h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--corpo);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--ouro);
+}
+
+.recursos__item p {
+  margin: 0;
+  font-size: 1.02rem;
+  color: color-mix(in srgb, var(--texto) 82%, transparent);
+}
+
+@media (max-width: 760px) {
+  .secao--como-funciona {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   FAQ — acordeao nativo (<details>), sem JS: o navegador cuida do
+   teclado e do estado sozinho. Duas colunas — titulo a esquerda (so
+   ele, o resto e espaco em branco), perguntas a direita — mesma
+   estrutura de grid ja usada em .secao--dirigente e
+   .secao--como-funciona (site de referencia do cliente, Lux Luiara,
+   usa o mesmo layout de duas colunas nessa secao).
+   ============================================================ */
+
+.secao--faq {
+  display: grid;
+  grid-template-columns: minmax(220px, 380px) 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .secao--faq {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Titulo da secao maior que o padrao (--faq), em duas linhas: "Perguntas"
+   embaixo "frequentes" — o <br> no HTML forca a quebra. */
+.faq__titulo {
+  font-size: clamp(2.4rem, 1.5rem + 4vw, 4.4rem);
+}
+
+.faq {
+  max-width: 68rem;
+}
+
+.faq__item {
+  border-top: 1px solid color-mix(in srgb, var(--ouro) 8%, transparent);
+}
+
+.faq__item:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--ouro) 8%, transparent);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  font-family: var(--corpo);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--marfim);
+  cursor: pointer;
+  list-style: none; /* tira o marcador padrao do <summary> */
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* :hover so em dispositivo com mouse de verdade — em touch, o :hover
+   fica "preso" no elemento tocado ate a pessoa tocar em outro lugar (as
+   vezes ate depois de fechar a pergunta), entao no celular ele nunca
+   soltava a cor dourada. Mesma guarda que o cursor personalizado usa
+   (index.html, "hover:hover e pointer:fine").
+   :focus-visible vira so contorno (acessibilidade de teclado), sem
+   herdar a cor — pelo mesmo motivo: no toque ela tambem grudava. */
+@media (hover: hover) and (pointer: fine) {
+  .faq__item summary:hover {
+    color: var(--ouro);
+  }
+}
+
+.faq__item summary:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--ouro) 60%, transparent);
+  outline-offset: 4px;
+}
+
+/* Cor dourada e o unico indicador confiavel de "essa pergunta esta
+   aberta" — nao depende de hover/foco, que somem ou grudam. */
+.faq__item[open] summary {
+  color: var(--ouro);
+}
+
+/* O "+" que vira "x": duas barras em cruz, uma delas roda 90deg quando
+   [open] — a mesma logica do botao hamburguer do cabecalho. */
+.faq__icone {
+  position: relative;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.faq__icone::before,
+.faq__icone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.faq__icone::before {
+  width: 100%;
+  height: 1px;
+}
+
+.faq__icone::after {
+  width: 1px;
+  height: 100%;
+}
+
+.faq__item[open] .faq__icone::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+.faq__item p {
+  margin: 0 0 1.3rem;
+  max-width: 62ch;
+  color: color-mix(in srgb, var(--texto) 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__icone::before,
+  .faq__icone::after {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   CONTATO — encerramento em faixa central, como um convite final
+   ============================================================ */
+
+.secao--contato {
+  text-align: center;
+}
+
+.secao--contato .secao__rotulo {
+  /* .secao p (base.css) poe max-width:62ch em qualquer <p> de secao —
+     inclusive nesse rotulo, que vira uma linha so. Sem margin-inline:auto
+     a CAIXA fica encostada a esquerda (text-align:center so centraliza o
+     texto DENTRO dela); com isso a caixa em si centraliza tambem. */
+  max-width: fit-content;
+  margin-inline: auto;
+}
+
+.secao--contato .secao__titulo-grande {
+  margin-inline: auto;
+  max-width: 26ch;
+}
+
+.secao--contato .secao__texto-intro {
+  margin-inline: auto;
+}
+
+.secao--contato .botao-cta {
+  margin-top: 1.6rem;
+}
+
+/* Icones de rede/contato — mesmo vocabulario visual do botao-cta--vazado
+   (borda dourada fina, preenchimento leve no hover), so que em circulo. */
+.contato__redes {
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.contato__rede {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: var(--marfim);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 40%, transparent);
+  transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.contato__rede svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.contato__rede:hover,
+.contato__rede:focus-visible {
+  color: var(--ouro-claro);
+  background: color-mix(in srgb, var(--ouro) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ouro) 72%, transparent);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contato__rede {
+    transition: none;
+  }
+
+  .contato__rede:hover,
+  .contato__rede:focus-visible {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   RODAPE
+   ============================================================ */
+
+.rodape {
+  border-top: 1px solid color-mix(in srgb, var(--ouro) 16%, transparent);
+  padding: clamp(2rem, 5vh, 3rem) 0;
+}
+
+.rodape__linha {
+  width: var(--medida);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rodape__marca {
+  display: flex;
+  align-items: center;
+}
+
+.rodape__marca img {
+  width: 140px;
+  height: auto;
+  opacity: 0.65;
+}
+
+.rodape__copyright {
+  width: var(--medida);
+  margin-inline: auto;
+  margin-top: clamp(1.5rem, 4vh, 2.2rem);
+  font-size: 0.78rem;
+  text-align: center;
+  color: color-mix(in srgb, var(--texto) 55%, transparent);
+}
+
+.rodape__credito {
+  width: var(--medida);
+  margin-inline: auto;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* Mesmo realce do menu do cabecalho (css/base.css, .topo__menu a) — fio
+   que abre do centro pras pontas + losango no meio, so no hover/foco. */
+.rodape__credito a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5em;
+  /* Dourado leve em repouso — sinaliza "isso e um link" sem chamar
+     tanta atencao quanto o --ouro cheio do hover. */
+  color: color-mix(in srgb, var(--ouro-fosco) 75%, var(--texto) 25%);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.rodape__credito a::before,
+.rodape__credito a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+
+.rodape__credito a::before {
+  bottom: 0.1em;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ouro) 70%, transparent) 22%,
+      color-mix(in srgb, var(--ouro) 70%, transparent) 78%,
+      transparent 100%);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.35s ease;
+}
+
+.rodape__credito a::after {
+  bottom: calc(0.1em - 2px);
+  width: 5px;
+  height: 5px;
+  background: var(--ouro);
+  transform: translateX(-50%) rotate(45deg) scale(0);
+  transition: transform 0.3s ease 0.08s;
+}
+
+.rodape__credito a:hover,
+.rodape__credito a:focus-visible {
+  color: var(--ouro);
+}
+
+.rodape__credito a:hover::before,
+.rodape__credito a:focus-visible::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.rodape__credito a:hover::after,
+.rodape__credito a:focus-visible::after {
+  transform: translateX(-50%) rotate(45deg) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rodape__credito a::before,
+  .rodape__credito a::after {
+    transition: none;
+  }
+}

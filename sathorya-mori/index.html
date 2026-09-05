@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reino de Exu Caveira e Maria Caveira — Templo Esotérico</title>
+<meta name="description" content="Templo Esotérico Reino de Exu Caveira e Maria Caveira. Tradição, orientação espiritual e trabalhos conduzidos com responsabilidade.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Cormorant+SC:wght@500;600&display=swap">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/moldura.css">
+<link rel="stylesheet" href="css/abertura.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/secoes.css">
+
+<script>
+  /* Decide se a abertura aparece hoje. Roda inline, no <head>, ANTES da
+     primeira pintura — se rodasse depois, quem já viu hoje veria a
+     cortina piscar antes de sumir.
+
+     Em aba anônima o localStorage lança exceção; nesse caso a abertura
+     simplesmente aparece, que é o comportamento seguro. */
+  (function () {
+    try {
+      var hoje = new Date().toISOString().slice(0, 10);
+      if (localStorage.getItem('abertura-vista') === hoje) {
+        document.documentElement.classList.add('sem-abertura');
+      } else {
+        localStorage.setItem('abertura-vista', hoje);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- Ponteiro personalizado: div fixed que o script no fim da pagina
+     move via transform. So aparece em dispositivo com mouse de
+     verdade — ver a media query no proprio script. -->
+<div class="cursor-mouse" aria-hidden="true">
+  <img src="assets/mouse-cursor.png" alt="" draggable="false">
+</div>
+
+<!-- ============================================================
+     ABERTURA (pré-load)
+     Cortina por cima do site. O conteúdo abaixo já está no DOM.
+
+     .varredura-ciclo forma a moldura e o título da esquerda pra direita,
+     segura, e depois os desfaz no mesmo sentido — deixando a tela preta
+     antes de a cortina sair. Ver css/abertura.css.
+     ============================================================ -->
+<div class="abertura" aria-hidden="true">
+  <div class="abertura__palco varredura-ciclo">
+    <img class="abertura__titulo" src="assets/titulo.svg" alt="">
+
+    <div class="moldura">
+      <div class="moldura__canto  moldura__canto--se"></div>
+      <div class="moldura__canto  moldura__canto--sd"></div>
+      <div class="moldura__canto  moldura__canto--ie"></div>
+      <div class="moldura__canto  moldura__canto--id"></div>
+      <div class="moldura__aresta moldura__aresta--topo"></div>
+      <div class="moldura__aresta moldura__aresta--base"></div>
+      <div class="moldura__aresta moldura__aresta--esq"></div>
+      <div class="moldura__aresta moldura__aresta--dir"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SITE
+     ============================================================ -->
+<header class="topo">
+  <!-- So o selo, sem o nome escrito ao lado: o nome ja e o <h1> do hero,
+       logo abaixo. O aria-label existe porque a imagem e decorativa e o
+       link precisaria ficar mudo pra quem usa leitor de tela.
+
+       sigilo-topo.* — traco branco em fundo transparente (recortado de
+       assets/sigilo-branco-transparente.png). Duas versoes: branca (
+       repouso) e dourada (sigilo-topo-dourado.*, mesmo traco recolorido
+       — ver build/), empilhadas com crossfade no hover/foco (css/
+       base.css, .topo__selo-caixa). -->
+  <a class="topo__selo" href="#inicio" aria-label="Reino de Exu Caveira e Maria Caveira — ir para o topo">
+    <span class="topo__selo-caixa">
+      <picture>
+        <source srcset="assets/sigilo-topo.webp" type="image/webp">
+        <img class="topo__selo-branco" src="assets/sigilo-topo.png" alt="" width="320" height="320" decoding="async">
+      </picture>
+      <picture>
+        <source srcset="assets/sigilo-topo-dourado.webp" type="image/webp">
+        <img class="topo__selo-dourado" src="assets/sigilo-topo-dourado.png" alt="" width="320" height="320" decoding="async" aria-hidden="true">
+      </picture>
+    </span>
+  </a>
+
+  <nav>
+    <!-- Cortina atras do painel: cobre o hero inteiro pra ele nao ficar
+         "flutuando" sobre a arte com um corte reto embaixo. Fica ANTES
+         do <ul> no DOM de proposito — sem z-index em nenhum dos dois, e
+         a ordem do documento que garante o painel por cima dela.
+
+         Cortina e painel VOLTARAM pra dentro do <header> (moraram fora
+         numa rodada anterior — ver git/memoria — pra fugir de um bug em
+         que .topo--rolado colapsava a altura deles). O bug era real, mas
+         a causa era o backdrop-filter em cima do proprio .topo virar
+         "containing block" dos descendentes position:fixed; a correcao
+         certa foi mover o backdrop-filter pro pseudo-elemento
+         .topo::before (ver base.css) em vez de tirar estes dois do
+         DOM — porque fora do <header>, o menu perdia o lugar dele na
+         MESMA LINHA do selo no desktop (o layout ali depende do menu
+         estar dentro do .topo, que e display:flex). -->
+    <div class="topo__cortina" id="topo-cortina" aria-hidden="true"></div>
+
+    <!-- So aparece abaixo do ponto de quebra (css/base.css); acima disso
+         o menu completo cabe na barra e o botao fica escondido. -->
+    <button class="topo__burger" id="topo-burger" type="button"
+            aria-controls="topo-menu" aria-expanded="false" aria-label="Abrir menu">
+      <i></i><i></i><i></i>
+    </button>
+
+    <ul class="topo__menu" id="topo-menu">
+      <li><a href="#o-reino">O Reino</a></li>
+      <li><a href="#dirigente">A Dirigente</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+
+    <!-- ARTE — três camadas empilhadas, todas decorativas.
+         Ordem importa: brilho no fundo, sigilo por cima dele como marca
+         d'água, casal na frente. Ver css/hero.css. -->
+    <div class="hero__arte" aria-hidden="true">
+      <picture>
+        <source srcset="assets/brilho.webp" type="image/webp">
+        <img class="hero__brilho" src="assets/brilho.png" alt="" decoding="async">
+      </picture>
+
+      <!-- Sigilo e casal moram na MESMA caixa: e o que impede o selo de
+           passear pela tela quando a janela muda de proporcao. O sigilo se
+           posiciona em % desse involucro, nao do hero. Ver css/hero.css. -->
+      <div class="hero__figuras">
+        <picture>
+          <source srcset="assets/sigilo.webp" type="image/webp">
+          <img class="hero__sigilo" src="assets/sigilo.png" alt="" decoding="async">
+        </picture>
+
+        <i class="hero__casal-sombra"></i>
+
+        <picture>
+          <source srcset="assets/casal.webp" type="image/webp">
+          <img class="hero__casal" src="assets/casal.png" alt="" fetchpriority="high">
+        </picture>
+      </div>
+
+      <div class="hero__veu"></div>
+      <div class="hero__fundo"></div>
+    </div>
+
+    <!-- MOLDURA — coluna à esquerda, não moldura fechada: os dois cantos,
+         os fios verticais (que se apagam no meio) e o nó ornamental.
+         Ver css/hero.css. -->
+    <div class="hero__moldura" aria-hidden="true">
+      <i class="moldura__trilho"></i>
+      <i class="moldura__no"></i>
+    </div>
+
+    <!-- CONTEÚDO — texto de verdade, não imagem. -->
+    <div class="hero__conteudo">
+      <p class="hero__sobretitulo">Templo Esotérico</p>
+
+      <div class="divisor" aria-hidden="true"><i></i></div>
+
+      <h1 class="hero__titulo">Reino de<br>Exu Caveira e<br>Maria Caveira</h1>
+
+      <div class="divisor divisor--baixo" aria-hidden="true"><i></i></div>
+
+      <p class="hero__subtitulo">Tradição, presença e caminho espiritual.</p>
+
+      <!-- Cada botao: simbolo a esquerda, rotulo, seta a direita. Os
+           simbolos herdam a cor do botao (stroke="currentColor"), entao
+           acompanham o ouro / o marfim sem regra propria. -->
+      <div class="hero__acoes">
+        <a class="botao botao--ouro" href="#o-reino">
+          <svg class="botao__simbolo" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- tridente, o mesmo do sigilo -->
+            <path d="M12 3.4v17.1"/>
+            <path d="M12 3.4 10.2 6M12 3.4 13.8 6"/>
+            <path d="M6.5 6.6v4.4a5.5 5.5 0 0 0 11 0V6.6"/>
+            <path d="M6.5 6.6 4.9 8.7M17.5 6.6l1.6 2.1"/>
+            <path d="M9.2 20.5h5.6"/>
+          </svg>
+          Conheça o templo
+          <svg class="botao__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a class="botao botao--vazado" href="#contato">
+          <svg class="botao__simbolo" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- balao de fala -->
+            <path d="M20.6 12.1c0 3.9-3.8 7.1-8.6 7.1-.9 0-1.9-.1-2.7-.4L4.2 20.4l1.5-3.6a6.8 6.8 0 0 1-2.3-4.7C3.4 8.2 7.2 5 12 5s8.6 3.2 8.6 7.1Z"/>
+            <path stroke="none" fill="currentColor"
+                  d="M8.6 11.2a.95.95 0 1 1 0 1.9.95.95 0 0 1 0-1.9Zm3.4 0a.95.95 0 1 1 0 1.9.95.95 0 0 1 0-1.9Zm3.4 0a.95.95 0 1 1 0 1.9.95.95 0 0 1 0-1.9Z"/>
+          </svg>
+          Fale com a Dirigente
+          <svg class="botao__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Convite a rolar. E um link de verdade pra primeira secao: quem usa
+         teclado chega nele por tab e ele leva pra algum lugar. -->
+    <a class="hero__rolar" href="#o-reino" aria-label="Rolar para o conteúdo">
+      <svg viewBox="0 0 24 13" fill="none" stroke="currentColor" stroke-width="1.4"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M1.6 1.6 12 11.4 22.4 1.6"/>
+      </svg>
+    </a>
+
+    <!-- Sentinela do cabecalho: caixa invisivel, sem peso no layout, que
+         ocupa a faixa do topo. Enquanto ela estiver na tela, a barra fica
+         transparente; quando sai, ganha fundo. Ver o script no fim da
+         pagina. Observar uma sentinela custa menos que ouvir o evento de
+         scroll — o navegador so avisa quando o estado realmente muda. -->
+    <i class="hero__sentinela" aria-hidden="true"></i>
+  </section>
+
+  <!-- Texto do cliente (2026-08-20) — ele mesmo marcou como "meramente
+       ilustrativo", ou seja, é o conteúdo dele mas ainda pode mudar.
+       As seções seguintes (#servicos em diante) seguem com texto de
+       exemplo nosso. -->
+  <section class="secao" id="o-reino">
+    <!-- Espaco de imagem a direita — mesmo quadro reservado de
+         #dirigente/#oraculos (.retrato-reservado, css/secoes.css), so
+         que dentro de um grid proprio (.reino__corpo) porque esta secao
+         nao usa a marcacao secao__rotulo/titulo-grande das outras
+         ainda (segue andaime simples ate ter conteudo real). -->
+    <div class="reino__corpo">
+      <div>
+        <h2 class="secao__titulo">O Reino</h2>
+        <p>
+          Texto meramente ilustrativo – O Reino de Exu Caveira e Maria
+          Caveira é um templo esotérico dedicado às linhas de trabalho
+          relacionadas a Exu e Pombogira, à Kimbanda em suas diferentes
+          expressões e ao Satanismo Anticósmico.
+        </p>
+        <p>
+          Seus estudos e práticas também dialogam com outras tradições
+          espirituais e correntes esotéricas, reunidas de forma coerente
+          com os fundamentos, princípios e propósitos que orientam o
+          templo.
+        </p>
+      </div>
+      <div class="retrato-reservado" aria-hidden="true">
+        <img src="assets/sigilo.png" alt="">
+        <span>Imagem a definir</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foto real da dirigente (2026-08-20). Mesma moldura dourada do
+       quadro reservado usado em #o-reino/#oraculos, so que com a
+       imagem preenchendo o quadro — modificador --foto em
+       css/secoes.css. -->
+  <section class="secao secao--dirigente" id="dirigente">
+    <div class="retrato-reservado retrato-reservado--foto">
+      <picture>
+        <source srcset="assets/sathorya.webp" type="image/webp">
+        <img src="assets/sathorya.jpg" alt="Retrato de Sathorya Mori, dirigente do templo"
+             width="635" height="633" loading="lazy" decoding="async">
+      </picture>
+    </div>
+
+    <div class="dirigente__texto">
+      <p class="secao__rotulo">A Dirigente</p>
+      <h2 class="secao__titulo-grande">Sathorya Mori</h2>
+      <p>
+        Texto meramente ilustrativo – Sathorya Mori é fundadora e
+        dirigente espiritual do Templo. Desde o ano 2000, desenvolve seu
+        trabalho junto aos seus guias e realiza práticas mágicas voltadas
+        à orientação, proteção e transformação de seus consulentes.
+      </p>
+      <p>
+        Ao longo de sua trajetória, já atendeu mais de duas mil pessoas.
+        Sua atuação é fundamentada na experiência, no sigilo e na
+        responsabilidade, respeitando a história e as necessidades de cada
+        pessoa que procura seus trabalhos.
+      </p>
+      <a class="botao-cta botao-cta--vazado" href="#contato">
+        Fale com a Dirigente
+        <svg class="botao-cta__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- SERVICOS — uma secao, duas subsecoes: Trabalhos (carrossel,
+       .carrossel/data-carrossel — o script no fim da pagina liga
+       automaticamente qualquer novo carrossel que aparecer na pagina,
+       nao so este) e Oraculos (lista + imagem reservada, mesmo formato
+       de #dirigente espelhado). -->
+  <section class="secao secao--servicos" id="servicos">
+    <div class="servicos__cabecalho">
+      <p class="secao__rotulo">Serviços</p>
+      <h2 class="secao__titulo-grande">Não existe trabalho <em>sem propósito</em></h2>
+      <p class="secao__texto-intro">
+        Texto de exemplo — cada serviço parte de uma situação real, de um
+        objetivo possível e da responsabilidade de compreender as
+        consequências. Conteúdo definitivo a definir com o cliente.
+      </p>
+    </div>
+
+    <!-- ---------- subsecao: Trabalhos ---------- -->
+    <div class="servicos__sub" id="trabalhos">
+      <h3 class="servicos__sub-titulo">Trabalhos</h3>
+      <p class="servicos__sub-intro">
+        Texto de exemplo — operações conduzidas com responsabilidade,
+        sempre depois de uma leitura clara da situação.
+      </p>
+
+      <!-- Carrossel infinito: rola sozinho da direita pra esquerda, para
+           no hover/clique, as setas continuam funcionando por cima do
+           auto-scroll. Sem foto de verdade por card ainda — ver nota no
+           topo de css/secoes.css. Script de controle no fim da pagina. -->
+      <div class="carrossel" data-carrossel>
+        <button class="carrossel__seta carrossel__seta--esq" data-carrossel-anterior aria-label="Trabalho anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 5.5 8.5 12 15 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="carrossel__pista" data-carrossel-pista>
+          <ul class="carrossel__lista">
+            <li class="carrossel__item">
+              <span class="carrossel__numero">01</span>
+              <div class="carrossel__imagem" aria-hidden="true">
+                <img src="assets/sigilo.png" alt="" loading="lazy">
+              </div>
+              <h4>Abertura de caminhos</h4>
+              <p>Para quando algo insiste em travar — a vida, o trabalho, uma decisão parada.</p>
+            </li>
+            <li class="carrossel__item">
+              <span class="carrossel__numero">02</span>
+              <div class="carrossel__imagem" aria-hidden="true">
+                <img src="assets/sigilo.png" alt="" loading="lazy">
+              </div>
+              <h4>Descarrego e limpeza</h4>
+              <p>Retirada de cargas e energias que não pertencem mais a quem as carrega.</p>
+            </li>
+            <li class="carrossel__item">
+              <span class="carrossel__numero">03</span>
+              <div class="carrossel__imagem" aria-hidden="true">
+                <img src="assets/sigilo.png" alt="" loading="lazy">
+              </div>
+              <h4>Caminhos amorosos</h4>
+              <p>Nem todo afastamento é fim. O trabalho identifica o que prende e o que precisa ser transformado.</p>
+            </li>
+            <li class="carrossel__item">
+              <span class="carrossel__numero">04</span>
+              <div class="carrossel__imagem" aria-hidden="true">
+                <img src="assets/sigilo.png" alt="" loading="lazy">
+              </div>
+              <h4>Pactos e acordos</h4>
+              <p>Compromisso, responsabilidade e propósito diante da força evocada.</p>
+            </li>
+            <li class="carrossel__item">
+              <span class="carrossel__numero">05</span>
+              <div class="carrossel__imagem" aria-hidden="true">
+                <img src="assets/sigilo.png" alt="" loading="lazy">
+              </div>
+              <h4>Orientação ritual</h4>
+              <p>Quando a situação não cabe em resposta pronta — o atendimento define o caminho adequado.</p>
+            </li>
+          </ul>
+        </div>
+
+        <button class="carrossel__seta carrossel__seta--dir" data-carrossel-proximo aria-label="Próximo trabalho">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- subsecao: Oraculos ---------- -->
+    <!-- Lista simples + imagem reservada a direita — mesmo formato de
+         #dirigente (acima), espelhado (texto/lista a esquerda, retrato
+         a direita). Sem foto de verdade ainda: mesmo quadro reservado
+         (.retrato-reservado, css/secoes.css) usado la. -->
+    <div class="servicos__sub" id="oraculos">
+      <div class="oraculos__corpo">
+        <div>
+          <h3 class="servicos__sub-titulo">Oráculos</h3>
+          <p class="servicos__sub-intro">
+            Texto de exemplo — leituras que orientam antes de qualquer
+            trabalho, revelando o que está em movimento e o que ainda
+            pode ser escolhido.
+          </p>
+
+          <ul class="oraculos__lista">
+            <li class="oraculos__item">
+              <span class="oraculos__numero">01</span>
+              <div>
+                <h4>Consulta com oráculos</h4>
+                <p>Leitura que revela forças, bloqueios e caminhos possíveis antes de qualquer trabalho.</p>
+              </div>
+            </li>
+            <li class="oraculos__item">
+              <span class="oraculos__numero">02</span>
+              <div>
+                <h4>Jogo de búzios</h4>
+                <p>Tradição de consulta afro-brasileira, direta e sem rodeios.</p>
+              </div>
+            </li>
+            <li class="oraculos__item">
+              <span class="oraculos__numero">03</span>
+              <div>
+                <h4>Tiragem de tarot</h4>
+                <p>Leitura simbólica que complementa a consulta oracular.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="retrato-reservado" aria-hidden="true">
+          <img src="assets/sigilo.png" alt="">
+          <span>Imagem a definir</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="servicos__rodape">
+      <a class="botao-cta botao-cta--vazado" href="#contato">
+        Conversar sobre um serviço
+        <svg class="botao-cta__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="secao secao--como-funciona" id="como-funciona">
+    <div>
+      <p class="secao__rotulo">Como Funciona</p>
+      <h2 class="secao__titulo-grande">Clareza antes de <em>qualquer</em> trabalho</h2>
+      <p class="secao__texto-intro">
+        Texto de exemplo — o atendimento começa pela compreensão do caso.
+        Nenhuma operação é indicada antes de uma leitura responsável da
+        situação. Conteúdo definitivo a definir com o cliente.
+      </p>
+    </div>
+
+    <div>
+      <ol class="passos">
+        <li class="passos__item">
+          <span class="passos__numero">01</span>
+          <h3>Você apresenta sua situação</h3>
+          <p>Conte o que está acontecendo, o que deseja compreender e quais caminhos já tentou.</p>
+        </li>
+        <li class="passos__item">
+          <span class="passos__numero">02</span>
+          <h3>O caso é analisado</h3>
+          <p>A consulta oracular revela forças, bloqueios, riscos e possibilidades presentes.</p>
+        </li>
+        <li class="passos__item">
+          <span class="passos__numero">03</span>
+          <h3>Os caminhos são apresentados</h3>
+          <p>Você recebe uma leitura clara das alternativas e das consequências de cada escolha.</p>
+        </li>
+        <li class="passos__item">
+          <span class="passos__numero">04</span>
+          <h3>O trabalho é definido</h3>
+          <p>Só se propõe uma operação quando existe fundamento, objetivo possível e concordância.</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="recursos">
+      <div class="recursos__item">
+        <h4>Sigilo absoluto</h4>
+        <p>Toda consulta e comunicação são tratadas de forma confidencial.</p>
+      </div>
+      <div class="recursos__item">
+        <h4>Atendimento individual</h4>
+        <p>Cada caso é ouvido e analisado em sua própria realidade.</p>
+      </div>
+      <div class="recursos__item">
+        <h4>Transparência nos trabalhos</h4>
+        <p>Nenhuma operação é proposta sem explicação prévia.</p>
+      </div>
+      <div class="recursos__item">
+        <h4>Acompanhamento direto</h4>
+        <p>Você recebe orientação durante as etapas combinadas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ em <details>/<summary> nativos: teclado e estado de aberto/
+       fechado ficam por conta do navegador, sem JS nenhum aqui. -->
+  <section class="secao secao--faq" id="faq">
+    <div class="faq__cabecalho">
+      <h2 class="secao__titulo-grande faq__titulo">Perguntas<br><em>frequentes</em></h2>
+    </div>
+
+    <div class="faq">
+      <details class="faq__item">
+        <summary>O atendimento é online ou presencial?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Como funciona a consulta?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Qual é a duração aproximada?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Existe acompanhamento depois?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Como é feito o pagamento?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>O valor é informado antes?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Há situações que o templo não atende?<span class="faq__icone" aria-hidden="true"></span></summary>
+        <p>Resposta de exemplo — conteúdo definitivo a definir com o cliente.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="secao secao--contato" id="contato">
+    <p class="secao__rotulo">Toda Escolha Abre Um Caminho</p>
+    <h2 class="secao__titulo-grande">Compreenda o presente. <em>Controle o futuro.</em></h2>
+    <p class="secao__texto-intro">
+      Texto de exemplo — se você sente que chegou o momento de olhar sua
+      situação com clareza, entre em contato com o templo.
+    </p>
+
+    <!-- Redes/contato — links de exemplo (href="#"), a definir com o
+         cliente. Icones oficiais das marcas (simple-icons, MIT). -->
+    <div class="contato__redes">
+      <a class="contato__rede" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+        </svg>
+      </a>
+      <a class="contato__rede" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </a>
+      <a class="contato__rede" href="#" target="_blank" rel="noopener" aria-label="Telegram">
+        <!-- So o aviaozinho do icone oficial (simple-icons), sem o
+             circulo de fundo dele — o circulo do botao ja e nosso. -->
+        <svg viewBox="-8.4 5.1 15 15" fill="currentColor" aria-hidden="true">
+          <path d="m4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+      </a>
+    </div>
+
+    <a class="botao-cta botao-cta--vazado" href="#inicio">
+      Entre em contato
+      <svg class="botao-cta__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M9 5.5 15.5 12 9 18.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="rodape__linha">
+    <div class="rodape__marca">
+      <img src="assets/sigilo-branco-solido.svg" alt="Reino de Exu Caveira e Maria Caveira" loading="lazy">
+    </div>
+  </div>
+
+  <p class="rodape__copyright">
+    © 2026 Reino de Exu Caveira e Maria Caveira.<br>
+    Todos os direitos reservados.
+  </p>
+  <p class="rodape__credito">
+    <a href="https://www.instagram.com/ignisdigitalstudio" target="_blank" rel="noopener noreferrer">Site criado por Ignis Studio</a>
+  </p>
+</footer>
+
+<script>
+  /* Links do menu (e qualquer outro href="#id") rolam ate a secao mas
+     NAO gravam o #id na URL — pedido do cliente, URL sempre limpa.
+     scrollIntoView + preventDefault no lugar da navegacao nativa, que
+     e quem escrevia o hash. */
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var id = link.getAttribute('href').slice(1);
+      var alvo = id ? document.getElementById(id) : null;
+      if (!alvo) return;
+      e.preventDefault();
+      alvo.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<script>
+  /* Barra do topo: transparente no inicio (o fundo da pagina ja e preto
+     ali, entao a barra opaca so somava peso) e com fundo depois que a
+     pessoa rola.
+
+     Sem suporte a IntersectionObserver, a barra fica com fundo desde o
+     inicio — o estado legivel, nao o bonito. */
+  (function () {
+    var topo = document.querySelector('.topo');
+    var sentinela = document.querySelector('.hero__sentinela');
+    if (!topo) return;
+
+    if (!sentinela || !('IntersectionObserver' in window)) {
+      topo.classList.add('topo--rolado');
+      return;
+    }
+
+    new IntersectionObserver(function (entradas) {
+      topo.classList.toggle('topo--rolado', !entradas[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinela);
+  })();
+</script>
+
+<script>
+  /* Fade do Hero ao rolar — SO o Hero, nao as demais secoes (pedido
+     explicito do cliente: menos arriscado/mais leve que aplicar em
+     tudo, e resolve o caso que mais incomodava — o rastro do Hero
+     ainda visivel quando a pessoa ja esta olhando "O Reino").
+
+     Fica em opacidade 1 ate 55% da propria altura rolada, so entao
+     comeca a esmaecer, chegando a 0 exatamente quando a altura toda
+     foi rolada — assim ele desaparece ANTES do que a rolagem normal já
+     faria, sem escurecer o texto enquanto a pessoa ainda esta lendo o
+     Hero. Direto por scrollY (nao IntersectionObserver): precisa de um
+     valor CONTINUO (0 a 1), nao so um booleano de entrou/saiu. */
+  (function () {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var LIMIAR = 0.55;
+    var quadro = null;
+
+    function atualizar() {
+      quadro = null;
+      var altura = hero.offsetHeight;
+      if (!altura) return;
+      var progresso = window.scrollY / altura;
+      var opacidade = 1;
+      if (progresso > LIMIAR) {
+        opacidade = 1 - (progresso - LIMIAR) / (1 - LIMIAR);
+        if (opacidade < 0) opacidade = 0;
+      }
+      hero.style.opacity = opacidade;
+    }
+
+    function aoRolar() {
+      if (!quadro) quadro = requestAnimationFrame(atualizar);
+    }
+
+    window.addEventListener('scroll', aoRolar, { passive: true });
+    window.addEventListener('resize', aoRolar);
+    atualizar();
+  })();
+</script>
+
+<script>
+  /* Menu hamburguer: abre/fecha o painel vertical (css/base.css, bloco
+     "menu hamburguer"). Fecha sozinho ao escolher um link, ao apertar
+     Esc, ou se a tela crescer alem da quebra e o menu horizontal voltar
+     — senao o painel ficaria "aberto" por baixo, escondido mas ainda no
+     estado aria-expanded errado. */
+  (function () {
+    var botao = document.getElementById('topo-burger');
+    var menu = document.getElementById('topo-menu');
+    var cortina = document.getElementById('topo-cortina');
+    if (!botao || !menu) return;
+
+    function fechar() {
+      menu.classList.remove('topo__menu--aberto');
+      if (cortina) cortina.classList.remove('topo__cortina--aberta');
+      botao.setAttribute('aria-expanded', 'false');
+      // Trava de rolagem (pedido do cliente): sem isso, dava pra rolar o
+      // hero por baixo do painel aberto, o que destacava ainda mais o
+      // corte reto dele contra a arte.
+      document.documentElement.style.overflow = '';
+    }
+
+    function alternar() {
+      var aberto = menu.classList.toggle('topo__menu--aberto');
+      if (cortina) cortina.classList.toggle('topo__cortina--aberta', aberto);
+      botao.setAttribute('aria-expanded', String(aberto));
+      document.documentElement.style.overflow = aberto ? 'hidden' : '';
+    }
+
+    botao.addEventListener('click', alternar);
+
+    menu.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') fechar();
+    });
+
+    // Clicar na cortina (fora do painel) fecha, como qualquer drawer.
+    if (cortina) cortina.addEventListener('click', fechar);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') fechar();
+    });
+
+    var quebra = window.matchMedia('(max-width: 980px)');
+    quebra.addEventListener('change', function (e) {
+      if (!e.matches) fechar();
+    });
+  })();
+</script>
+
+<script>
+  /* Carrossel de Trabalhos (css/secoes.css). Auto-scroll e animacao CSS
+     pura (keyframes carrossel-deslizar em secoes.css), NAO JavaScript —
+     primeira versao usava requestAnimationFrame escrevendo scrollLeft a
+     cada frame, e funcionava em teste automatizado mas ficava parada em
+     navegadores reais (Brave, Edge) por throttling de timers JS em
+     segundo plano/economia de energia. Animacao CSS roda no
+     compositor, imune a isso — mesma tecnica do site de referencia do
+     cliente.
+
+     Loop infinito: a lista de cartas e duplicada uma vez (clones com
+     aria-hidden + tabindex="-1", invisiveis pra leitor de tela e
+     teclado) e a animacao desliza translateX ate -50% — exatamente a
+     largura do conjunto original — antes de repetir; como o clone e
+     identico ao original, o corte da volta fica invisivel.
+
+     SETAS E ARRASTO NAO MEXEM EM scrollLeft — so na propria animacao,
+     via animation-delay (que "adianta" ou "atrasa" o ponto em que ela
+     esta). A pista e overflow:hidden (css/secoes.css), nao rola de
+     verdade. Isso substituiu uma versao anterior que usava
+     pista.scrollBy/scrollLeft: o scroll nativo se somava ao transform
+     da animacao sem limite em comum, e depois de algumas setadas ou um
+     arrasto mais longo a soma dos dois passava do fim do conteudo
+     duplicado — a pista mostrava so o fundo preto da secao (o
+     "carrossel sumindo"/tela preta que o cliente reportou). Ver a nota
+     maior em .carrossel__pista, secoes.css.
+
+     O script cuida de: (1) medir a largura real da lista pra calcular
+     a duracao da animacao (o card tem largura responsiva, `min(78vw,
+     320px)`, entao a duracao tem que ser calculada, nao fixa); (2)
+     ligar as setas (deslocam a animacao por um passo, lendo a posicao
+     atual direto da matriz de transform computada — funciona rodando
+     OU pausada); (3) pausa por hover, foco DENTRO DA LISTA (so nas
+     cartas, nao nos botoes de seta — clicar numa seta foca o botao no
+     Chromium, e se esse foco contasse o carrossel pausaria pra sempre
+     depois do primeiro clique) ou arrasto — os tres se somam (qualquer
+     um ativo mantem pausado); (4) arrastar com o mouse OU o dedo pra
+     mover a animacao manualmente (mesmo mecanismo das setas, so que
+     continuo).
+
+     querySelectorAll + forEach, nao querySelector: a marcacao e
+     reaproveitavel — se um novo carrossel aparecer na pagina, o script
+     ja liga ele sozinho, mesmo havendo so um hoje (Oraculos virou lista
+     simples, ver #oraculos no HTML). */
+
+  document.querySelectorAll('[data-carrossel]').forEach(function (carrossel) {
+    var pista = carrossel.querySelector('[data-carrossel-pista]');
+    var lista = pista && pista.querySelector('.carrossel__lista');
+    var anterior = carrossel.querySelector('[data-carrossel-anterior]');
+    var proximo = carrossel.querySelector('[data-carrossel-proximo]');
+    var cartasOriginais = lista ? Array.prototype.slice.call(lista.querySelectorAll('.carrossel__item')) : [];
+    if (!pista || !lista || !anterior || !proximo || !cartasOriginais.length) return;
+
+    // Duplica as cartas originais uma vez, fora do alcance de teclado e
+    // leitor de tela — sao so material visual pro loop.
+    cartasOriginais.forEach(function (carta) {
+      var clone = carta.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.setAttribute('tabindex', '-1');
+      lista.appendChild(clone);
+    });
+
+    cartasOriginais.forEach(function (carta) {
+      carta.setAttribute('tabindex', '0');
+    });
+
+    var VELOCIDADE = 32; // pixels por segundo
+    var metadeLargura = 0;
+    var duracaoSegundos = 0;
+
+    function definirDuracao() {
+      metadeLargura = lista.scrollWidth / 2;
+      duracaoSegundos = metadeLargura / VELOCIDADE;
+      lista.style.setProperty('--carrossel-duracao', duracaoSegundos.toFixed(2) + 's');
+    }
+    definirDuracao();
+    window.addEventListener('resize', definirDuracao);
+
+    function passo() {
+      // largura de uma carta + o gap, lido do proprio DOM em vez de
+      // fixo — acompanha o `width: min(78vw, 320px)` do CSS sozinho.
+      var estilo = getComputedStyle(lista);
+      var gap = parseFloat(estilo.columnGap || estilo.gap || 0);
+      return cartasOriginais[0].getBoundingClientRect().width + gap;
+    }
+
+    // Le a posicao atual (translateX, em px) direto da matriz computada
+    // — funciona com a animacao rodando OU pausada, ou com o transform
+    // manual do modo arrasto (abaixo), sem manter estado JS paralelo
+    // que pudesse dessincronizar do que o navegador realmente desenha.
+    function deslocamentoAtual() {
+      var t = getComputedStyle(lista).transform;
+      if (t === 'none') return 0;
+      var m = t.match(/matrix\(([^)]+)\)/);
+      if (!m) return 0;
+      var partes = m[1].split(',');
+      return parseFloat(partes[4]) || 0;
+    }
+
+    // MODO MANUAL (arrasto/setas): transform em px puro via inline
+    // style, SEM tocar em animation-delay pra mover. Motivo: reatribuir
+    // animation-delay numa animacao JA PAUSADA nao troca a posicao pela
+    // absoluta pedida — o navegador testado (Chromium) SOMA o novo
+    // delay ao "hold time" ja congelado, dobrando o deslocamento a cada
+    // chamada (comprovado: pedir a MESMA posicao, delta zero, fazia o
+    // carrossel pular pro dobro da distancia sozinho). E exatamente o
+    // "dispara correndo" que o cliente reportou. transform direto nao
+    // tem esse problema — e so um numero em px, sem modelo de tempo por
+    // baixo. animation-delay so e calculado UMA VEZ, ao sair do modo
+    // manual (encerrarManual), convertendo a posicao final de volta pra
+    // um ponto no relogio da animacao — essa e a mesma conversao unica
+    // que ja funcionava bem antes (nunca foi reatribuicao repetida).
+    var manualAtivo = false;
+    var deslocamentoManual = 0;
+
+    function iniciarManual() {
+      if (manualAtivo) return;
+      deslocamentoManual = deslocamentoAtual();
+      lista.style.animation = 'none';
+      lista.style.transform = 'translateX(' + deslocamentoManual + 'px)';
+      manualAtivo = true;
+    }
+
+    function encerrarManual() {
+      if (!manualAtivo) return;
+      var tempo = metadeLargura ? (-deslocamentoManual / metadeLargura) * duracaoSegundos : 0;
+      lista.style.animation = '';
+      lista.style.transform = '';
+      lista.style.animationDelay = (-tempo) + 's';
+      manualAtivo = false;
+    }
+
+    function mover(px) {
+      if (!metadeLargura) return;
+      iniciarManual();
+      deslocamentoManual += px;
+      // Mantem dentro de (-metadeLargura, 0] — a lista tem o conteudo
+      // duplicado uma vez, entao um "salto" de exatamente metadeLargura
+      // cai num quadro pixel-a-pixel identico (mesmo truque de loop que
+      // a animacao CSS usa), ficando invisivel pro olho.
+      var m = deslocamentoManual % metadeLargura;
+      if (m > 0) m -= metadeLargura;
+      deslocamentoManual = m;
+      lista.style.transform = 'translateX(' + deslocamentoManual + 'px)';
+    }
+
+    anterior.addEventListener('click', function () {
+      mover(-passo());
+    });
+
+    proximo.addEventListener('click', function () {
+      mover(passo());
+    });
+
+    var emHover = false;
+    var emFoco = false;
+    var arrastando = false;
+
+    function atualizarPausado() {
+      var pausado = emHover || emFoco || arrastando;
+      carrossel.classList.toggle('carrossel--pausado', pausado);
+      if (pausado) {
+        iniciarManual();
+      } else {
+        encerrarManual();
+        cartasOriginais.forEach(function (c) { c.classList.remove('carrossel__item--ativo'); });
+      }
+    }
+
+    carrossel.addEventListener('mouseenter', function () { emHover = true; atualizarPausado(); });
+    carrossel.addEventListener('mouseleave', function () { emHover = false; atualizarPausado(); });
+    // Foco so na LISTA (as cartas, tabindex 0) — nao no carrossel
+    // inteiro, que tambem contem os botoes de seta. Ver nota grande no
+    // topo do bloco.
+    lista.addEventListener('focusin', function () { emFoco = true; atualizarPausado(); });
+    lista.addEventListener('focusout', function () { emFoco = false; atualizarPausado(); });
+
+    // Clique/toque numa carta acende o destaque — mas nao se o clique
+    // veio do soltar de um arrasto (mousedown/touchstart com bastante
+    // movimento antes de soltar): senao toda vez que a pessoa arrasta o
+    // carrossel, a carta onde o dedo/mouse soltou acenderia sem ter
+    // sido escolhida de proposito.
+    var comecouArrastoEmX = 0;
+    var moveuNoArrasto = false;
+
+    pista.addEventListener('click', function (e) {
+      if (moveuNoArrasto) { moveuNoArrasto = false; return; }
+      var carta = e.target.closest('.carrossel__item');
+      if (!carta || carta.hasAttribute('aria-hidden')) return;
+      cartasOriginais.forEach(function (c) {
+        c.classList.toggle('carrossel__item--ativo', c === carta);
+      });
+    });
+
+    // Arrastar com o mouse: mousedown na pista comeca, mousemove no
+    // window (nao na pista — assim continua funcionando mesmo se o
+    // cursor sair da caixa no meio do arrasto) chama mover() a cada
+    // passo, mouseup no window termina. preventDefault no mousedown
+    // evita o "fantasma" de arrastar imagem/selecionar texto do
+    // navegador.
+    pista.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      arrastando = true;
+      moveuNoArrasto = false;
+      comecouArrastoEmX = e.clientX;
+      pista.classList.add('carrossel__pista--arrastando');
+      atualizarPausado();
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!arrastando) return;
+      var delta = e.clientX - comecouArrastoEmX;
+      if (Math.abs(delta) > 4) moveuNoArrasto = true;
+      comecouArrastoEmX = e.clientX;
+      // Arrasta pra esquerda (delta negativo) empurra o conteudo pra
+      // direita (px positivo) — mesmo sentido do dedo/mouse, por isso
+      // sem inverter o sinal aqui (era `mover(-delta)`, ficava ao
+      // contrario do gesto).
+      mover(delta);
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (!arrastando) return;
+      arrastando = false;
+      pista.classList.remove('carrossel__pista--arrastando');
+      atualizarPausado();
+    });
+
+    // Mesma logica pro toque — overflow:hidden na pista tira o swipe
+    // nativo que existia de graca com overflow-x:auto, entao precisa
+    // ser refeito aqui pra nao perder o controle manual no celular.
+    pista.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      arrastando = true;
+      moveuNoArrasto = false;
+      comecouArrastoEmX = e.touches[0].clientX;
+      atualizarPausado();
+    }, { passive: true });
+
+    pista.addEventListener('touchmove', function (e) {
+      if (!arrastando || e.touches.length !== 1) return;
+      var x = e.touches[0].clientX;
+      var delta = x - comecouArrastoEmX;
+      if (Math.abs(delta) > 4) moveuNoArrasto = true;
+      comecouArrastoEmX = x;
+      mover(delta); // mesmo ajuste de sentido do mousemove, acima
+    }, { passive: true });
+
+    pista.addEventListener('touchend', function () {
+      if (!arrastando) return;
+      arrastando = false;
+      atualizarPausado();
+    });
+  });
+</script>
+
+<script src="js/scroll-suave.js"></script>
+
+<script>
+  /* Cursor personalizado — o <div class="cursor-mouse"> (topo do body)
+     acompanha o ponteiro via transform, escrito a no maximo um quadro
+     por vez (requestAnimationFrame), pra rodar no compositor em vez de
+     disparar reflow a cada pointermove.
+
+     So liga em mouse de verdade: 'hover:hover e pointer:fine' descarta
+     touch (senao a bolinha ficava presa no canto num celular, sem
+     pointermove pra move-la). prefers-reduced-motion desliga tudo por
+     completo. O cursor nativo do sistema (cursor:none, css/base.css)
+     so some depois que a imagem termina de carregar — 'pronto()' —
+     pra nunca deixar a tela sem ponteiro nenhum por um instante. */
+  (function () {
+    var el = document.querySelector('.cursor-mouse');
+    var podeHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var reduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!el || !podeHover.matches || reduzido.matches) return;
+
+    var img = el.querySelector('img');
+    if (!img) return;
+
+    var quadro = 0;
+    var x = -60, y = -60;
+    var emHover = false;
+
+    function desenhar() {
+      quadro = 0;
+      el.style.transform = 'translate3d(' + (x - 2) + 'px, ' + (y - 1) + 'px, 0)';
+      el.classList.add('esta-visivel');
+      el.classList.toggle('em-hover', emHover);
+    }
+
+    function mover(e) {
+      x = e.clientX;
+      y = e.clientY;
+      emHover = !!(e.target && e.target.closest && e.target.closest('a, button, summary'));
+      if (!quadro) quadro = window.requestAnimationFrame(desenhar);
+    }
+
+    // Some quando o mouse sai da janela (troca de aba, vai pra barra
+    // do navegador) — senao a bolinha ficaria congelada na ultima
+    // posicao dentro da pagina.
+    function sair() {
+      el.classList.remove('esta-visivel');
+    }
+
+    function pronto() {
+      document.documentElement.classList.add('cursor-pronto');
+      window.addEventListener('pointermove', mover, { passive: true });
+      document.documentElement.addEventListener('mouseleave', sair);
+    }
+
+    if (img.complete && img.naturalWidth) pronto();
+    else img.addEventListener('load', pronto, { once: true });
+  })();
+</script>
+
+<!-- Cursor: fumaca dourada seguindo o ponteiro (SplashCursor, porte
+     vanilla JS/CSS do componente React Bits — simulacao de fluido em
+     WebGL, sem dependencias). So liga com mouse de verdade e fora de
+     prefers-reduced-motion; sem WebGL, o navegador so ignora (nao
+     quebra nada por baixo). Roda junto com o ponteiro personalizado
+     acima — sem o halo em CSS (::before) que ele tinha antes, pra nao
+     duplicar o glow dourado que a fumaca ja da. -->
+<script src="js/splash-cursor.js"></script>
+<script>
+  (function () {
+    var podeHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var reduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!podeHover.matches || reduzido.matches || !window.SplashCursor) return;
+
+    window.SplashCursor({
+      DENSITY_DISSIPATION: 5,
+      VELOCITY_DISSIPATION: 1.5,
+      CURL: 5,
+      SPLAT_RADIUS: 0.02,
+      SPLAT_FORCE: 2000,
+      COLOR_UPDATE_SPEED: 4,
+      RAINBOW_MODE: false,
+      COLOR: '#ffc100'
+    });
+  })();
+</script>
+
+</body>
+</html>

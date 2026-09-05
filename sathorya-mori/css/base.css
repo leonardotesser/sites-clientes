@@ -1,0 +1,608 @@
+/* ============================================================
+   BASE — tokens, reset e estrutura da pagina
+   ============================================================ */
+
+:root {
+  --preto: #060404;
+  --preto-2: #0b0806;
+  --ouro: #efc15e;
+  --ouro-claro: #f7d06a;
+  --ouro-fosco: #b9915a;
+  /* Ouro chapado do titulo do hero. Medido no miolo dos tracos de
+     assets/exemplo1.png: rgb(178,131,60), com o pico dos tons frequentes
+     em rgb(186,138,62). Sem gradiente — a referencia e ouro solido. */
+  --ouro-titulo: #c08f41;
+  --texto: #d8cbb4;
+  --marfim: #f2ecd9;
+
+  --serif: 'Cinzel', 'Trajan Pro', Georgia, 'Times New Roman', serif;
+  --corpo: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  /* Versalete de desenho proprio (nao a que o navegador improvisa
+     encolhendo maiuscula, que sai fina demais). */
+  --versalete: 'Cormorant SC', 'Cormorant Garamond', Georgia, serif;
+
+  --medida: min(92vw, 1180px);
+
+  /* Altura da barra do topo, escrita uma vez so. O hero precisa dela pra
+     saber onde comecar a moldura: o canto superior do ornamento mora nos
+     primeiros ~40u da moldura e ficava inteiro atras da barra (que e
+     fixed e 84% opaca) — sumia trilho, dardos, losangos e caveirinha, que
+     e a "borda quebrada" reportada. Derivar do token evita que os dois
+     numeros saiam de sincronia no proximo ajuste. */
+  --recuo-topo: clamp(0.62rem, 1.5vh, 0.82rem);
+  --selo-topo: clamp(46px, 4.2vw, 56px);
+  --alt-topo: calc(2 * var(--recuo-topo) + var(--selo-topo));
+
+  /* Mesma unidade de css/hero.css (--ua), repetida aqui: o cabecalho
+     precisa dela pra alinhar o fim do menu com o fim da imagem do casal
+     (Maria Caveira), e --ua e local ao seletor .hero, entao nao da pra
+     ler de la. Se um mudar o outro tem que acompanhar. */
+  --recuo-arte-direita: calc(24 * clamp(0.78px, min(0.0598vw, 0.106vh), 1px) + 2.4rem);
+
+  /* Mesmo valor do margin-inline-start de .hero__conteudo (css/hero.css)
+     — a distancia do "R" de "Reino de..." ate a borda da tela. O selo do
+     cabecalho usa isso tambem pra alinhar com o titulo, em vez de seguir
+     a centralizacao de --medida (que e mais estreita e deixava o selo
+     puxado pra dentro, fora de eixo com o "R" do titulo logo abaixo).
+     So vale ACIMA de 900px — o hero troca de layout nessa largura (a
+     coluna lado-a-lado vira texto empilhado sobre a arte) e o texto
+     ganha outro recuo la, proprio do modo empilhado. */
+  --recuo-conteudo-esquerda: clamp(2.2rem, 7.12vw, 7.45rem);
+  /* Par do de cima pro modo empilhado (abaixo de 900px) — o MESMO valor
+     que hero.css usa no margin-inline-start de .hero__conteudo la
+     dentro. Duplicado aqui pela mesma razao do --recuo-arte-direita: a
+     regra de hero.css so existe dentro do seletor .hero, fora de
+     alcance do cabecalho. Se um mudar o outro tem que acompanhar. */
+  --recuo-conteudo-esquerda-mobile: clamp(2.4rem, 13vw, 5rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Texto do site nao e selecionavel — pedido do cliente. Sem <input>/
+   <textarea> na pagina, entao nao ha campo que precise da selecao de
+   volta. */
+html {
+  -webkit-user-select: none;
+  user-select: none;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--preto);
+  color: var(--texto);
+  font-family: var(--corpo);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Texto que existe pra buscador e leitor de tela, mas nao aparece.
+   O titulo do hero e um SVG; sem isso a pagina nao teria <h1> legivel. */
+.oculto-visual {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- navegacao ---------- */
+
+.topo {
+  /* fixed (nao absolute): fica preso ao viewport e acompanha a rolagem,
+     em vez de rolar junto com o hero e sumir depois dele. */
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  /* Fundo solido em vez de largura centralizada: a barra cobre a pagina
+     de ponta a ponta, e o padding-inline recria o mesmo alinhamento que
+     width:var(--medida) + margin:auto dava antes.
+
+     Padding simetrico e curto: com a marca de duas linhas no lugar do
+     selo a barra passava de 90px, alta demais pro pouco que carrega. */
+  /* Direita alinhada com o fim da imagem do casal (Maria Caveira); esquerda
+     alinhada com o inicio do titulo do hero ("Reino de..."). Nenhuma das
+     duas usa a centralizacao de --medida — --medida e mais estreita, e
+     alinhado a ela o selo ficava puxado pra dentro, fora de eixo com o
+     "R" do titulo logo abaixo. */
+  padding: var(--recuo-topo) var(--recuo-arte-direita)
+           var(--recuo-topo) var(--recuo-conteudo-esquerda);
+  /* SEM background/backdrop-filter direto em .topo — ver .topo::before
+     logo abaixo pra saber por que. */
+}
+
+/* O fundo (blur + escurecido) mora num pseudo-elemento, nao em .topo
+   direto. Motivo: backdrop-filter (ou filter/transform/perspective/
+   will-change) num elemento vira o "containing block" dos DESCENDENTES
+   position:fixed dele — e .topo__cortina e .topo__menu, o painel do
+   menu hamburguer, sao fixed E filhos de .topo. Com o blur no proprio
+   .topo, assim que .topo--rolado entrava (ao rolar a pagina) os dois
+   colapsavam pra altura da propria barra (~71px) em vez da tela
+   inteira — o menu "quebrava" (sem cortina, sem paineis) em qualquer
+   secao alem do hero. Bug real, reportado pelo cliente, comprovado
+   medindo o rect deles. O pseudo-elemento resolve: ele carrega o
+   backdrop-filter, mas NAO e ancestral de nada — .topo continua limpo
+   (so position:fixed, que sozinho nao cria esse containing block), e
+   seus filhos fixed voltam a resolver contra o viewport, certinho.
+
+   position:absolute tira o pseudo-elemento do fluxo flex de .topo (nao
+   interfere no layout selo+nav); inset:0 preenche exatamente a barra;
+   sem z-index, a ordem natural do DOM ja pinta ele atras do selo/nav
+   (::before e sempre o primeiro filho pra fins de pintura). */
+.topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Comeca SEM fundo: no topo da pagina o que esta atras ja e preto, e a
+     barra opaca so somava um bloco a mais. O fundo entra quando a pessoa
+     rola, que e quando ele passa a ter funcao — separar o menu do
+     conteudo que corre por baixo. Quem alterna a classe .topo--rolado e
+     o script no fim do index.html, a partir de .hero__sentinela.
+
+     background-color e nao o atalho `background`: o atalho nao interpola
+     em transicao. */
+  background-color: transparent;
+  transition: background-color 0.45s ease, backdrop-filter 0.45s ease,
+              box-shadow 0.45s ease;
+}
+
+.topo--rolado::before {
+  background-color: color-mix(in srgb, var(--preto) 84%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* fio de ouro no lugar de sombra: a sombra escura sumiria no preto */
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ouro) 13%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topo::before {
+    transition: none;
+  }
+}
+
+/* Mesmo ponto de quebra do hero (css/hero.css) — nao o do menu
+   hamburguer (980px, outro assunto: quantos itens cabem na barra). Esse
+   aqui e sobre em que largura o TEXTO do hero muda de recuo, entao o
+   selo precisa trocar de fórmula junto pra continuar alinhado com ele. */
+@media (max-width: 900px) {
+  .topo {
+    padding-left: var(--recuo-conteudo-esquerda-mobile);
+  }
+}
+
+/* O selo sozinho faz a marca — o nome escrito saiu daqui porque ele ja e
+   o <h1> do hero, meio palmo abaixo. Repetir era redundancia que so
+   engordava a barra. */
+.topo__selo {
+  display: flex;
+  flex: none;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Duas imagens empilhadas (branca embaixo, dourada em cima com
+   opacity:0) em vez de filter/mask: o sigilo tem traco fino com
+   serrilhado sutil nas bordas, e filter/hue-rotate desloca a cor de
+   forma imprecisa; mask-image exigiria mask-mode:luminance pra separar
+   o traco branco do fundo (que aqui e so transparente, nao precisa),
+   suporte ainda irregular entre navegadores. Crossfade de opacidade e
+   simples e funciona em qualquer lugar. */
+.topo__selo-caixa {
+  position: relative;
+  display: block;
+  height: var(--selo-topo);
+  width: var(--selo-topo);
+}
+
+.topo__selo-caixa img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.topo__selo-dourado {
+  /* Cada <img> mora dentro do proprio <picture>, entao :last-child
+     (tentativa anterior) casava os DOIS — cada um e o unico/ultimo
+     filho do seu <picture>. Classe explicita em vez de pseudo-classe
+     estrutural. */
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.topo__selo:hover .topo__selo-dourado,
+.topo__selo:focus-visible .topo__selo-dourado {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topo__selo-dourado {
+    transition: none;
+  }
+}
+
+.topo__menu {
+  display: flex;
+  gap: clamp(0.85rem, 2.4vw, 2.1rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* inline-block (nao inline): a linha e o losango do hover sao filhos
+   posicionados, e um inline puro nao daria caixa estavel pra ancora-los. */
+.topo__menu a {
+  position: relative;
+  display: inline-block;
+  /* Vao pro ornamento do hover morar. Em em (nao px) pra acompanhar o
+     corpo quando a fonte encolhe no clamp. */
+  padding-bottom: 0.62em;
+  font-family: var(--serif);
+  /* Peso 500, nao 400. O Cinzel e um serifado de titulo: no peso normal a
+     ~12px as hastes finas caem abaixo de um pixel e o navegador as pinta
+     como cobertura parcial — o que se le como serrilhado, nao como fino.
+     Comparado em build/f-comparacao.png: nem o backdrop-filter da barra
+     nem o -webkit-font-smoothing mudaram nada; so o peso mudou.
+     O corpo tambem subiu um pouco, pela mesma razao. */
+  font-size: clamp(0.74rem, 0.82vw, 0.86rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--texto);
+  text-decoration: none;
+  transition: color 0.35s ease;
+}
+
+/* ---------- realce do hover ----------
+   Um fio que abre do centro pras pontas e um losango que nasce no meio
+   dele. So no hover/foco: nenhum item fica marcado como ativo.
+
+   O fio e desenhado com scaleX (nao com width): transform nao provoca
+   recalculo de layout, entao a animacao roda no compositor e a barra
+   inteira — que e fixed e tem backdrop-filter — nao repinta a cada
+   quadro. O degrade nas pontas faz o fio nascer e morrer sem topo seco. */
+
+.topo__menu a::before,
+.topo__menu a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+
+/* o fio */
+.topo__menu a::before {
+  bottom: 0.1em;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ouro) 70%, transparent) 22%,
+      color-mix(in srgb, var(--ouro) 70%, transparent) 78%,
+      transparent 100%);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.35s ease;
+}
+
+/* o losango, em cima do fio */
+.topo__menu a::after {
+  bottom: calc(0.1em - 2px);
+  width: 5px;
+  height: 5px;
+  background: var(--ouro);
+  transform: translateX(-50%) rotate(45deg) scale(0);
+  /* leve atraso: o fio abre primeiro, o losango pousa depois */
+  transition: transform 0.3s ease 0.08s;
+}
+
+.topo__menu a:hover,
+.topo__menu a:focus-visible {
+  color: var(--ouro);
+}
+
+.topo__menu a:hover::before,
+.topo__menu a:focus-visible::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.topo__menu a:hover::after,
+.topo__menu a:focus-visible::after {
+  transform: translateX(-50%) rotate(45deg) scale(1);
+}
+
+/* Quem pediu menos movimento recebe so a troca de cor, sem o desenho
+   crescendo. */
+@media (prefers-reduced-motion: reduce) {
+  .topo__menu a::before,
+  .topo__menu a::after {
+    transition: none;
+  }
+}
+
+/* ---------- menu hamburguer (telas estreitas) ----------
+   Abaixo de --quebra-menu os 6 itens nao cabem numa linha so sem
+   espremer (testado: quebravam em duas linhas e colavam um botao no
+   outro por volta de 772-985px). Acima da quebra o botao fica escondido
+   e o <ul> volta a ser a barra horizontal de sempre — nenhuma regra
+   deste bloco entra em jogo. */
+
+.topo__cortina {
+  display: none;
+}
+
+.topo__burger {
+  display: none;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 11; /* acima do painel do menu, que fica logo abaixo dele */
+}
+
+.topo__burger i {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 1.5px;
+  background: var(--texto);
+  transition: transform 0.35s ease, opacity 0.2s ease, background-color 0.35s ease;
+}
+
+.topo__burger i:nth-child(1) { top: 12px; }
+.topo__burger i:nth-child(2) { top: 17px; }
+.topo__burger i:nth-child(3) { top: 22px; }
+
+.topo__burger:hover i,
+.topo__burger:focus-visible i {
+  background: var(--ouro);
+}
+
+/* Vira X quando aberto — mesma logica visual do resto do site: cor muda
+   pra ouro, so que aqui o proprio icone se redesenha em vez de ganhar
+   uma linha embaixo. */
+.topo__burger[aria-expanded="true"] i:nth-child(1) {
+  top: 17px;
+  transform: rotate(45deg);
+}
+.topo__burger[aria-expanded="true"] i:nth-child(2) {
+  opacity: 0;
+}
+.topo__burger[aria-expanded="true"] i:nth-child(3) {
+  top: 17px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 980px) {
+  .topo__burger {
+    display: block;
+  }
+
+  /* Cortina atras do painel: escurece e desfoca o hero inteiro, pra ele
+     nao ficar exposto embaixo de um retangulo curto — era isso que dava
+     a impressao de painel "solto" ou incompleto, mais que a sobreposicao
+     em si (que e aceitavel, a arte e so decorativa ali). Cobre a tela
+     toda, nao so a area do painel. */
+  .topo__cortina {
+    display: block;
+    position: fixed;
+    inset: 0;
+    /* Sem z-index proprio: cortina e painel sao filhos de .topo, que ja
+       cria seu proprio contexto de empilhamento (position:fixed +
+       z-index:10) — herdam esse "andar" por tabela, acima de
+       <main>/<footer>. O botao hamburguer (z-index:11, mais abaixo)
+       continua clicavel por cima da cortina mesmo assim: z-index
+       explicito sempre vence z-index:auto, nao importa a ordem no DOM. */
+    background: color-mix(in srgb, var(--preto) 55%, transparent);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  }
+
+  .topo__cortina.topo__cortina--aberta {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Painel de altura cheia — ate a base da tela, nao so ate o ultimo
+     item — pra acabar com o corte reto em cima da arte. Ancorado sob a
+     barra, do lado do proprio botao que o abre. Fica sempre no DOM
+     (visibility, nao display) pra permitir a transicao de entrada/saida;
+     display:none travaria a animacao. */
+  .topo__menu {
+    position: fixed;
+    inset: var(--alt-topo) 0 0 auto;
+    width: min(74vw, 320px);
+    overflow-y: auto;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0.6rem 1.4rem 1.4rem;
+    background-color: color-mix(in srgb, var(--preto) 96%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-left: 1px solid color-mix(in srgb, var(--ouro) 22%, transparent);
+    box-shadow: -20px 0 40px color-mix(in srgb, var(--preto) 60%, transparent);
+    visibility: hidden;
+    opacity: 0;
+    /* Desliza da direita, nao de cima — agora que o painel e um drawer de
+       altura cheia, a entrada horizontal combina mais com a forma dele. */
+    transform: translateX(0.9rem);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+  }
+
+  .topo__menu.topo__menu--aberto {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Empilhados, cada um com sua propria linha de toque — o fio do hover
+     (::before) some daqui: numa lista vertical ele ficaria embaixo de
+     cada palavra num alinhamento estranho; a cor dourada sozinha ja
+     repete o mesmo efeito com clareza melhor nesse formato. */
+  .topo__menu li {
+    border-top: 1px solid color-mix(in srgb, var(--ouro) 10%, transparent);
+  }
+
+  .topo__menu li:first-child {
+    border-top: 0;
+  }
+
+  .topo__menu a {
+    display: block;
+    padding: 0.95rem 0.1rem;
+    font-size: 0.86rem;
+    text-align: left;
+  }
+
+  .topo__menu a::before,
+  .topo__menu a::after {
+    display: none;
+  }
+}
+
+/* Celular estreito: 74vw fica curto demais pra ser um painel de verdade
+   (num iPhone SE viraria ~230px). Perto da tela toda funciona melhor que
+   um painel apertado. */
+@media (max-width: 420px) {
+  .topo__menu {
+    width: min(88vw, 340px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topo__menu,
+  .topo__cortina {
+    transition: none;
+  }
+}
+
+/* ---------- cursor personalizado (ponteiro em imagem) ----------
+   Um <div> fixed acompanha o mouse via transform (translate3d, nao
+   top/left — roda no compositor). Sem halo/glow em CSS: a fumaca do
+   SplashCursor (index.html) ja da esse efeito dourado, entao o halo
+   que existia aqui foi removido pra nao duplicar (2026-08-08).
+
+   So liga com mouse de verdade: 'hover:hover e pointer:fine' descarta
+   touch (o script no fim do index.html confere a mesma media query
+   antes de ligar os listeners), e prefers-reduced-motion desliga tudo
+   (regra no fim deste bloco). O cursor nativo do sistema so some
+   (cursor:none) depois que a imagem termina de carregar — ver o
+   script — pra nunca deixar a tela um instante sem ponteiro nenhum. */
+
+html.cursor-pronto,
+html.cursor-pronto body,
+html.cursor-pronto * {
+  cursor: none !important;
+}
+
+html.cursor-pronto input,
+html.cursor-pronto textarea,
+html.cursor-pronto select,
+html.cursor-pronto [contenteditable="true"] {
+  cursor: text !important;
+}
+
+.cursor-mouse {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  opacity: 0;
+  isolation: isolate;
+  contain: layout style;
+  will-change: transform, opacity;
+  transition: opacity 0.16s ease;
+  /* Comeca fora da tela — sem isso a bolinha ficaria "presa" no canto
+     0,0 ate o primeiro movimento do mouse. */
+  transform: translate(-60px, -60px);
+}
+
+.cursor-mouse img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 28px;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.cursor-mouse.esta-visivel {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-mouse {
+    display: none !important;
+  }
+}
+
+/* O hero tem folha propria: css/hero.css (composicao em camadas).
+   Os botoes tambem vivem la, porque nasceram no hero. */
+
+/* ---------- secoes (andaime) ---------- */
+
+.secao {
+  width: var(--medida);
+  margin-inline: auto;
+  padding: clamp(4rem, 12vh, 9rem) 0;
+}
+
+/* Separador entre secoes de andaime — mas nao logo apos o hero, que ja
+   termina com o proprio fade pro preto (.hero__fundo). */
+.secao + .secao {
+  border-top: 1px solid color-mix(in srgb, var(--ouro) 14%, transparent);
+}
+
+.secao__titulo {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  margin: 0 0 1rem;
+}
+
+.secao p {
+  max-width: 62ch;
+}

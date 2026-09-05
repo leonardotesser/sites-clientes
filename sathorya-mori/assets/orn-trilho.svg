@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 100" preserveAspectRatio="none">
+  <!--
+    Os dois fios verticais da moldura (referencia: x=25,5 e x=33,5).
+
+    preserveAspectRatio="none" faz o SVG esticar so no eixo Y. Como os
+    tracos sao verticais, esticar a altura nao mexe na espessura deles —
+    e por isso que o fio continua com 1,5 unidade em qualquer altura de
+    tela. Sao <rect> e nao <path stroke>: retangulo estica em Y sem que o
+    rasterizador precise reamostrar a linha.
+  -->
+  <g fill="#fff">
+    <rect x="0.75" y="0" width="1.5" height="100"/>
+    <!-- o fio de dentro e mais fraco que o de fora na referencia
+         (razao medida: 0,78) -->
+    <rect x="8.75" y="0" width="1.5" height="100" fill-opacity="0.78"/>
+  </g>
+</svg>

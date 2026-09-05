@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 58">
+  <!--
+    O no do meio do trilho: losango pequeno, losango alto com a barra
+    atravessada, losango pequeno. Fica centrado entre os dois fios
+    (referencia x=29,5) no ponto em que eles se apagam.
+  -->
+  <g fill="#fff">
+    <path d="M5.5 6 8 9 5.5 12 3 9Z"/>
+    <path d="M5.5 39.5 8 42.5 5.5 45.5 3 42.5Z"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="1.4">
+    <path d="M5.5 15 10.6 25.5 5.5 36 .4 25.5Z"/>
+    <path d="M1.3 25.5h8.4"/>
+  </g>
+</svg>
