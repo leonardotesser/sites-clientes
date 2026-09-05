@@ -72,14 +72,25 @@
 }
 
 /* ============================================================
-   A DIRIGENTE — bio em duas colunas
+   OS DIRIGENTES — um bloco por pessoa, cada um bio em duas colunas
+   (o segundo bloco espelhado — ver .dirigente__bloco--invertido)
    ============================================================ */
 
-.secao--dirigente {
+.dirigente__bloco {
   display: grid;
   grid-template-columns: minmax(220px, 380px) 1fr;
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
+}
+
+.dirigente__bloco + .dirigente__bloco {
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+/* Mesma tecnica de .oraculos__corpo: so inverte a largura das colunas,
+   retrato na direita — a ordem no DOM ja segue a ordem visual. */
+.dirigente__bloco--invertido {
+  grid-template-columns: 1fr minmax(220px, 380px);
 }
 
 /* Quadro reservado pra foto — sem foto de verdade ainda, entao vira
@@ -164,25 +175,28 @@
 }
 
 @media (max-width: 760px) {
-  .secao--dirigente {
+  .dirigente__bloco {
     grid-template-columns: 1fr;
   }
 
   /* Empilhado, o texto vem primeiro e o retrato desce pro final —
-     pedido do cliente. DOM continua com o retrato antes (desktop
+     pedido do cliente, valendo pros dois blocos (Sathorya e Atraël).
+     DOM do bloco de Sathorya continua com o retrato antes (desktop
      depende dessa ordem pra coluna estreita ficar a esquerda); order
-     so troca a ORDEM VISUAL, sem mexer no HTML nem no layout desktop. */
-  .secao--dirigente .dirigente__texto {
+     so troca a ORDEM VISUAL, sem mexer no HTML nem no layout desktop.
+     O bloco de Atraël ja nasce texto-primeiro no DOM, entao o order
+     aqui e redundante pra ele, mas inofensivo. */
+  .dirigente__bloco .dirigente__texto {
     order: 1;
   }
 
-  .secao--dirigente .retrato-reservado {
+  .dirigente__bloco .retrato-reservado {
     order: 2;
   }
 
   /* Botao centralizado no mobile — o texto acima ja fica em coluna
      unica e o CTA solto a esquerda destoava. */
-  .secao--dirigente .dirigente__texto .botao-cta {
+  .dirigente__bloco .dirigente__texto .botao-cta {
     display: flex;
     width: fit-content;
     margin-inline: auto;
