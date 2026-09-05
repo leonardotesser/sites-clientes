@@ -548,6 +548,28 @@
 .tradicoes__item {
   padding: 1.5rem;
   background: var(--preto);
+  text-align: center;
+}
+
+/* Mesmo quadro-com-icone do .carrossel__imagem (Trabalhos, acima) —
+   sigilo reservado ate ter foto de verdade. */
+.tradicoes__imagem {
+  margin: 0 0 1rem;
+  aspect-ratio: 4 / 3;
+  border: 1px solid color-mix(in srgb, var(--ouro) 20%, transparent);
+  background:
+    radial-gradient(120% 140% at 30% 20%,
+      color-mix(in srgb, var(--ouro) 10%, transparent), transparent 60%),
+    var(--preto-2);
+  display: grid;
+  place-items: center;
+}
+
+.tradicoes__imagem img {
+  width: 22%;
+  height: auto;
+  opacity: 0.42;
+  mix-blend-mode: screen;
 }
 
 .tradicoes__item h4 {
@@ -559,7 +581,8 @@
 }
 
 .tradicoes__item p {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 40ch;
   font-size: 1.02rem;
   color: color-mix(in srgb, var(--texto) 82%, transparent);
 }
