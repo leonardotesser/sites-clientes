@@ -335,9 +335,12 @@
         </p>
       </div>
 
-      <div class="retrato-reservado" aria-hidden="true">
-        <img src="assets/sigilo.png" alt="">
-        <span>Imagem a definir</span>
+      <div class="retrato-reservado retrato-reservado--foto">
+        <picture>
+          <source srcset="assets/atrael.webp" type="image/webp">
+          <img src="assets/atrael.jpg" alt="Retrato de Mestre Atraël, dirigente do templo"
+               width="640" height="853" loading="lazy" decoding="async">
+        </picture>
       </div>
     </div>
   </section>
@@ -1144,6 +1147,13 @@
       COLOR: '#ffc100'
     });
   })();
+</script>
+
+<!-- Bloqueia o menu de botao direito no site inteiro — pedido do
+     cliente. So tira o atalho mais comum de salvar imagem; nao impede
+     download por outras vias (devtools, arrastar o arquivo, etc.). -->
+<script>
+  document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 </script>
 
 </body>
