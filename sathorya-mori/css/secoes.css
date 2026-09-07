@@ -162,9 +162,9 @@
   opacity: 1;
 }
 
-.dirigente__texto p {
-  max-width: 56ch;
-}
+/* Sem max-width em ch aqui: a coluna de texto (1fr do grid de
+   .dirigente__bloco) ja e a medida certa — travar em 56ch deixava as
+   linhas curtas demais, sobrando espaco vazio do lado do retrato. */
 
 .dirigente__texto p + p {
   margin-top: 1rem;
