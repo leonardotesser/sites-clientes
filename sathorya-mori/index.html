@@ -1169,6 +1169,62 @@
   })();
 </script>
 
+<!-- FAQ: abre/fecha com animacao suave de altura. <details> nativo nao
+     anima sozinho — o navegador so mostra/esconde o conteudo na hora.
+     Intercepta o clique no <summary>, mede a altura antes/depois e
+     anima com a Web Animations API; o [open] de verdade so muda no
+     fim (fechando) ou no inicio (abrindo) da animacao. Fora do WAAPI
+     (browser muito antigo) ou com prefers-reduced-motion, cai pro
+     toggle instantaneo padrao do navegador — nao intercepta nada. -->
+<script>
+  (function () {
+    if (!('animate' in document.documentElement)) return;
+    var reduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var DURACAO = 300;
+
+    document.querySelectorAll('.faq__item').forEach(function (item) {
+      var resumo = item.querySelector('summary');
+      var animacao = null;
+
+      resumo.addEventListener('click', function (e) {
+        if (reduzido.matches) return;
+        e.preventDefault();
+        item.style.overflow = 'hidden';
+        if (item.open) fechar(); else abrir();
+      });
+
+      function abrir() {
+        item.style.height = item.offsetHeight + 'px';
+        item.open = true;
+        requestAnimationFrame(function () {
+          anima(item.offsetHeight, item.scrollHeight, function () {
+            item.style.height = '';
+            item.style.overflow = '';
+          });
+        });
+      }
+
+      function fechar() {
+        anima(item.offsetHeight, resumo.offsetHeight, function () {
+          item.open = false;
+          item.style.height = '';
+          item.style.overflow = '';
+        });
+      }
+
+      function anima(de, para, aoTerminar) {
+        if (animacao) animacao.cancel();
+        animacao = item.animate(
+          { height: [de + 'px', para + 'px'] },
+          { duration: DURACAO, easing: 'ease' }
+        );
+        animacao.onfinish = function () { animacao = null; aoTerminar(); };
+        animacao.oncancel = function () { animacao = null; };
+      }
+    });
+  })();
+</script>
+
 <!-- Bloqueia o menu de botao direito no site inteiro — pedido do
      cliente. So tira o atalho mais comum de salvar imagem; nao impede
      download por outras vias (devtools, arrastar o arquivo, etc.). -->
